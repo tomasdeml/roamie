@@ -1,0 +1,29 @@
+ROAMIE version history
+==========================================================================================================
+
+TODO
+==========================================================================================================
+- File packing support (you can bundle files, background image, sounds..., with your db and roam them as well)
+
+v0.6.6.1808
+==========================================================================================================
+- FTP compatibility fixes
++ Delta application progress notifications
+
+v0.6.6.1505
+==========================================================================================================
++ Delta application is almost 4x faster now (shame on me for my bad habits)
++ "Prefer full sync" action introduced to favour full sync instead of Delta sync (+ profile-wide option)
++ "Perform full sync when delta count exceeds 20" option introduced (the threshold is hard-coded now)
++ Roaming overview now features colours :-)
++ Performance optimalizations
++ Roamie is now Photon-aware and will not force full sync when Photon populates its contacts
+- Bug fixes
+
+v0.6.6.1310
+==========================================================================================================
++ Http Proxy support (Http provider only)
++ Silent synchronization
++ Roamie's configuration is Casablanca-compatible
++ Options link in the Startup dialog
++ UI updates

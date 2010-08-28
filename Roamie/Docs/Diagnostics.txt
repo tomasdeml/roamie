@@ -1,0 +1,31 @@
+NET TRACING
+========================================================
+<system.diagnostics>
+	<trace autoflush="true" />
+	<sources>
+		<source name="System.Net">
+			<listeners>
+				<add name="NetTraceFile"/>
+			</listeners>
+		</source>
+	</sources>
+	<sharedListeners>
+		<add
+		  name="NetTraceFile"
+		  type="System.Diagnostics.TextWriterTraceListener"
+		  initializeData="System.Net.log" />
+	</sharedListeners>
+	<switches>
+		<add name="System.Net" value="Verbose" />
+	</switches>
+</system.diagnostics>
+
+ROAMIE TRACING
+========================================================
+<runtime>
+	<system.diagnostics>
+		<switches>
+			<add name="RoamieTracing" value="All" />
+		</switches>
+	</system.diagnostics>
+</runtime>
