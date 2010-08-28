@@ -3,6 +3,6 @@
 
 = Introduction =
 
-For Roamie development, you need Microsoft Visual Studio 2008/2010 or Microsoft Visual C# 2008/2010 Express.
+For Roamie development you need Microsoft Visual Studio 2008/2010 or Microsoft Visual C# 2008/2010 Express.
 
 Roamie runs under Microsoft.net Framework 2.0/3.0/3.5. Not yet tested under 4.0.
