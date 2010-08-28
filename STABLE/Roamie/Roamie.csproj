@@ -1,0 +1,375 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C3F99EC9-12E4-461F-A82E-E038E51339C2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Virtuoso.Miranda.Roamie</RootNamespace>
+    <AssemblyName>dbx_Roamie.master</AssemblyName>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Hyphen, Version=0.8.2009.201, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Thirdparty\Hyphen.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TabStripControlLibrary, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fae8f1199e7106dc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Thirdparty\TabStripControlLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Native\ExternalDatabaseDriver.cs" />
+    <Compile Include="Roaming\Providers\DatabaseProvider.cs" />
+    <Compile Include="Streaming.CustomizableStream.cs">
+      <DependentUpon>Streaming.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SyncDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SyncDialog.Designer.cs">
+      <DependentUpon>SyncDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Roaming\Providers\FtpProvider.cs" />
+    <Compile Include="Roaming\Providers\IDeltaAwareProvider.cs" />
+    <Compile Include="Roaming\Enums.cs" />
+    <Compile Include="Forms\StartupDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StartupDialog.Designer.cs">
+      <DependentUpon>StartupDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Native\NativeMethods.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoamiePlugin.cs" />
+    <Compile Include="Roaming\RoamingContext.cs" />
+    <Compile Include="SyncException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dbx_Roamie.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DependentUpon>RoamiePlugin.cs</DependentUpon>
+    </Content>
+    <Content Include="Docs\Diagnostics.txt" />
+    <Content Include="Docs\History.txt" />
+    <Content Include="Docs\Readme.txt" />
+    <Content Include="Licence.txt" />
+    <None Include="Resources\Icon 215_48x48.png" />
+    <None Include="Resources\Icon 175_32x32.png" />
+    <None Include="Resources\Icon 176_32x32.png" />
+    <None Include="Resources\Icon 228_16x16.png" />
+    <None Include="Resources\Icon 161_64x67.png" />
+    <None Include="Resources\Icon 232_64x67.png" />
+    <None Include="Resources\Icon 180_64x67.png" />
+    <None Include="Resources\Icon 256_64x67.png" />
+    <None Include="Resources\Icon 036_64x67.png" />
+    <None Include="Resources\Icon 304_64x67.png" />
+    <None Include="Resources\Icon 244_48x48.png" />
+    <None Include="Resources\Icon 244_256x256_Trans.png" />
+    <EmbeddedResource Include="Resources\MenuItems.About.ico" />
+    <None Include="Resources\Icon 161_32x32.png" />
+    <None Include="Resources\Icon 304_32x32.png" />
+    <None Include="Resources\Icon 180_32x32.png" />
+    <None Include="Resources\Icon 162_48x48.png" />
+    <EmbeddedResource Include="Resources\MenuItems.RoamingSettings.ico" />
+    <None Include="Resources\Icon 036_48x48.png" />
+    <None Include="Resources\Icon 005_48x48.png" />
+    <None Include="Resources\Icon 234_32x32.png" />
+    <None Include="Resources\Icon 233_32x32.png" />
+    <None Include="Resources\Icon 304_48x48.png" />
+    <None Include="Resources\Icon 300_48x48.png" />
+    <None Include="Resources\Icon 233_256x256_Trans.png" />
+    <None Include="Resources\Icon 232_128x128_Trans.png" />
+    <None Include="Resources\Icon 036_32x32.png" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\Icon 001.png" />
+    <None Include="Resources\Icon 008.png" />
+    <None Include="Resources\Icon 026.png" />
+    <None Include="Resources\Icon 036_16x16.png" />
+    <None Include="Resources\Icon 036_Trans_Partial.png" />
+    <None Include="Resources\Icon 046.png" />
+    <None Include="Resources\Icon 162.png" />
+    <None Include="Resources\Icon 172_Trans_Partial.png" />
+    <None Include="Resources\Icon 193.png" />
+    <None Include="Resources\Icon 237.png" />
+    <None Include="Resources\Icon 256.png" />
+    <None Include="Resources\Icon 292.png" />
+    <None Include="Resources\Icon 293.png" />
+    <None Include="Resources\Icon 300.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\Controls\AboutInformation.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AboutInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Controls\Configuration\AutoProfileOptions.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AutoProfileOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Controls\Configuration\BehaviourOptions.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>BehaviourOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Controls\Configuration\PackedFilesManagement.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PackedFilesManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Controls\Configuration\ProfileManagement.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProfileManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Controls\Configuration\ProxyOptions.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProxyOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DbTokenMismatchDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DbTokenMismatchDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MasterKeyDialog.resx">
+      <DependentUpon>MasterKeyDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProfileEditingDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProfileEditingDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProfileCreatingDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProfileCreatingDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProfileEditorDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProfileEditorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Controls\ProfileEditor.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProfileEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Controls\ProfilesListView.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProfilesListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProfileSelectionDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProfileSelectionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProfileViewingDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProfileViewingDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RoamingOverviewDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RoamingOverviewDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SyncDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SyncDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StartupDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>StartupDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WarningDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WarningDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConfigurationValuesDictionary.cs" />
+    <Compile Include="Forms\Controls\AboutInformation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\AboutInformation.Designer.cs">
+      <DependentUpon>AboutInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Controls\Configuration\BehaviourOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\Configuration\BehaviourOptions.Designer.cs">
+      <DependentUpon>BehaviourOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Controls\Configuration\PackedFilesManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\Configuration\PackedFilesManagement.Designer.cs">
+      <DependentUpon>PackedFilesManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Controls\Configuration\ProxyOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\Configuration\ProxyOptions.Designer.cs">
+      <DependentUpon>ProxyOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MasterKeyDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MasterKeyDialog.Designer.cs">
+      <DependentUpon>MasterKeyDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalEvents.cs" />
+    <Compile Include="Roaming\MasterKeyCache.cs" />
+    <Compile Include="Roaming\MasterKeyEncryption.cs" />
+    <Compile Include="Roaming\DeltaSync\DbTokenMismatchException.cs" />
+    <Compile Include="Roaming\DeltaSync\DeltaSettingEntriesFilter.cs" />
+    <Compile Include="Roaming\DeltaSync\DeltaSettingEntry.cs" />
+    <Compile Include="Roaming\DeltaSync\DatabaseReplicator.cs" />
+    <Compile Include="Roaming\DeltaSync\DeltaEventEntry.cs" />
+    <Compile Include="Roaming\DeltaSync\DeltaSyncException.cs" />
+    <Compile Include="Roaming\Packing\PackingContainer.cs" />
+    <Compile Include="Roaming\Packing\PackedFile.cs" />
+    <Compile Include="Roaming\Packing\FileCollection.cs" />
+    <Compile Include="Roaming\Providers\PackingDatabaseProvider.cs" />
+    <Compile Include="Roaming\RoamingOrchestration.cs" />
+    <Compile Include="SecureStreamCompactor.cs" />
+    <Compile Include="Forms\DbTokenMismatchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DbTokenMismatchDialog.Designer.cs">
+      <DependentUpon>DbTokenMismatchDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WarningDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WarningDialog.Designer.cs">
+      <DependentUpon>WarningDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Roaming\DeltaSync\Delta.cs" />
+    <Compile Include="Roaming\DeltaSync\DeltaEntry.cs" />
+    <Compile Include="Roaming\DeltaSync\DeltaChain.cs" />
+    <Compile Include="Roaming\DeltaSync\Snapshot.cs" />
+    <Compile Include="Roaming\Providers\HttpProvider.cs" />
+    <Compile Include="Forms\Controls\Configuration\ProfileManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\Configuration\ProfileManagement.Designer.cs">
+      <DependentUpon>ProfileManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Controls\Configuration\AutoProfileOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\Configuration\AutoProfileOptions.Designer.cs">
+      <DependentUpon>AutoProfileOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProfileEditingDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProfileEditingDialog.Designer.cs">
+      <DependentUpon>ProfileEditingDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Controls\SaveEventArgs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\ProfileCreatingDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProfileCreatingDialog.Designer.cs">
+      <DependentUpon>ProfileCreatingDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProfileEditorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProfileEditorDialog.Designer.cs">
+      <DependentUpon>ProfileEditorDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Controls\ProfileEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\ProfileEditor.Designer.cs">
+      <DependentUpon>ProfileEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Controls\ProfilesListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\ProfileSelectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProfileSelectionDialog.Designer.cs">
+      <DependentUpon>ProfileSelectionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProfileViewingDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProfileViewingDialog.Designer.cs">
+      <DependentUpon>ProfileViewingDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RoamingOverviewDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RoamingOverviewDialog.Designer.cs">
+      <DependentUpon>RoamingOverviewDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MirandaBootConfiguration.cs" />
+    <Compile Include="Native\Delegates.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Roaming\Providers\ISiteAdapter.cs" />
+    <Compile Include="Roaming\DeltaSync\DeltaManifest.cs" />
+    <Compile Include="Roaming\Profiles\ProfileCollection.cs" />
+    <Compile Include="Roaming\Profiles\ProfileManager.cs" />
+    <Compile Include="Roaming\Profiles\RoamingProfile.cs" />
+    <Compile Include="Roaming\DeltaSync\DeltaSyncEngine.cs" />
+    <Compile Include="Streaming.cs" />
+    <Compile Include="Roaming\RoamingConfiguration.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
