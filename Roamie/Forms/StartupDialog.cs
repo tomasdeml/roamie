@@ -43,7 +43,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
     {
         #region Fields
 
-        private bool FirstTime;
+        private readonly bool FirstTime;
 
         #endregion
 
@@ -69,7 +69,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
                 bool handled = false;
 
                 if (!firstTime)
-                    handled = ApplyBootConfiguration(dlg, handled);
+                    handled = ApplyBootConfiguration(dlg, false);
                 else
                     Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "MirandaBoot.ini contains no Roamie default settings.", RoamiePlugin.TraceCategory);
 
@@ -116,34 +116,32 @@ namespace Virtuoso.Miranda.Roamie.Forms
 
             RoamingContext context = RoamiePlugin.Singleton.RoamingContext;
             context.State = selectedRoamingState;
-
-            if ((selectedRoamingState & RoamingState.RoamingActive) == RoamingState.RoamingActive)
+            
+            if (context.IsInState(RoamingState.Active))
             {
                 RoamingProfile profile = (preselectedProfile ?? ProfileSelectionDialog.PresentModal());
 
                 if (profile == null)
                 {
-                    context.State = RoamingState.RoamingDisabled;
+                    context.State = RoamingState.Disabled;
                     return false;
                 }
-                else
+                
+                context.ActivateProfile(profile);
+
+                if (!context.IsInState(RoamingState.LocalDbInUse))
                 {
-                    context.ActivateProfile(profile);
-
-                    if ((selectedRoamingState & RoamingState.LocalDbInUse) != RoamingState.LocalDbInUse)
+                    try
                     {
-                        try
-                        {
-                            if (context.Configuration.SilentStartup)
-                                Opacity = 0;
+                        if (context.Configuration.SilentStartup)
+                            Opacity = 0;
 
-                            RoamingOrchestration.Arrangement.PerformLocalSynchronization();
-                        }
-                        catch
-                        {
-                            Opacity = 1D;
-                            return false;
-                        }
+                        RoamingOrchestration.Preparation.PerformLocalSynchronization();
+                    }
+                    catch
+                    {
+                        Opacity = 1D;
+                        return false;
                     }
                 }
             }
@@ -153,14 +151,14 @@ namespace Virtuoso.Miranda.Roamie.Forms
 
         private RoamingState GatherSelection()
         {
-            RoamingState selectedRoamingState = RoamingState.RoamingDisabled;
+            RoamingState selectedRoamingState;
 
             if (DownloadExistingRBTN.Checked)
             {
-                selectedRoamingState = RoamingState.RoamingActive;
+                selectedRoamingState = RoamingState.Active;
 
                 if (PublicComputerCHBOX.Checked)
-                    selectedRoamingState |= RoamingState.WipeRoamedDbOnExit;
+                    selectedRoamingState |= RoamingState.WipeLocalDbOnExit;
 
                 if (SandboxModeCHBOX.Checked)
                     selectedRoamingState |= RoamingState.DiscardLocalChanges;
@@ -170,7 +168,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
                 selectedRoamingState = RoamingState.LocalDbInUse;
 
                 if (RoamLocalOnExitCHBOX.Checked)
-                    selectedRoamingState |= RoamingState.RoamingActive | RoamingState.DeltaIncompatibleChangeOccured | RoamingState.PreferFullSync;
+                    selectedRoamingState |= RoamingState.Active | RoamingState.DeltaIncompatibleChangeOccured | RoamingState.PreferFullSync;
                 else
                     selectedRoamingState |= RoamingState.DiscardLocalChanges;
             }
@@ -179,7 +177,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
                 selectedRoamingState = RoamingState.CreateNewDb | RoamingState.LocalDbInUse;
 
                 if (RoamNewOnExitCHBOX.Checked)
-                    selectedRoamingState |= RoamingState.RoamingActive;
+                    selectedRoamingState |= RoamingState.Active;
                 else
                     selectedRoamingState |= RoamingState.DiscardLocalChanges;
             }
@@ -245,8 +243,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
         {
             RoamingContext context = RoamiePlugin.Singleton.RoamingContext;
 
-            if (context.State == RoamingState.RoamingDisabled ||
-               (context.State & RoamingState.SyncErrorOccured) == RoamingState.SyncErrorOccured)
+            if (context.IsInState(RoamingState.Disabled) || context.IsInState(RoamingState.SyncErrorOccured))
             {
                 context.DeactivateProfile();
                 context.RestoreProfilePath();

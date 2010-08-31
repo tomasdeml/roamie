@@ -104,7 +104,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
                 IndicateRoamingActive();
                 IndicateLocalDbInUse();
 
-                if (context.ActiveProfile == null || context.IsInState(RoamingState.RoamingDisabled))
+                if (context.ActiveProfile == null || context.IsInState(RoamingState.Disabled))
                 {
                     RoamingProfileLBTN.Text = Resources.Label_UI_RoamingStatusDialog_NoProfile;
 
@@ -133,7 +133,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
             RoamingProfileLBTN.LinkArea = new LinkArea(0, RoamingProfileLBTN.Text.Length);
 
             PublicModeCHBOX.Enabled = (PrivateState & RoamingState.LocalDbInUse) != RoamingState.LocalDbInUse;
-            PublicModeCHBOX.Checked = (PrivateState & RoamingState.WipeRoamedDbOnExit) == RoamingState.WipeRoamedDbOnExit;
+            PublicModeCHBOX.Checked = (PrivateState & RoamingState.WipeLocalDbOnExit) == RoamingState.WipeLocalDbOnExit;
             
             SyncActionCHBOX.Enabled = (PrivateState & RoamingState.MirroringNotSupported) != RoamingState.MirroringNotSupported;
             SyncActionCHBOX.Checked = (PrivateState & RoamingState.DiscardLocalChanges) != RoamingState.DiscardLocalChanges;
@@ -160,9 +160,9 @@ namespace Virtuoso.Miranda.Roamie.Forms
                 return;
 
             if (PublicModeCHBOX.Checked)
-                PrivateState |= RoamingState.WipeRoamedDbOnExit;
+                PrivateState |= RoamingState.WipeLocalDbOnExit;
             else
-                PrivateState &= ~RoamingState.WipeRoamedDbOnExit;
+                PrivateState &= ~RoamingState.WipeLocalDbOnExit;
         }
 
         private void ForceFullSyncCHBOX_CheckedChanged(object sender, EventArgs e)
@@ -235,7 +235,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
 
         private void IndicateWipeOnExit()
         {
-            if ((PrivateState & RoamingState.WipeRoamedDbOnExit) == RoamingState.WipeRoamedDbOnExit)
+            if ((PrivateState & RoamingState.WipeLocalDbOnExit) == RoamingState.WipeLocalDbOnExit)
                 StatusLVIEW.Items.Add(CreateHighlightedItem(Resources.Text_UI_RoamingStatus_PublicMode));
             else
                 StatusLVIEW.Items.Add(Resources.Text_UI_RoamingStatus_NonPublicMode);
@@ -248,16 +248,16 @@ namespace Virtuoso.Miranda.Roamie.Forms
                 StatusLVIEW.Items.Add(new ListViewItem(new string[] { Resources.Text_UI_RoamingStatus_Local, 
                     Resources.Text_UI_RoamingStatus_Local }));
 
-                if ((PrivateState & RoamingState.RoamingActive) == RoamingState.RoamingActive)
+                if ((PrivateState & RoamingState.Active) == RoamingState.Active)
                     StatusLVIEW.Items.Add(Resources.Text_UI_RoamingStatus_LocalRoaming);
             }
-            else if ((PrivateState & RoamingState.RoamingActive) == RoamingState.RoamingActive)
+            else if ((PrivateState & RoamingState.Active) == RoamingState.Active)
                 StatusLVIEW.Items.Add(Resources.Text_UI_RoamingStatus_Roaming);
         }
 
         private void IndicateRoamingActive()
         {
-            if ((PrivateState & RoamingState.RoamingActive) == RoamingState.RoamingActive)
+            if ((PrivateState & RoamingState.Active) == RoamingState.Active)
                 StatusPBOX.Image = Resources.Image_32x32_Running;
             else
                 StatusPBOX.Image = Resources.Image_32x32_Stopped;

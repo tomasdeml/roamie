@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Virtuoso.Miranda.Roamie.Roaming.Profiles;
 using Virtuoso.Miranda.Roamie.Roaming.Providers;
 using System.IO;
@@ -30,12 +29,13 @@ using Virtuoso.Miranda.Plugins;
 using Virtuoso.Miranda.Plugins.Native;
 using System.Runtime.InteropServices;
 using Virtuoso.Miranda.Plugins.Helpers;
-using System.Threading;
 using Virtuoso.Miranda.Roamie.Properties;
 using System.Diagnostics;
 
 namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
 {
+    // TODO Extract interface
+
     /// <summary>
     /// Represents the Delta sync engine.
     /// </summary>
@@ -165,13 +165,13 @@ namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
 
         #region Contacts
 
-        private void TokenizeContacts()
+        private static void TokenizeContacts()
         {
             foreach (ContactInfo contactInfo in MirandaContext.Current.MirandaDatabase.GetContacts(true))
                 TokenizeContact(contactInfo);
         }
 
-        public void TokenizeContact(ContactInfo contactInfo)
+        private static void TokenizeContact(ContactInfo contactInfo)
         {
             if (contactInfo == null)
                 throw new ArgumentNullException("contactInfo");
@@ -336,12 +336,12 @@ namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
         /// <exception cref="DeltaSyncException">Manifest validation failed.</exception>
         public void Initialize()
         {
-            GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_TokenizingDb, GlobalEvents.SignificantProgress.Running);
+            ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_TokenizingDb, SignificantProgress.Running);
 
             TokenizeDatabase();
             TokenizeContacts();
 
-            GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_LoadingManifest, GlobalEvents.SignificantProgress.Running);
+            ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_LoadingManifest, SignificantProgress.Running);
             LoadOrCreateManifest();
 
             // code may not be executed from this point on because of validation exceptions
@@ -504,11 +504,11 @@ namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
             {
                 if (CurrentDelta.Entries.Count == 0)
                 {
-                    GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_NoDeltaSyncRequired, GlobalEvents.SignificantProgress.Complete);
+                    ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_NoDeltaSyncRequired, SignificantProgress.Complete);
                     return;
                 }
                 else
-                    GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_DeltaSyncRequired, GlobalEvents.SignificantProgress.Running);
+                    ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_DeltaSyncRequired, SignificantProgress.Running);
 
                 deltaManifest.DeltaCount++;
 
@@ -518,7 +518,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
                 PublishDelta(profile, adapter);
                 PublishDeltaManifest(profile, adapter);
 
-                GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_Completed, GlobalEvents.SignificantProgress.Complete);
+                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Completed, SignificantProgress.Complete);
             }
         }
 
@@ -526,13 +526,13 @@ namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
         {
             using (MemoryStream deltaStream = new MemoryStream(4096))
             {
-                GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_PublishingDelta, 25);
+                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_PublishingDelta, 25);
 
                 CurrentDelta.Serialize(deltaStream);
                 deltaStream.Seek(0, SeekOrigin.Begin);
                 
                 adapter.PushFile(profile, Delta.GetPathForDelta(deltaManifest, deltaManifest.DeltaCount), deltaStream);
-                GlobalEvents.ChangeProgress(null, 50);
+                ProgressMediator.ChangeProgress(null, 50);
             }
         }
 
@@ -540,13 +540,13 @@ namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
         {
             using (MemoryStream manifestStream = new MemoryStream(4096))
             {
-                GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_PublishingManifest, 75);
+                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_PublishingManifest, 75);
 
                 deltaManifest.Serialize(manifestStream);
                 manifestStream.Seek(0, SeekOrigin.Begin);
 
                 adapter.PushFile(profile, DeltaManifest.GetManifestPath(deltaManifest.AssociatedProfile), manifestStream);
-                GlobalEvents.ChangeProgress(null, 100);
+                ProgressMediator.ChangeProgress(null, 100);
             }
         }
 

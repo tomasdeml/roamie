@@ -1,7 +1,7 @@
 ﻿/***********************************************************************************\
  * Virtuoso.Miranda.Roamie (Roamie)                                                *
  * A Miranda plugin providing a remote database synchronization features.          *
- * Copyright (C) 2006-2007 Virtuoso                                                *
+ * Copyright (C) 2006-2010 virtuoso                                                *
  *                    deml.tomas@seznam.cz                                         *
  *                                                                                 *
  * This program is free software; you can redistribute it and/or                   *
@@ -20,7 +20,6 @@
 \***********************************************************************************/
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // Version information for an assembly consists of the following four values:
@@ -30,10 +29,9 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-[assembly: AssemblyVersion("0.6.2008.0527")]
-[assembly: AssemblyFileVersion("0.6.2008.0527")]
+// 1.9.2010 = 2010 => 0 | 09 => 09 | 01 => 01 = 00901
+[assembly: AssemblyVersion("0.7.0.000901")]
+[assembly: AssemblyFileVersion("0.7.0.00901")]
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -43,7 +41,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("virtuoso")]
 [assembly: AssemblyProduct("Virtuoso.Miranda.Roamie")]
-[assembly: AssemblyCopyright("© 2006-2008, virtuoso")]
+[assembly: AssemblyCopyright("© 2006-2010, virtuoso")]
 [assembly: AssemblyTrademark("virtuoso")]
 [assembly: AssemblyCulture("")]
 

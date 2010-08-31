@@ -21,14 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Virtuoso.Miranda.Roamie.Forms;
+using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Miranda.Roamie.Roaming.Profiles;
 using System.Diagnostics;
 using Virtuoso.Miranda.Roamie.Roaming.Providers;
 using Virtuoso.Miranda.Roamie.Roaming.DeltaSync;
 using System.Net;
-using Virtuoso.Miranda.Roamie.Roaming.Packing;
 
 namespace Virtuoso.Miranda.Roamie.Roaming
 {
@@ -138,7 +136,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming
         private void Initalize(string profilePath)
         {
             this.initialProfilePath = this.profilePath = profilePath;
-            this.state = RoamingState.RoamingDisabled;
+            this.state = RoamingState.Disabled;
             this.configuration = RoamingConfiguration.Load<RoamingConfiguration>();
             this.databaseProviders = new Dictionary<string, DatabaseProvider>(1);
         }
@@ -165,7 +163,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming
             }
             catch (Exception e)
             {
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, GlobalEvents.FormatExceptionMessage("Error while activating a roaming profile: " + profile.Name, e), RoamiePlugin.TraceCategory);
+                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, StringUtility.FormatExceptionMessage("Error while activating a roaming profile: " + profile.Name, e), RoamiePlugin.TraceCategory);
                 DeactivateProfile();
             }
         }
@@ -179,7 +177,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming
                 activeProfile = null;
                 activeProvider = null;
 
-                state = RoamingState.RoamingDisabled;
+                state = RoamingState.Disabled;
                 state |= RoamingState.LocalDbInUse;
                 state |= RoamingState.DiscardLocalChanges;
             }
@@ -187,7 +185,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming
 
         internal void RestoreConfiguration()
         {
-            configuration = RoamingConfiguration.Load<RoamingConfiguration>();
+            configuration = PluginConfiguration.Load<RoamingConfiguration>();
         }
 
         internal void RestoreProfilePath()
@@ -195,9 +193,9 @@ namespace Virtuoso.Miranda.Roamie.Roaming
             profilePath = initialProfilePath;
         }
 
-        public bool IsInState(RoamingState state)
+        public bool IsInState(RoamingState stateInQuestion)
         {
-            return (this.state & state) == state;
+            return (state & stateInQuestion) == stateInQuestion;
         }
 
         #endregion
