@@ -150,7 +150,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
             }
             catch (Exception e)
             {
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceWarning, GlobalEvents.FormatExceptionMessage("The target FTP server does not support the SIZE command, progress notifications will not be available.", e));
+                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceWarning, StringUtility.FormatExceptionMessage("The target FTP server does not support the SIZE command, progress notifications will not be available.", e));
                 return null;
             }
         }
@@ -209,21 +209,21 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
                             throw new SyncException(Resources.ExceptionMsg_InvalidRemoteDatabase);
                         }
 
-                        GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_DownloadingDb, GlobalEvents.SignificantProgress.Running);
+                        ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_DownloadingDb, SignificantProgress.Running);
                         
                         // Show percentage progress ONLY if we have successfully obtained the file size, otherwise show marquee
-                        Streaming.CopyStream(new Streaming.CustomizableStream(remoteStream, ((MemoryStream)downloadedStream).Capacity), downloadedStream, 
-                            fileSize != null ? delegate(int _progress) { GlobalEvents.ChangeProgress(null, _progress); } : (Streaming.ProgressCallback)null);
+                        StreamUtility.CopyStream(new UndisposableStream(remoteStream, ((MemoryStream)downloadedStream).Capacity), downloadedStream, 
+                            fileSize != null ? delegate(int _progress) { ProgressMediator.ChangeProgress(null, _progress); } : (StreamUtility.ProgressCallback)null);
 
-                        GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_DecryptingDecompressing, GlobalEvents.SignificantProgress.Running);
+                        ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_DecryptingDecompressing, SignificantProgress.Running);
                         downloadedStream.Seek(0, SeekOrigin.Begin);
-                        SecureStreamCompactor.DecryptAndDecompress(downloadedStream, unprotectedStream, profile.DatabasePassword);
+                        StreamUtility.DecryptAndDecompress(downloadedStream, unprotectedStream, profile.DatabasePassword);
 
-                        GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_Saving);
+                        ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Saving);
                         unprotectedStream.Seek(0, SeekOrigin.Begin);
 
                         using (Stream localStream = new FileStream(Context.ProfilePath, FileMode.Create))
-                            Streaming.CopyStream(unprotectedStream, localStream);
+                            StreamUtility.CopyStream(unprotectedStream, localStream);
                     }
                 }
 
@@ -231,7 +231,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
                 base.SyncLocalDatabase(profile);
 
                 Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Local database synchronized.", TraceCategory);
-                GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_Completed, GlobalEvents.SignificantProgress.Complete);
+                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Completed, SignificantProgress.Complete);
             }
             catch (CryptographicException cE)
             {
@@ -268,16 +268,16 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
                     protectedStream = new MemoryStream((int)localStream.Length / 2),
                     remoteStream = ftpRequest.GetRequestStream())
                 {
-                    GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_CompressingEncrypting, GlobalEvents.SignificantProgress.Running);
-                    SecureStreamCompactor.CompressAndEncrypt(localStream, protectedStream, profile.DatabasePassword);
+                    ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_CompressingEncrypting, SignificantProgress.Running);
+                    StreamUtility.CompressAndEncrypt(localStream, protectedStream, profile.DatabasePassword);
 
-                    GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_Uploading, GlobalEvents.SignificantProgress.Stopped);
+                    ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Uploading, SignificantProgress.Stopped);
                     protectedStream.Seek(0, SeekOrigin.Begin);
-                    Streaming.CopyStream(protectedStream, remoteStream, delegate(int _progress) { GlobalEvents.ChangeProgress(null, _progress); });              
+                    StreamUtility.CopyStream(protectedStream, remoteStream, delegate(int _progress) { ProgressMediator.ChangeProgress(null, _progress); });              
                 }
 
                 GetAndVerifyFtpResponse(ftpRequest, FtpStatusCode.ClosingData);
-                GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_Finishing, GlobalEvents.SignificantProgress.Running);
+                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Finishing, SignificantProgress.Running);
 
                 try
                 {
@@ -295,7 +295,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
                 base.SyncRemoteDatabase(profile);
 
                 RemoveLocalDb();
-                GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_Completed, GlobalEvents.SignificantProgress.Complete);
+                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Completed, SignificantProgress.Complete);
             }
             catch (WebException wE)
             {
@@ -365,7 +365,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
            FtpWebRequest req = CreateRequest(WebRequestMethods.Ftp.UploadFile, profile, new Uri(path));
 
            using (Stream remoteStream = req.GetRequestStream())
-               Streaming.CopyStream(sourceStream, remoteStream);
+               StreamUtility.CopyStream(sourceStream, remoteStream);
         }
 
         bool ISiteAdapter.DeleteFile(RoamingProfile profile, string path)

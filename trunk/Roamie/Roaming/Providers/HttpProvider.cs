@@ -74,7 +74,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
             Context.State |= RoamingState.MirroringNotSupported;
             Context.State |= RoamingState.DiscardLocalChanges;
 
-            if ((Context.State & RoamingState.WipeRoamedDbOnExit) == RoamingState.WipeRoamedDbOnExit)
+            if ((Context.State & RoamingState.WipeLocalDbOnExit) == RoamingState.WipeLocalDbOnExit)
                 InformationDialog.PresentModal(Resources.Information_Caption_YourChangesWiilBeLost, Resources.Information_Formatable1_Text_YourChangesWillBeLost, Resources.Image_32x32_Profile);
         }
 
@@ -105,7 +105,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
 
         public override void NonSyncShutdown()
         {
-            if ((Context.State & RoamingState.WipeRoamedDbOnExit) != RoamingState.WipeRoamedDbOnExit ||
+            if ((Context.State & RoamingState.WipeLocalDbOnExit) != RoamingState.WipeLocalDbOnExit ||
                 (Context.State & RoamingState.DiscardLocalChanges) != RoamingState.DiscardLocalChanges)
                 InformationDialog.PresentModal(Resources.Information_Caption_CannotMirrorChanges, String.Format(Resources.Information_Formatable1_Text_CannotMirrorChanges, Path.GetFileName(Context.ProfilePath)), Resources.Image_32x32_Web);
 
@@ -137,18 +137,18 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
                         downloadedStream = new MemoryStream(response.ContentLength < 0 ? 2048 : (int)response.ContentLength),
                         unprotectedStream = new MemoryStream((int)downloadedStream.Length * 2))
                     {
-                        GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_DownloadingDb, GlobalEvents.SignificantProgress.Running);
-                        Streaming.CopyStream(new Streaming.CustomizableStream(remoteStream, ((MemoryStream)downloadedStream).Capacity), downloadedStream, delegate(int _progress) { GlobalEvents.ChangeProgress(null, _progress); });
+                        ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_DownloadingDb, SignificantProgress.Running);
+                        StreamUtility.CopyStream(new UndisposableStream(remoteStream, ((MemoryStream)downloadedStream).Capacity), downloadedStream, delegate(int _progress) { ProgressMediator.ChangeProgress(null, _progress); });
 
-                        GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_CompressingEncrypting, GlobalEvents.SignificantProgress.Running);
+                        ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_CompressingEncrypting, SignificantProgress.Running);
                         downloadedStream.Seek(0, SeekOrigin.Begin);
 
-                        SecureStreamCompactor.DecryptAndDecompress(downloadedStream, unprotectedStream, profile.DatabasePassword);
+                        StreamUtility.DecryptAndDecompress(downloadedStream, unprotectedStream, profile.DatabasePassword);
                         unprotectedStream.Seek(0, SeekOrigin.Begin);
 
-                        GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_Saving, GlobalEvents.SignificantProgress.Running);
+                        ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Saving, SignificantProgress.Running);
                         using (FileStream localStream = new FileStream(Context.ProfilePath, FileMode.Create))
-                            Streaming.CopyStream(unprotectedStream, localStream);
+                            StreamUtility.CopyStream(unprotectedStream, localStream);
                     }
                 }
 
@@ -156,7 +156,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
                 base.SyncLocalDatabase(profile);
 
                 Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Local database synchronized.", TraceCategory);
-                GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_Completed, GlobalEvents.SignificantProgress.Complete);
+                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Completed, SignificantProgress.Complete);
             }
             catch (CryptographicException cE)
             {

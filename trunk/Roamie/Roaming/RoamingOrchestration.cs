@@ -37,37 +37,35 @@ namespace Virtuoso.Miranda.Roamie.Roaming
 {
     internal static class RoamingOrchestration
     {
-        #region Properties
+        #region Fields
 
-        private static RoamingContext _context;
         private static RoamingContext Context
         {
-            get
-            {
-                return _context ?? (_context = RoamiePlugin.Singleton.RoamingContext);
-            }
+            get { return RoamiePlugin.Singleton.RoamingContext; }
         }
 
         #endregion
 
-        public static class Arrangement
+        public static class Preparation
         {
             /// <summary>
-            /// Begins local synchronization. Called right after a user selects a roaming profile.
+            /// Begins local synchronization. Called right after user selects a roaming profile.
             /// </summary>
             public static void PerformLocalSynchronization()
             {
                 try
                 {
-                    SyncDialog.RunModal(delegate
+                    SyncDialog.RunModal(() =>
                     {
                         MethodInvoker syncChain = new MethodInvoker(SyncLocalDb) +
-                                                  new MethodInvoker(DecideOnDeltaExistence);
+                                                  DecideOnDeltaExistence;
                         syncChain();
 
-                        Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Synchronization completed.", RoamiePlugin.TraceCategory);
+                        Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo,
+                                          "Synchronization completed.",
+                                          RoamiePlugin.TraceCategory);
                         return null;
-                    }, SyncDialog.SyncOptions.Repeatable | SyncDialog.SyncOptions.SilenceEligible);
+                    }, SyncOptions.Repeatable | SyncOptions.SilenceEligible);
                 }
                 catch
                 {
@@ -101,7 +99,8 @@ namespace Virtuoso.Miranda.Roamie.Roaming
         public static class Performance
         {
             /// <summary>
-            /// Loads the Delta engine. Called after the user selects a roaming profile and local database is synchronized.
+            /// Loads the Delta engine. 
+            /// Called after the user selects a roaming profile and local database is synchronized.
             /// </summary>
             public static void LoadDeltaEngine()
             {
@@ -109,7 +108,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming
                     return;
 
                 Context.DeltaEngine = new DeltaSyncEngine(Context.ActiveProfile);
-                SyncDialog.RunModal(DeltaEngineInitializer, SyncDialog.SyncOptions.SilenceEligible | SyncDialog.SyncOptions.Unrepeatable | SyncDialog.SyncOptions.NoThrow);
+                SyncDialog.RunModal(DeltaEngineInitializer, SyncOptions.SilenceEligible | SyncOptions.Unrepeatable | SyncOptions.NoThrow);
             }
 
             private static object DeltaEngineInitializer()
@@ -143,16 +142,16 @@ namespace Virtuoso.Miranda.Roamie.Roaming
 
             private static bool InitializeDeltaEngine()
             {
-                bool loadEngine;
+                bool engineLoaded;
 
                 try
                 {
                     Context.DeltaEngine.Initialize();
-                    loadEngine = true;
+                    engineLoaded = true;
                 }
                 catch (DbTokenMismatchException)
                 {
-                    loadEngine = HandleDbTokenMismatch();
+                    engineLoaded = HandleDbTokenMismatch();
                 }
                 catch (Exception e)
                 {
@@ -161,7 +160,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming
                     throw new DeltaSyncException(Resources.ExceptionMsg_UnableToInitDeltaEngine + e.Message, e);
                 }
 
-                return loadEngine;
+                return engineLoaded;
             }
 
             private static bool HandleDbTokenMismatch()
@@ -175,13 +174,11 @@ namespace Virtuoso.Miranda.Roamie.Roaming
 
                         return false;
                     }
-                    else
-                    {
-                        if (Context.DeltaEngine.LegacyManifest != null)
-                            Context.DeltaEngine.LegacyManifest.Remove();
 
-                        return true;
-                    }
+                    if (Context.DeltaEngine.LegacyManifest != null)
+                        Context.DeltaEngine.LegacyManifest.Remove();
+
+                    return true;
                 }
             }
         }
@@ -277,7 +274,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming
             {
                 FullSyncRemoteDb();
 
-                GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_RemovingDeltas, GlobalEvents.SignificantProgress.Running);
+                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_RemovingDeltas, SignificantProgress.Running);
                 Context.DeltaEngine.DeltaManifest.Remove();
             }
         }

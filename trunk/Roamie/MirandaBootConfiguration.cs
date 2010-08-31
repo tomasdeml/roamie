@@ -20,8 +20,6 @@
 \***********************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Virtuoso.Miranda.Plugins.Helpers;
 using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Miranda.Roamie.Roaming.Profiles;
@@ -31,27 +29,23 @@ using System.Diagnostics;
 
 namespace Virtuoso.Miranda.Roamie
 {
-    internal enum StartupOption : int
+    internal enum StartupOption
     {
         DownloadDatabase = 0,
         UseLocalDatabase = 1
     }
 
-    internal sealed class MirandaBootConfiguration
+    internal class MirandaBootConfiguration
     {
         #region Fields
 
-        private const string RoamieCategory = "Roamie", 
-            ProfileKey = "Profile",
-            StartupOptionKey = "StartupOption", 
-            PublicPcKey = "PublicPc", 
-            SandboxModeKey = "SandboxMode";
-
-        private readonly IniStructure Ini;
-
-        private RoamingProfile profile;       
-        private StartupOption startupOption;        
-        private bool publicPc, sandboxMode;
+        private const string RoamieCategory = "Roamie";
+        private const string ProfileKey = "Profile";
+        private const string StartupOptionKey = "StartupOption";
+        private const string PublicPcKey = "PublicPc";
+        private const string SandboxModeKey = "SandboxMode";
+        
+        private readonly IniStructure IniStructure;
 
         #endregion
 
@@ -59,33 +53,37 @@ namespace Virtuoso.Miranda.Roamie
 
         private MirandaBootConfiguration()
         {
-            Ini = IniStructure.ReadIni(MirandaEnvironment.MirandaBootIniPath);
-            RoamingContext context = RoamiePlugin.Singleton.RoamingContext;
-            
-            if (Ini != null)
+            IniStructure = IniStructure.ReadIni(MirandaEnvironment.MirandaBootIniPath);
+
+            if (IniStructure == null) 
+                return;
+
+            string[] keyNames = IniStructure.GetKeys(RoamieCategory);
+
+            foreach (string keyName in keyNames)
             {
-                string[] keyNames = Ini.GetKeys(RoamieCategory);
-                int temp;
-               
-                foreach (string keyName in keyNames)
-                {                 
-                    switch (keyName)
-                    {
-                        case StartupOptionKey:
-                            startupOption = (Roamie.StartupOption)Enum.Parse(typeof(Roamie.StartupOption), Ini.GetValue(RoamieCategory, StartupOptionKey));
-                            break;
-                        case ProfileKey:
-                            profile = context.Configuration.ProfileManager.Profiles.Find(Ini.GetValue(RoamieCategory, ProfileKey));
-                            break;
-                        case PublicPcKey:
-                            if (Int32.TryParse(Ini.GetValue(RoamieCategory, PublicPcKey), out temp))
-                                publicPc = Convert.ToBoolean(temp);
-                            break;
-                        case SandboxModeKey:
-                            if (Int32.TryParse(Ini.GetValue(RoamieCategory, SandboxModeKey), out temp))
-                                sandboxMode = Convert.ToBoolean(temp);
-                            break;
-                    }
+                int intValue;
+
+                switch (keyName)
+                {
+                    case StartupOptionKey:
+                        StartupOption =
+                            (StartupOption)
+                            Enum.Parse(typeof (StartupOption), IniStructure.GetValue(RoamieCategory, StartupOptionKey));
+                        break;
+                    case ProfileKey:
+                        Profile =
+                            RoamiePlugin.Singleton.RoamingContext.Configuration.ProfileManager.Profiles.Find(
+                                IniStructure.GetValue(RoamieCategory, ProfileKey));
+                        break;
+                    case PublicPcKey:
+                        if (Int32.TryParse(IniStructure.GetValue(RoamieCategory, PublicPcKey), out intValue))
+                            PublicPc = Convert.ToBoolean(intValue);
+                        break;
+                    case SandboxModeKey:
+                        if (Int32.TryParse(IniStructure.GetValue(RoamieCategory, SandboxModeKey), out intValue))
+                            SandboxMode = Convert.ToBoolean(intValue);
+                        break;
                 }
             }
         }
@@ -94,14 +92,11 @@ namespace Virtuoso.Miranda.Roamie
         {
             try
             {
-                if (!File.Exists(MirandaEnvironment.MirandaBootIniPath))
-                    return null;
-                else
-                    return new MirandaBootConfiguration();
+                return File.Exists(MirandaEnvironment.MirandaBootIniPath) ? new MirandaBootConfiguration() : null;
             }
             catch (Exception e)
             {
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, GlobalEvents.FormatExceptionMessage("Error while loading MirandaBoot.ini file. ", e));
+                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, StringUtility.FormatExceptionMessage("Error while loading MirandaBoot.ini file. ", e));
                 return null;
             }
         }
@@ -110,35 +105,19 @@ namespace Virtuoso.Miranda.Roamie
 
         #region Properties
 
-        public RoamingProfile Profile
-        {
-            get { return profile; }
-            set { profile = value; }
-        }
+        public RoamingProfile Profile { get; set; }
 
-        public StartupOption StartupOption
-        {
-            get { return startupOption; }
-            set { startupOption = value; }
-        }
+        public StartupOption StartupOption { get; set; }
 
-        public bool PublicPc
-        {
-            get { return publicPc; }
-            set { publicPc = value; }
-        }
+        public bool PublicPc { get; set; }
 
-        public bool SandboxMode
-        {
-            get { return sandboxMode; }
-            set { sandboxMode = value; }
-        }
+        public bool SandboxMode { get; set; }
 
         public bool IsValid
         {
             get
             {
-                return profile != null;
+                return Profile != null;
             }
         }
 
@@ -150,22 +129,22 @@ namespace Virtuoso.Miranda.Roamie
         {
             if (IsValid)
             {
-                Ini.DeleteCategory(RoamieCategory);
-                Ini.AddCategory(RoamieCategory);
+                IniStructure.DeleteCategory(RoamieCategory);
+                IniStructure.AddCategory(RoamieCategory);
 
-                Ini.AddValue(RoamieCategory, StartupOptionKey, ((int)startupOption).ToString());
-                Ini.AddValue(RoamieCategory, ProfileKey, profile.Name);
-                Ini.AddValue(RoamieCategory, PublicPcKey, Convert.ToInt32(publicPc).ToString());
-                Ini.AddValue(RoamieCategory, SandboxModeKey, Convert.ToInt32(sandboxMode).ToString());
+                IniStructure.AddValue(RoamieCategory, StartupOptionKey, ((int)StartupOption).ToString());
+                IniStructure.AddValue(RoamieCategory, ProfileKey, Profile.Name);
+                IniStructure.AddValue(RoamieCategory, PublicPcKey, Convert.ToInt32(PublicPc).ToString());
+                IniStructure.AddValue(RoamieCategory, SandboxModeKey, Convert.ToInt32(SandboxMode).ToString());
             }
 
-            IniStructure.WriteIni(Ini, MirandaEnvironment.MirandaBootIniPath);
+            IniStructure.WriteIni(IniStructure, MirandaEnvironment.MirandaBootIniPath);
         }
 
         public void Reset()
         {
-            profile = null;
-            Ini.DeleteCategory(RoamieCategory);
+            Profile = null;
+            IniStructure.DeleteCategory(RoamieCategory);
         }
 
         #endregion
