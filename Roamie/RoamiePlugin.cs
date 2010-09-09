@@ -1,7 +1,7 @@
 ﻿/***********************************************************************************\
  * Virtuoso.Miranda.Roamie (Roamie)                                                *
  * A Miranda plugin providing a remote database synchronization features.          *
- * Copyright (C) 2006-2010 virtuoso                                                *
+ * Copyright (C) 2006-2007 Virtuoso                                                *
  *                    deml.tomas@seznam.cz                                         *
  *                                                                                 *
  * This program is free software; you can redistribute it and/or                   *
@@ -20,10 +20,13 @@
 \***********************************************************************************/
 
 using System;
+using System.Collections.Generic;
+using System.Text;
+using Virtuoso.Hyphen.Mini;
 using Virtuoso.Miranda.Plugins;
-using Virtuoso.Miranda.Plugins.Forms;
 using Virtuoso.Miranda.Roamie;
 using Virtuoso.Hyphen.Mini.Custom;
+using Virtuoso.Miranda.Plugins.Native;
 using System.Reflection;
 using System.IO;
 using Virtuoso.Miranda.Roamie.Forms;
@@ -34,8 +37,15 @@ using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Miranda.Plugins.Collections;
 using Virtuoso.Miranda.Roamie.Properties;
 using Virtuoso.Miranda.Roamie.Native;
+using System.Threading;
 using Virtuoso.Miranda.Plugins.ThirdParty.Updater;
+using Virtuoso.Miranda.Plugins.Forms.Controls;
 using Virtuoso.Miranda.Roamie.Forms.Controls.Configuration;
+using System.Drawing;
+using Virtuoso.Miranda.Roamie.Roaming.DeltaSync;
+using Virtuoso.Miranda.Roamie.Roaming.Providers;
+using Virtuoso.Miranda.Plugins.Configuration.Forms.Controls;
+using Virtuoso.Miranda.Plugins.Configuration.Forms;
 using Virtuoso.Miranda.Plugins.Configuration;
 using Virtuoso.Miranda.Roamie.Forms.Controls;
 
@@ -43,7 +53,7 @@ using Virtuoso.Miranda.Roamie.Forms.Controls;
 
 namespace Virtuoso.Miranda.Roamie
 {
-    [LoaderOptions("0.8.2009.201")]
+    [LoaderOptions("0.8.6.1921")]
     internal sealed class RoamiePlugin : DatabaseDriver, IConfigurablePlugin
     {
         #region Plugin infos
@@ -103,102 +113,22 @@ namespace Virtuoso.Miranda.Roamie
             get { throw new NotImplementedException(); }
         }
 
-        #endregion
-
-        #region Fields
-
-        public const string TraceCategory = "Roamie";
-        public static TraceSwitch TraceSwitch;
-
-        private ExternalDatabaseDriver DatabaseDriver;
-
-        private static readonly Uri UpdateUrl = new Uri("http://testplace.aspweb.cz/Apps/Roamie/Roamie_update.zip"),
-            VersionUrl = new Uri("http://testplace.aspweb.cz/Apps/Roamie/Roamie_update_version.txt");
-
-        #endregion
-
-        #region Properties
-
-        public RoamingContext RoamingContext { get; private set; }
-
-        public static RoamiePlugin Singleton { get; private set; }
-
-        private bool CanSync
+        protected override void AfterMenuItemsPopulation(MenuItemDeclarationCollection items)
         {
-            get
-            {
-                return RoamingContext.ActiveProfile != null &&
-                       !RoamingContext.IsInState(RoamingState.Disabled) &&
-                       !RoamingContext.IsInState(RoamingState.SyncErrorOccured);
-            }
-        }
+            MenuItemDeclarationAttribute item = items.Find("RoamingSettings");
 
-        #endregion
-
-        #region .ctors
-
-        private RoamiePlugin()
-        {
-            InitLogger();
-
-            if (Singleton == null)
-                Singleton = this;
-            else
-            {
-                Trace.WriteLineIf(TraceSwitch.TraceError, "Roamie already initialized, internal error.", TraceCategory);
-                throw new InvalidOperationException("Internal error.");
-            }
-        }
-
-        private static void InitLogger()
-        {
-            TraceSwitch = new TraceSwitch("RoamieTracing", "Roaming Tracing", "Warning");
-
-            try
-            {
-                TextWriterTraceListener writer = new TextWriterTraceListener();
-
-                writer.Writer = new StreamWriter(Application.StartupPath + @"\Roamie.log", true);
-                writer.TraceOutputOptions = TraceOptions.Timestamp | TraceOptions.DateTime | TraceOptions.Callstack;
-                writer.WriteLine("===== ROAMIE LOG BEGIN =====");
-
-                Trace.Listeners.Add(writer);
-                Trace.AutoFlush = true;
-            }
-            catch { }
-        }
-
-        protected override void AfterModuleInitialization()
-        {
-            try
-            {
-                Trace.WriteLineIf(TraceSwitch.TraceVerbose, "Loading external database driver...", TraceCategory);
-                DatabaseDriver = ExternalDatabaseDriver.Load(Module.IsPostV07Build20Api);
-                Trace.WriteLineIf(TraceSwitch.TraceVerbose, "External database driver loaded.", TraceCategory);
-            }
-            catch (Exception e)
-            {
-                string message = String.Format(Resources.MsgBox_Text_Formatable1_UnableToLoadDbDriver, e);
-
-                Trace.WriteLineIf(TraceSwitch.TraceError, StringUtility.FormatExceptionMessage(message, e), TraceCategory);
-                MessageBox.Show(message, Resources.MsgBox_Title_UnableToLoadDbDriver, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                throw;
-            }
-
-            AfterPluginInitialization();
+            if (item.Text == "-")
+                item.Text = Resources.Text_UI_MenuItem_RoamingOverview;           
         }
 
         #endregion
 
         #region Configuration Impl
 
-        // TODO Refactor
-
         private PluginConfiguration[] configuration;
         public PluginConfiguration[] Configuration
         {
-            get { return configuration ?? (configuration = new PluginConfiguration[] { RoamingContext.Configuration }); }
+            get { return configuration ?? (configuration = new PluginConfiguration[] { roamingContext.Configuration }); }
         }
 
         public void PopulateConfiguration(CategoryCollection categories)
@@ -250,30 +180,103 @@ namespace Virtuoso.Miranda.Roamie
 
         public void ReloadConfiguration()
         {
-            RoamingContext.Configuration = PluginConfiguration.Load<RoamingConfiguration>();
+            roamingContext.Configuration = PluginConfiguration.Load<RoamingConfiguration>();
         }
 
         public void ResetConfiguration()
         {
-            RoamingContext.Configuration = PluginConfiguration.GetDefaultConfiguration<RoamingConfiguration>();
+            roamingContext.Configuration = PluginConfiguration.GetDefaultConfiguration<RoamingConfiguration>();
+        }
+
+        #endregion
+
+        #region Fields
+
+        public const string TraceCategory = "Roamie";
+
+        private RoamingContext roamingContext;
+        public RoamingContext RoamingContext
+        {
+            get { return roamingContext; }
+        }
+
+        private static RoamiePlugin singleton;
+        public static RoamiePlugin Singleton
+        {
+            get { return singleton; }
+        }
+
+        private ExternalDatabaseDriver DatabaseDriver;
+
+        public static TraceSwitch TraceSwitch;
+
+        private static readonly Uri UpdateUrl = new Uri("http://testplace.aspweb.cz/Apps/Roamie/Roamie_update.zip"),
+            VersionUrl = new Uri("http://testplace.aspweb.cz/Apps/Roamie/Roamie_update_version.txt");
+
+        #endregion
+
+        #region .ctors
+
+        private RoamiePlugin()
+        {
+            InitLogger();
+
+            if (singleton == null)
+                singleton = this;
+            else
+            {
+                Trace.WriteLineIf(TraceSwitch.TraceError, "Roamie already initialized, internal error.", TraceCategory);
+                throw new InvalidOperationException("Internal error.");
+            }
+        }
+
+        private void InitLogger()
+        {
+            TraceSwitch = new TraceSwitch("RoamieTracing", "Roaming Tracing", "Warning");
+
+            try
+            {
+                TextWriterTraceListener writer = new TextWriterTraceListener();
+
+                writer.Writer = new StreamWriter(Application.StartupPath + @"\Roamie.log", true);
+                writer.TraceOutputOptions = TraceOptions.Timestamp | TraceOptions.DateTime | TraceOptions.Callstack;
+                writer.WriteLine("===== ROAMIE LOG BEGIN =====");
+
+                Trace.Listeners.Add(writer);
+                Trace.AutoFlush = true;
+            }
+            catch { }
+        }
+
+        protected override void AfterModuleInitialization()
+        {
+            try
+            {
+                Trace.WriteLineIf(TraceSwitch.TraceVerbose, "Loading external database driver...", TraceCategory);
+                DatabaseDriver = ExternalDatabaseDriver.Load(Module.IsPostV07Build20Api);
+                Trace.WriteLineIf(TraceSwitch.TraceVerbose, "External database driver loaded.", TraceCategory);                
+            }
+            catch (Exception e)
+            {
+                string message = String.Format(Resources.MsgBox_Text_Formatable1_UnableToLoadDbDriver, e.ToString());
+
+                Trace.WriteLineIf(TraceSwitch.TraceError, GlobalEvents.FormatExceptionMessage(message, e), TraceCategory);
+                MessageBox.Show(message, Resources.MsgBox_Title_UnableToLoadDbDriver, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                throw;
+            }
+
+            base.AfterPluginInitialization();
         }
 
         #endregion
 
         #region Menu item handlers
 
-        protected override void AfterMenuItemsPopulation(MenuItemDeclarationCollection items)
-        {
-            MenuItemDeclarationAttribute item = items.Find("RoamingSettings");
-
-            if (item.Text == "-")
-                item.Text = Resources.Text_UI_MenuItem_RoamingOverview;
-        }
-
         [MenuItemDeclaration("-", typeof(LanguagePackStringResolver), Tag = "RoamingSettings", IsContactMenuItem = false, HasIcon = true, UseEmbeddedIcon = true, IconID = "Virtuoso.Miranda.Roamie.Resources.MenuItems.RoamingSettings.ico")]
         private int MenuItem_RoamingSettings(UIntPtr wParam, IntPtr lParam)
         {
-            SingletonDialog.GetSingleton<RoamingOverviewDialog>(true).ShowSingleton(false);
+            RoamingOverviewDialog.GetSingleton<RoamingOverviewDialog>(true).ShowSingleton(false);
             return 0;
         }
         
@@ -285,16 +288,60 @@ namespace Virtuoso.Miranda.Roamie
         {
             Context.ModulesLoaded -= RegisterForUpdates;
 
-            if (!UpdaterPlugin.IsUpdateSupported())
-                return;
+            if (UpdaterPlugin.IsUpdateSupported())
+            {
+                Update update = new Update(this, UpdateUrl, VersionUrl, " ");
+                UpdaterPlugin.RegisterForUpdate(update);
+            }
+        }
 
-            Update update = new Update(this, UpdateUrl, VersionUrl, " ");
-            UpdaterPlugin.RegisterForUpdate(update);
+        private bool CanSync
+        {
+            get
+            {
+                return roamingContext.ActiveProfile != null &&
+                       !roamingContext.IsInState(RoamingState.RoamingDisabled) &&
+                       !roamingContext.IsInState(RoamingState.SyncErrorOccured);
+            }
         }
 
         #endregion
 
         #region Proxy Impl
+
+        #region Roaming configuration
+
+        private int ConfigureRoaming(string profile, bool firstTime)
+        {
+            try
+            {
+                Trace.WriteLineIf(TraceSwitch.TraceVerbose, String.Format("'Intialize' method invoked: profile = '{0}', firstTime = '{1}'.", profile, firstTime.ToString()), TraceCategory);
+
+                if (RoamingContext == null)
+                {
+                    Trace.WriteLineIf(TraceSwitch.TraceVerbose, "Initializing context...", TraceCategory);
+                    roamingContext = new RoamingContext(profile);
+
+                    Trace.WriteLineIf(TraceSwitch.TraceVerbose, "Presenting startup dialog...", TraceCategory);
+                    StartupDialog.PresentModal(firstTime);
+
+                    if (RoamingContext.State == RoamingState.RoamingDisabled)
+                    {
+                        Trace.WriteLineIf(TraceSwitch.TraceWarning, "Invalid startup state detected, aborting.", TraceCategory);
+                        return (int)CallbackResult.Failure;
+                    }
+                }
+
+                return (int)CallbackResult.Success;
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLineIf(TraceSwitch.TraceError, GlobalEvents.FormatExceptionMessage("'Initialize' method failed.", e), TraceCategory);
+                return (int)CallbackResult.Failure;
+            }
+        }
+
+        #endregion
 
         #region Plain thunks
 
@@ -330,11 +377,11 @@ namespace Virtuoso.Miranda.Roamie
             Trace.WriteLineIf(TraceSwitch.TraceVerbose, "'Init' API invoked.", TraceCategory);
 
             if (ConfigureRoaming(profile, false) != 0)
-                return CallbackResult.Failure;
+                return (int)CallbackResult.Failure;
 
             int result = DatabaseDriver.DatabaseLink.Init(RoamingContext.ProfilePath, link);
 
-            if (result == CallbackResult.Success)
+            if (result == (int)CallbackResult.Success)
             {
                 RoamingOrchestration.Performance.LoadDeltaEngine();
                 Context.ModulesLoaded += RegisterForUpdates;
@@ -345,18 +392,18 @@ namespace Virtuoso.Miranda.Roamie
 
         protected override int MakeDatabaseThunk(string profile, ref int error)
         {
-            int retValue = CallbackResult.Failure;
+            int retValue = (int)CallbackResult.Failure;
             Trace.WriteLineIf(TraceSwitch.TraceVerbose, "'MakeDatabase' API invoked.", TraceCategory);
 
-            if ((error = ConfigureRoaming(profile, true)) == CallbackResult.Success)
+            if ((error = ConfigureRoaming(profile, true)) == 0)
             {
-                if ((RoamingContext.State & RoamingState.CreateNewDb) == RoamingState.CreateNewDb)
+                if ((roamingContext.State & RoamingState.CreateNewDb) == RoamingState.CreateNewDb)
                 {
                     Trace.WriteLineIf(TraceSwitch.TraceInfo, "Creating a database...", TraceCategory);
-                    retValue = DatabaseDriver.DatabaseLink.MakeDatabase(RoamingContext.ProfilePath, ref error);
+                    retValue = DatabaseDriver.DatabaseLink.MakeDatabase(roamingContext.ProfilePath, ref error);
                 }
                 else
-                    retValue = CallbackResult.Success;
+                    retValue = (int)CallbackResult.Success;
             }
 
             return retValue;
@@ -366,10 +413,10 @@ namespace Virtuoso.Miranda.Roamie
         {
             Trace.WriteLineIf(TraceSwitch.TraceVerbose, "'GrokHeader' API invoked.", TraceCategory);
 
-            if ((error = ConfigureRoaming(profile, false)) != CallbackResult.Success)
-                return CallbackResult.Failure;
+            if ((error = ConfigureRoaming(profile, false)) != 0)
+                return (int)CallbackResult.Failure;
 
-            return DatabaseDriver.DatabaseLink.GrokHeader(RoamingContext.ProfilePath, ref error);
+            return DatabaseDriver.DatabaseLink.GrokHeader(roamingContext.ProfilePath, ref error);
         }
 
         protected override int UnloadThunk(int wasLoaded)
@@ -400,7 +447,7 @@ namespace Virtuoso.Miranda.Roamie
             }
             catch (Exception e)
             {
-                Trace.WriteLineIf(TraceSwitch.TraceError, StringUtility.FormatExceptionMessage("Unable to unload Roamie.", e), TraceCategory);
+                Trace.WriteLineIf(TraceSwitch.TraceError, GlobalEvents.FormatExceptionMessage("Unable to unload Roamie.", e), TraceCategory);
             }
             finally
             {
@@ -409,7 +456,7 @@ namespace Virtuoso.Miranda.Roamie
                 Trace.Close();
             }
 
-            return CallbackResult.Success;
+            return (int)CallbackResult.Success;
         }
 
         private void UnloadDriver(int wasLoaded)
@@ -423,40 +470,6 @@ namespace Virtuoso.Miranda.Roamie
         }
 
         #endregion        
-
-        #region Roaming configuration
-
-        private int ConfigureRoaming(string profile, bool firstTime)
-        {
-            try
-            {
-                Trace.WriteLineIf(TraceSwitch.TraceVerbose, String.Format("'Intialize' method invoked: profile = '{0}', firstTime = '{1}'.", profile, firstTime.ToString()), TraceCategory);
-
-                if (RoamingContext == null)
-                {
-                    Trace.WriteLineIf(TraceSwitch.TraceVerbose, "Initializing context...", TraceCategory);
-                    RoamingContext = new RoamingContext(profile);
-
-                    Trace.WriteLineIf(TraceSwitch.TraceVerbose, "Presenting startup dialog...", TraceCategory);
-                    StartupDialog.PresentModal(firstTime);
-
-                    if (RoamingContext.State == RoamingState.Disabled)
-                    {
-                        Trace.WriteLineIf(TraceSwitch.TraceWarning, "Invalid startup state detected, aborting.", TraceCategory);
-                        return CallbackResult.Failure;
-                    }
-                }
-
-                return CallbackResult.Success;
-            }
-            catch (Exception e)
-            {
-                Trace.WriteLineIf(TraceSwitch.TraceError, StringUtility.FormatExceptionMessage("'Initialize' method failed.", e), TraceCategory);
-                return CallbackResult.Failure;
-            }
-        }
-
-        #endregion
 
         #endregion
     }

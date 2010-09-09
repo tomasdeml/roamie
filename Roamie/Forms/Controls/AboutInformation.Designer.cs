@@ -88,22 +88,20 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             this.HyphenVersionLABEL.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.HyphenVersionLABEL.Location = new System.Drawing.Point(75, 141);
             this.HyphenVersionLABEL.Name = "HyphenVersionLABEL";
-            this.HyphenVersionLABEL.Size = new System.Drawing.Size(118, 13);
+            this.HyphenVersionLABEL.Size = new System.Drawing.Size(102, 13);
             this.HyphenVersionLABEL.TabIndex = 5;
-            this.HyphenVersionLABEL.Text = "© 2006-2007, virtuoso";
+            this.HyphenVersionLABEL.Text = "(Hyphen Copyright)";
             // 
             // VersionLABEL
             // 
             this.VersionLABEL.AutoSize = true;
             this.VersionLABEL.BackColor = System.Drawing.Color.Transparent;
-            this.VersionLABEL.LinkArea = new System.Windows.Forms.LinkArea(13, 8);
+            this.VersionLABEL.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
             this.VersionLABEL.Location = new System.Drawing.Point(78, 88);
             this.VersionLABEL.Name = "VersionLABEL";
-            this.VersionLABEL.Size = new System.Drawing.Size(115, 18);
+            this.VersionLABEL.Size = new System.Drawing.Size(110, 13);
             this.VersionLABEL.TabIndex = 3;
-            this.VersionLABEL.TabStop = true;
-            this.VersionLABEL.Text = "© 2006-2007, virtuoso";
-            this.VersionLABEL.UseCompatibleTextRendering = true;
+            this.VersionLABEL.Text = "(Assembly Copyright)";
             this.VersionLABEL.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.VirtuosoLINK_LinkClicked);
             // 
             // label6

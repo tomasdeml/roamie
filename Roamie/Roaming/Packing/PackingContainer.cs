@@ -95,7 +95,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Packing
                 formatter.Serialize(encryptedStream, this);
 
                 encryptedStream.Seek(0, SeekOrigin.Begin);
-                StreamUtility.CompressAndEncrypt(encryptedStream, destination, RoamiePlugin.Singleton.RoamingContext.ActiveProfile.DatabasePassword);
+                SecureStreamCompactor.CompressAndEncrypt(encryptedStream, destination, RoamiePlugin.Singleton.RoamingContext.ActiveProfile.DatabasePassword);
             }
         }
 
@@ -112,7 +112,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Packing
 
             using (MemoryStream decryptedStream = new MemoryStream(8192))
             {
-                StreamUtility.DecryptAndDecompress(source, decryptedStream, profile.DatabasePassword);
+                SecureStreamCompactor.DecryptAndDecompress(source, decryptedStream, profile.DatabasePassword);
                 decryptedStream.Seek(0, SeekOrigin.Begin);
 
                 BinaryFormatter formatter = new BinaryFormatter();
@@ -191,7 +191,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Packing
                 Serialize(containerStream);
                 containerStream.Seek(0, SeekOrigin.Begin);
 
-                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_PublishingDelta, SignificantProgress.Running);
+                GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_PublishingDelta, GlobalEvents.SignificantProgress.Running);
                 adapter.PushFile(profile, GetContainerPath(profile), containerStream);
             }
         }

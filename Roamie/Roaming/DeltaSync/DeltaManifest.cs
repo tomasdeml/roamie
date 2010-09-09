@@ -128,7 +128,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
                 formatter.Serialize(encryptedStream, this);
 
                 encryptedStream.Seek(0, SeekOrigin.Begin);
-                StreamUtility.CompressAndEncrypt(encryptedStream, destination, AssociatedProfile.DatabasePassword);
+                SecureStreamCompactor.CompressAndEncrypt(encryptedStream, destination, AssociatedProfile.DatabasePassword);
             }
         }
 
@@ -145,7 +145,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
 
             using (MemoryStream decryptedStream = new MemoryStream(8192))
             {
-                StreamUtility.DecryptAndDecompress(source, decryptedStream, profile.DatabasePassword);
+                SecureStreamCompactor.DecryptAndDecompress(source, decryptedStream, profile.DatabasePassword);
                 decryptedStream.Seek(0, SeekOrigin.Begin);
 
                 BinaryFormatter formatter = new BinaryFormatter();

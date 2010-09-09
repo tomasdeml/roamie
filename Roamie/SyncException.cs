@@ -20,6 +20,8 @@
 \***********************************************************************************/
 
 using System;
+using System.Collections.Generic;
+using System.Text;
 using Virtuoso.Miranda.Roamie.Properties;
 using System.Runtime.Serialization;
 

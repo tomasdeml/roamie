@@ -99,20 +99,20 @@ namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
                         {
                             using (Stream deltaStream = adapter.PullFile(profile, deltaPath))
                             {
-                                ProgressMediator.ChangeProgress(String.Format(Resources.Text_UI_LogText_Formatable1_DownloadingDelta, deltaNo.ToString()), (int)((double)deltaNo / deltaCountPercent));
+                                GlobalEvents.ChangeProgress(String.Format(Resources.Text_UI_LogText_Formatable1_DownloadingDelta, deltaNo.ToString()), (int)((double)deltaNo / deltaCountPercent));
                                 Delta delta = Delta.Deserialize(deltaStream, Manifest);
 
-                                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_ApplyingDelta);
+                                GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_ApplyingDelta);
                                 completed &= delta.Apply();
                             }
                         }
                         catch (WebException wE)
                         {
-                            lastDeltaException = new DeltaSyncException(StringUtility.FormatExceptionMessage(Resources.ExceptionMsg_UnableToDownloadDelta, wE, false), wE);
+                            lastDeltaException = new DeltaSyncException(GlobalEvents.FormatExceptionMessage(Resources.ExceptionMsg_UnableToDownloadDelta, wE, false), wE);
                         }
                         catch (Exception e)
                         {
-                            lastDeltaException = new DeltaSyncException(StringUtility.FormatExceptionMessage(Resources.ExceptionMsg_DeltaMergeFailed, e, false), e);
+                            lastDeltaException = new DeltaSyncException(GlobalEvents.FormatExceptionMessage(Resources.ExceptionMsg_DeltaMergeFailed, e, false), e);
                         }
                     }
 
