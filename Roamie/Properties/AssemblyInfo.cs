@@ -30,8 +30,8 @@ using System.Runtime.InteropServices;
 //      Revision
 //
 // 1.9.2010 = 2010 => 0 | 09 => 09 | 01 => 01 = 00901
-[assembly: AssemblyVersion("0.7.0.00901")]
-[assembly: AssemblyFileVersion("0.7.0.00901")]
+[assembly: AssemblyVersion("0.6.3000.00909")]
+[assembly: AssemblyFileVersion("0.6.3000.00909")]
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information

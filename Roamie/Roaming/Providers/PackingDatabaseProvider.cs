@@ -62,7 +62,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
             }
             catch
             {
-                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_CannotGetAttachedContainer);
+                GlobalEvents.ChangeProgress(Resources.Text_UI_LogText_CannotGetAttachedContainer);
                 Container = new PackingContainer(profile);
             }
         }

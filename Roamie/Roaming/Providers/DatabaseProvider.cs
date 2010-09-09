@@ -120,7 +120,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
         {
             try
             {
-                bool removeDb = Context.IsInState(RoamingState.WipeLocalDbOnExit);
+                bool removeDb = Context.IsInState(RoamingState.WipeRoamedDbOnExit);
 
                 if (removeDb)
                 {

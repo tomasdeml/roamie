@@ -20,9 +20,13 @@
 \***********************************************************************************/
 
 using System;
+using System.Collections.Generic;
+using System.Text;
 using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Miranda.Roamie.Properties;
 using System.Windows.Forms;
+using System.Threading;
+using System.Diagnostics;
 
 namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
 {

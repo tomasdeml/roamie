@@ -5,10 +5,6 @@ TODO
 ==========================================================================================================
 - File packing support (you can bundle files, background image, sounds..., with your db and roam them as well)
 
-v0.6.3000.909
-==========================================================================================================
-- [Issue 1] Temporary fix for annoying Miranda 0.9 error (new version of Hyphen)
-
 v0.6.6.1808
 ==========================================================================================================
 - FTP compatibility fixes

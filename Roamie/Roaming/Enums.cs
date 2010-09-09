@@ -20,21 +20,23 @@
 \***********************************************************************************/
 
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Virtuoso.Miranda.Roamie.Roaming
 {
     [Flags]
-    public enum RoamingState
+    public enum RoamingState : int
     {
         /// <summary>
         /// Roaming is disabled.
         /// </summary>
-        Disabled = 1,
+        RoamingDisabled = 1,
         
         /// <summary>
         /// Roaming is enabled.
         /// </summary>
-        Active = 2,
+        RoamingActive = 2,
 
         /// <summary>
         /// Roaming is disabled, because the local DB is loaded.
@@ -44,7 +46,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming
         /// <summary>
         /// Roamed DB should be deleted on exit.
         /// </summary>
-        WipeLocalDbOnExit = 8,
+        WipeRoamedDbOnExit = 8,
 
         /// <summary>
         /// The changes made to the local DB should be discarded on exit.

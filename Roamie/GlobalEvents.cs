@@ -19,20 +19,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. *
 \***********************************************************************************/
 
+using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Diagnostics;
 
 namespace Virtuoso.Miranda.Roamie
 {
-    internal static class ProgressMediator
+    internal static class GlobalEvents
     {
-        #region Events
+        #region Progress
 
         public delegate void LogPipe(string message, int progress);
         public static event LogPipe ProgressChange;
 
-        #endregion
-
-        #region Methods
+        public enum SignificantProgress : int
+        {
+            Running = -1,
+            NoChange = -2,
+            Stopped = -3,
+            Complete = -4,
+        }
 
         public static void ChangeProgress(string message)
         {
@@ -53,13 +60,19 @@ namespace Virtuoso.Miranda.Roamie
         }
 
         #endregion
-    }
 
-    internal enum SignificantProgress
-    {
-        Running = -1,
-        NoChange = -2,
-        Stopped = -3,
-        Complete = -4,
+        #region Helpers
+
+        public static string FormatExceptionMessage(string message, Exception e)
+        {
+            return FormatExceptionMessage(message, e, true);
+        }
+
+        public static string FormatExceptionMessage(string message, Exception e, bool includeStackTrace)
+        {
+            return (message + Environment.NewLine + (includeStackTrace ? e.ToString() : e.Message));
+        }
+
+        #endregion
     }
 }

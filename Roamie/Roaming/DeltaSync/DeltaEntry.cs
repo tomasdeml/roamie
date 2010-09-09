@@ -112,7 +112,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
             }
             catch (Exception e)
             {
-                ProgressMediator.ChangeProgress(StringUtility.FormatExceptionMessage(Resources.ExceptionMsg_DeltaMergeFailed, e));
+                GlobalEvents.ChangeProgress(GlobalEvents.FormatExceptionMessage(Resources.ExceptionMsg_DeltaMergeFailed, e));
                 return false;
             }
         }

@@ -54,6 +54,9 @@
   <ItemGroup>
     <Compile Include="Native\ExternalDatabaseDriver.cs" />
     <Compile Include="Roaming\Providers\DatabaseProvider.cs" />
+    <Compile Include="Streaming.CustomizableStream.cs">
+      <DependentUpon>Streaming.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SyncDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,7 +65,7 @@
     </Compile>
     <Compile Include="Roaming\Providers\FtpProvider.cs" />
     <Compile Include="Roaming\Providers\IDeltaAwareProvider.cs" />
-    <Compile Include="Roaming\RoamingState.cs" />
+    <Compile Include="Roaming\Enums.cs" />
     <Compile Include="Forms\StartupDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +86,7 @@
     <Content Include="Docs\Diagnostics.txt" />
     <Content Include="Docs\History.txt" />
     <Content Include="Docs\Readme.txt" />
+    <Content Include="Licence.txt" />
     <None Include="Resources\Icon 215_48x48.png" />
     <None Include="Resources\Icon 175_32x32.png" />
     <None Include="Resources\Icon 176_32x32.png" />
@@ -243,7 +247,7 @@
     <Compile Include="Forms\MasterKeyDialog.Designer.cs">
       <DependentUpon>MasterKeyDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProgressMediator.cs" />
+    <Compile Include="GlobalEvents.cs" />
     <Compile Include="Roaming\MasterKeyCache.cs" />
     <Compile Include="Roaming\MasterKeyEncryption.cs" />
     <Compile Include="Roaming\DeltaSync\DbTokenMismatchException.cs" />
@@ -257,6 +261,7 @@
     <Compile Include="Roaming\Packing\FileCollection.cs" />
     <Compile Include="Roaming\Providers\PackingDatabaseProvider.cs" />
     <Compile Include="Roaming\RoamingOrchestration.cs" />
+    <Compile Include="SecureStreamCompactor.cs" />
     <Compile Include="Forms\DbTokenMismatchDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -352,10 +357,8 @@
     <Compile Include="Roaming\Profiles\ProfileManager.cs" />
     <Compile Include="Roaming\Profiles\RoamingProfile.cs" />
     <Compile Include="Roaming\DeltaSync\DeltaSyncEngine.cs" />
-    <Compile Include="StreamUtility.cs" />
-    <Compile Include="UndisposableStream.cs" />
+    <Compile Include="Streaming.cs" />
     <Compile Include="Roaming\RoamingConfiguration.cs" />
-    <Compile Include="StringUtility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

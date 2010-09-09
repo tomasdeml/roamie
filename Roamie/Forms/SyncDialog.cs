@@ -40,22 +40,22 @@ namespace Virtuoso.Miranda.Roamie.Forms
 
     #endregion
 
-    #region Enums
-
-    [Flags]
-    public enum SyncOptions
-    {
-        Repeatable = 1,
-        Unrepeatable = 2,
-        IgnoreErrors = 4,
-        NoThrow = 8,
-        SilenceEligible = 16,
-    }
-
-    #endregion
-
     public sealed partial class SyncDialog : Form
     {
+        #region Enums
+
+        [Flags]
+        public enum SyncOptions : byte
+        {
+            Repeatable = 1,
+            Unrepeatable = 2,
+            IgnoreErrors = 4,
+            NoThrow = 8,
+            SilenceEligible = 16,
+        }
+
+        #endregion
+
         #region Fields
 
         private delegate void InvokeDelegate(object state);
@@ -77,12 +77,11 @@ namespace Virtuoso.Miranda.Roamie.Forms
             if (syncOperator == null) 
                 throw new ArgumentNullException("syncOperator");
 
-            if ((options & SyncOptions.SilenceEligible) == SyncOptions.SilenceEligible && 
-                !RoamiePlugin.Singleton.RoamingContext.Configuration.SilentStartup)
+            if ((options & SyncOptions.SilenceEligible) == SyncOptions.SilenceEligible && !RoamiePlugin.Singleton.RoamingContext.Configuration.SilentStartup)
                 options &= ~SyncOptions.SilenceEligible;
 
-            SyncOperator = syncOperator;
-            Options = options;
+            this.SyncOperator = syncOperator;
+            this.Options = options;
 
             InitializeComponent();
         }
@@ -97,18 +96,17 @@ namespace Virtuoso.Miranda.Roamie.Forms
             using (SyncDialog dlg = new SyncDialog(syncOperator, options))
             {
                 if ((dlg.Options & SyncOptions.SilenceEligible) == SyncOptions.SilenceEligible)
-                    dlg.ToggleVisibility(false);
+                    dlg.ShowHide(false);
 
                 dlg.ShowDialog();
 
-                if (dlg.Error != null && (options & SyncOptions.NoThrow) != SyncOptions.NoThrow)
+                if ((options & SyncOptions.NoThrow) != SyncOptions.NoThrow && dlg.Error != null)
                     throw dlg.Error;
-                
-                return dlg.Result;
+                else
+                    return dlg.Result;
             }
         }
 
-        // TODO Into separate class!
         public static void TestModal(RoamingProfile profile)
         {
             if (profile == null)
@@ -124,8 +122,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
 
                 MessageBox.Show(Resources.Text_UI_LogText_Completed, Resources.Text_UI_LogText_Completed, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (Exception)
-            { }
+            catch { }
         }
 
         #endregion
@@ -134,7 +131,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
 
         private void SyncDialog_KeyDown(object sender, KeyEventArgs e)
         {
-            if ((e.KeyCode == Keys.Escape || e.KeyCode == Keys.Enter) && (TryAgainBTN.Visible || ControlBox))
+            if ((TryAgainBTN.Visible || ControlBox) && (e.KeyCode == Keys.Escape || e.KeyCode == Keys.Enter))
                 TryAgainBTN.PerformClick();
         }
 
@@ -145,13 +142,17 @@ namespace Virtuoso.Miranda.Roamie.Forms
 
         private void SilentStatusIcon_MouseClick(object sender, MouseEventArgs e)
         {
-            ToggleVisibility(true);
+            ShowHide(true);
         }
 
-        private void ToggleVisibility(bool visible)
+        private void ShowHide(bool show)
         {
-            Opacity = visible ? 1D : 0;
-            SilentStatusIcon.Visible = !visible;
+            if (show)
+                Opacity = 1D;
+            else
+                Opacity = 0;
+
+            SilentStatusIcon.Visible = !show;
         }
 
         #endregion
@@ -162,7 +163,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
         {
             EnableControls(false);
 
-            ProgressMediator.ProgressChange += DisplayProgressChange;
+            GlobalEvents.ProgressChange += DisplayProgressChange;
             Worker.RunWorkerAsync();
         }
 
@@ -173,24 +174,24 @@ namespace Virtuoso.Miranda.Roamie.Forms
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            DisplayProgressChange(Resources.Text_UI_LogText_Initializing, (int)SignificantProgress.Running);
+            DisplayProgressChange(Resources.Text_UI_LogText_Initializing, (int)GlobalEvents.SignificantProgress.Running);
             e.Result = SyncOperator();
         }
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            switch ((SignificantProgress)e.ProgressPercentage)
+            switch ((GlobalEvents.SignificantProgress)e.ProgressPercentage)
             {
-                case SignificantProgress.Running:
+                case GlobalEvents.SignificantProgress.Running:
                     ProgressPBAR.Style = ProgressBarStyle.Marquee;
                     break;
-                case SignificantProgress.NoChange:
+                case GlobalEvents.SignificantProgress.NoChange:
                     break;
-                case SignificantProgress.Stopped:
+                case GlobalEvents.SignificantProgress.Stopped:
                     ProgressPBAR.Style = ProgressBarStyle.Continuous;
                     ProgressPBAR.Value = ProgressPBAR.Minimum;
                     break;
-                case SignificantProgress.Complete:
+                case GlobalEvents.SignificantProgress.Complete:
                     ProgressPBAR.Style = ProgressBarStyle.Continuous;
                     ProgressPBAR.Value = ProgressPBAR.Maximum;
                     break;
@@ -207,21 +208,21 @@ namespace Virtuoso.Miranda.Roamie.Forms
                     break;
             }
 
-            if (e.UserState == null) 
-                return;
+            if (e.UserState != null)
+            {
+                LogBuilder.Append((string)e.UserState + Environment.NewLine);
 
-            LogBuilder.Append((string)e.UserState + Environment.NewLine);
+                LogTBOX.Clear();
+                LogTBOX.AppendText(LogBuilder.ToString());
 
-            LogTBOX.Clear();
-            LogTBOX.AppendText(LogBuilder.ToString());
-
-            LogTBOX.ScrollToCaret();
-            Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceVerbose, e.UserState, RoamiePlugin.TraceCategory);
+                LogTBOX.ScrollToCaret();
+                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceVerbose, e.UserState, RoamiePlugin.TraceCategory);
+            }
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ProgressMediator.ProgressChange -= DisplayProgressChange;
+            GlobalEvents.ProgressChange -= DisplayProgressChange;
 
             if (e.Error == null)
             {
@@ -233,13 +234,13 @@ namespace Virtuoso.Miranda.Roamie.Forms
             else if ((Options & SyncOptions.IgnoreErrors) != SyncOptions.IgnoreErrors)
             {
                 Error = e.Error;
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, StringUtility.FormatExceptionMessage("Sync error: ", e.Error), RoamiePlugin.TraceCategory);
+                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, GlobalEvents.FormatExceptionMessage("Sync error: ", e.Error), RoamiePlugin.TraceCategory);
 
                 LogBuilder = new StringBuilder(50);
-                Worker_ProgressChanged(this, new ProgressChangedEventArgs((int)SignificantProgress.Complete, String.Format("{0}{1}{2}", Resources.Text_UI_LogText_SyncFailed, Environment.NewLine, e.Error.Message)));
+                Worker_ProgressChanged(this, new ProgressChangedEventArgs((int)GlobalEvents.SignificantProgress.Complete, String.Format("{0}{1}{2}", Resources.Text_UI_LogText_SyncFailed, Environment.NewLine, e.Error.Message)));
 
                 SystemSounds.Hand.Play();
-                ToggleVisibility(true);
+                ShowHide(true);
 
                 if (InvokeRequired)
                     Invoke(new InvokeDelegate(EnableControls), true);

@@ -20,17 +20,35 @@
 \***********************************************************************************/
 
 using System;
+using System.Collections.Generic;
+using System.Text;
+using Virtuoso.Miranda.Roamie.Native;
+using System.ComponentModel;
 using Virtuoso.Hyphen.Mini.Custom;
 using System.Runtime.InteropServices;
 using System.IO;
 using Virtuoso.Miranda.Plugins.Infrastructure;
+using System.Runtime.ConstrainedExecution;
+using System.Threading;
+using System.Reflection;
 using Virtuoso.Miranda.Roamie.Properties;
-using Microsoft.Win32.SafeHandles;
 
 namespace Virtuoso.Miranda.Roamie.Native
 {
-    internal sealed class ExternalDatabaseDriver : SafeHandleZeroOrMinusOneIsInvalid
+    internal sealed class ExternalDatabaseDriver : SafeHandle
     {
+        #region Fields
+
+        private delegate IntPtr DatabasePluginInfoPrototype(IntPtr reserved);
+
+        private DatabaseLink databaseLink;
+        private MirandaPluginInfoPrototype mirandaPluginInfo;
+        private MirandaPluginInterfacesPrototype mirandaPluginInterfaces;
+
+        private readonly bool IsEx;
+
+        #endregion
+
         #region Constants
 
         private const string DbXSearchPattern = "*.dbx";
@@ -39,42 +57,14 @@ namespace Virtuoso.Miranda.Roamie.Native
         private const string MirandaPluginInfoProc = "MirandaPluginInfo";
         private const string MirandaPluginInfoExProc = "MirandaPluginInfoEx";
         private const string MirandaPluginInterfacesProc = "MirandaPluginInterfaces";
-        private const string DatabasePluginInfoProc = "DatabasePluginInfo";
-
-        #endregion
-
-        #region Fields
-
-        private DatabaseLink databaseLink;
-
-        private readonly bool IsPostV07Build20Api;
-
-        #endregion
-
-        #region Properties
-
-        public DatabaseLink DatabaseLink
-        {
-            get
-            {
-                if (IsInvalid)
-                    throw new ObjectDisposedException("ExternalDatabaseDriver");
-
-                return databaseLink;
-            }
-        }
-
-        public MirandaPluginInfoPrototype MirandaPluginInfo { get; private set; }
-
-        public MirandaPluginInterfacesPrototype MirandaPluginInterfaces { get; private set; }
 
         #endregion
 
         #region .ctors & .dctors
 
-        private ExternalDatabaseDriver(bool isPostV07Build20Api) : base(true)
+        private ExternalDatabaseDriver(bool ex) : base(IntPtr.Zero, true)
         {
-            IsPostV07Build20Api = isPostV07Build20Api;
+            this.IsEx = ex;
             string driverPath = FindDriver();
 
             if (driverPath != null)
@@ -83,91 +73,129 @@ namespace Virtuoso.Miranda.Roamie.Native
                 throw new FileNotFoundException(Resources.ExceptionMsg_UnableToFindDbDriver);
         }
 
-        private static string FindDriver()
+        private string FindDriver()
         {
-            string[] paths = Directory.GetFiles(MirandaEnvironment.MirandaPluginsFolderPath, DbXSearchPattern,
-                                                SearchOption.TopDirectoryOnly);
+            string[] paths = Directory.GetFiles(new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName, DbXSearchPattern, SearchOption.TopDirectoryOnly); 
 
             if (paths.Length > 0)
                 return paths[0];
 
-            paths = Directory.GetFiles(MirandaEnvironment.MirandaPluginsFolderPath, DbSearchPattern,
-                                       SearchOption.TopDirectoryOnly);
+            paths = Directory.GetFiles(MirandaEnvironment.MirandaPluginsFolderPath, DbSearchPattern, SearchOption.TopDirectoryOnly);
 
-            return paths.Length > 0 ? paths[0] : null;
+            if (paths.Length > 0)
+                return paths[0];
+
+            return null;            
         }
 
         private void InitializeDriver(string path)
         {
             handle = NativeMethods.LoadLibrary(path);
 
-            if (handle == IntPtr.Zero)
+            if (handle != IntPtr.Zero)
+            {
+                ProbeDatabasePluginInfoExport();
+                ProbePluginInfoExports();
+                ProbeMirandaInterfacesExport();
+            }
+            else
                 throw new FileLoadException(path);
-            
-            ProbeDatabasePluginInfoExport();
-            ProbePluginInfoExports();
-            ProbeMirandaInterfacesExport();
         }
 
         private void ProbeMirandaInterfacesExport()
         {
-            if (!IsPostV07Build20Api)
+            if (!IsEx)
                 return;
 
             UIntPtr pProc = NativeMethods.GetProcAddress(handle, MirandaPluginInterfacesProc);
 
             if (pProc != UIntPtr.Zero)
-                MirandaPluginInterfaces = (MirandaPluginInterfacesPrototype)
-                    Marshal.GetDelegateForFunctionPointer(Translate.ToHandle(pProc),
-                                                          typeof (MirandaPluginInterfacesPrototype));
+                mirandaPluginInterfaces = (MirandaPluginInterfacesPrototype)Marshal.GetDelegateForFunctionPointer(Translate.ToHandle(pProc), typeof(MirandaPluginInterfacesPrototype));
             else
                 throw new MissingMethodException("MirandaPluginInterfaces");
         }
 
         private void ProbePluginInfoExports()
         {
-            UIntPtr pProc = NativeMethods.GetProcAddress(handle,
-                                                         IsPostV07Build20Api ? MirandaPluginInfoExProc : MirandaPluginInfoProc);
+            UIntPtr pProc = NativeMethods.GetProcAddress(handle, IsEx ? MirandaPluginInfoExProc : MirandaPluginInfoProc);
 
             if (pProc != UIntPtr.Zero)
-                MirandaPluginInfo = (MirandaPluginInfoPrototype)
-                    Marshal.GetDelegateForFunctionPointer(Translate.ToHandle(pProc), typeof (MirandaPluginInfoPrototype));
+                mirandaPluginInfo = (MirandaPluginInfoPrototype)Marshal.GetDelegateForFunctionPointer(Translate.ToHandle(pProc), typeof(MirandaPluginInfoPrototype));
             else
                 throw new MissingMethodException("MirandaPluginInfo[Ex]");
         }
 
         private void ProbeDatabasePluginInfoExport()
         {
-            UIntPtr pProc = NativeMethods.GetProcAddress(handle, DatabasePluginInfoProc);
+            UIntPtr pProc = NativeMethods.GetProcAddress(handle, "DatabasePluginInfo");
 
-            if (pProc == UIntPtr.Zero)
-                throw new MissingMethodException(DatabasePluginInfoProc);
+            if (pProc != UIntPtr.Zero)
+            {
+                DatabasePluginInfoPrototype proc = (DatabasePluginInfoPrototype)Marshal.GetDelegateForFunctionPointer(Translate.ToHandle(pProc), typeof(DatabasePluginInfoPrototype));
+                IntPtr pLink = proc(IntPtr.Zero);
 
-            DatabasePluginInfoPrototype proc = (DatabasePluginInfoPrototype)
-                Marshal.GetDelegateForFunctionPointer(Translate.ToHandle(pProc), typeof (DatabasePluginInfoPrototype));
-
-            IntPtr pDbLink = proc(IntPtr.Zero);
-
-            if (pDbLink != IntPtr.Zero)
-                databaseLink = (DatabaseLink) Marshal.PtrToStructure(pDbLink, typeof (DatabaseLink));
+                if (pLink != IntPtr.Zero)
+                    databaseLink = (DatabaseLink)Marshal.PtrToStructure(pLink, typeof(DatabaseLink));
+                else
+                    throw new ArgumentException("DatabasePluginInfo");
+            }
             else
-                throw new ArgumentException(DatabasePluginInfoProc);
+                throw new MissingMethodException("DatabasePluginInfo");
         }
 
-        public static ExternalDatabaseDriver Load(bool isPostV07Build20Api)
+        public static ExternalDatabaseDriver Load(bool ex)
         {
-            return new ExternalDatabaseDriver(isPostV07Build20Api);
+            return new ExternalDatabaseDriver(ex);
         }
 
-        #endregion      
+        #endregion        
+
+        #region Properties
+
+        public DatabaseLink DatabaseLink
+        {
+            get
+            {
+                if (IsInvalid)                     
+                    throw new ObjectDisposedException("ExternalDatabaseDriver");
+
+                return this.databaseLink;
+            }
+        }
+
+        public MirandaPluginInfoPrototype MirandaPluginInfo
+        {
+            get
+            {
+                return mirandaPluginInfo;
+            }
+        }
+
+        public MirandaPluginInterfacesPrototype MirandaPluginInterfaces
+        {
+            get
+            {
+                return mirandaPluginInterfaces;
+            }
+        }
+
+        #endregion
 
         #region SafeHandle overrides
+
+        public override bool IsInvalid
+        {
+            get { return handle == IntPtr.Zero; }
+        }
 
         protected override bool ReleaseHandle()
         {
             try
             {
-                return !IsInvalid && NativeMethods.FreeLibrary(handle);
+                if (!IsInvalid)
+                    return NativeMethods.FreeLibrary(handle);
+                else
+                    return false;
             }
             finally
             {

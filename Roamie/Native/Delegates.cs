@@ -20,6 +20,8 @@
 \***********************************************************************************/
 
 using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Runtime.InteropServices;
 
 namespace Virtuoso.Miranda.Roamie.Native
@@ -29,7 +31,4 @@ namespace Virtuoso.Miranda.Roamie.Native
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate IntPtr MirandaPluginInterfacesPrototype();
-
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    internal delegate IntPtr DatabasePluginInfoPrototype(IntPtr reserved);
 }
