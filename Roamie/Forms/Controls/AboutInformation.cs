@@ -51,15 +51,22 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
         {
             if (firstTime)
             {
+                Assembly assembly = Assembly.GetExecutingAssembly();
                 string newLine = Environment.NewLine;
 
-                VersionLABEL.Text += newLine + String.Format("v{0}", Assembly.GetExecutingAssembly().GetName().Version);
+                VersionLABEL.Text = ((AssemblyCopyrightAttribute)
+                     assembly.GetCustomAttributes(typeof (AssemblyCopyrightAttribute), false)[0]).Copyright;
+                VersionLABEL.Text += newLine + String.Format("v{0}", assembly.GetName().Version);
+
+                HyphenVersionLABEL.Text = ((AssemblyCopyrightAttribute)
+                     typeof (MirandaEnvironment).Assembly.GetCustomAttributes(typeof (AssemblyCopyrightAttribute), false)[0]).Copyright;
                 HyphenVersionLABEL.Text += newLine + String.Format("v{0}", MirandaEnvironment.HyphenVersion);
                 FxVersionLABEL.Text += newLine + String.Format("v{0}", Environment.Version);
             }
 
             return false;
         }
+
         private void VirtuosoLINK_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try

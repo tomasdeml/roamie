@@ -43,7 +43,7 @@ using Virtuoso.Miranda.Roamie.Forms.Controls;
 
 namespace Virtuoso.Miranda.Roamie
 {
-    [LoaderOptions("0.8.2009.201")]
+    [LoaderOptions("0.8.3000.909")]
     internal sealed class RoamiePlugin : DatabaseDriver, IConfigurablePlugin
     {
         #region Plugin infos
@@ -70,7 +70,7 @@ namespace Virtuoso.Miranda.Roamie
 
         public override string Description
         {
-            get { return "Database roaming proxy."; }
+            get { return "Profile synchronization plugin."; }
         }
 
         public override bool HasOptions
@@ -80,7 +80,7 @@ namespace Virtuoso.Miranda.Roamie
 
         public override Uri HomePage
         {
-            get { return new Uri("http://virtuosity.aspweb.cz/Miranda/Plugins/Roamie"); }
+            get { return new Uri("http://virtuosity.aspone.cz/MirandaDev/Roamie"); }
         }
 
         public override string Name
