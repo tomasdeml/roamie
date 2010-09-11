@@ -45,7 +45,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             // categoryItemHeader1
             // 
             this.categoryItemHeader1.BackColor = System.Drawing.Color.Transparent;
-            this.categoryItemHeader1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.categoryItemHeader1.Color = System.Drawing.Color.SkyBlue;
             this.categoryItemHeader1.Dock = System.Windows.Forms.DockStyle.Top;
             this.categoryItemHeader1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.categoryItemHeader1.HeaderFont = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -60,7 +60,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             // categoryItemSection1
             // 
             this.categoryItemSection1.BackColor = System.Drawing.Color.Transparent;
-            this.categoryItemSection1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.categoryItemSection1.Color = System.Drawing.Color.LightSteelBlue;
             this.categoryItemSection1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.categoryItemSection1.ForeColor = System.Drawing.Color.Black;
             this.categoryItemSection1.Location = new System.Drawing.Point(10, 46);
@@ -88,22 +88,20 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             this.HyphenVersionLABEL.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.HyphenVersionLABEL.Location = new System.Drawing.Point(75, 141);
             this.HyphenVersionLABEL.Name = "HyphenVersionLABEL";
-            this.HyphenVersionLABEL.Size = new System.Drawing.Size(118, 13);
+            this.HyphenVersionLABEL.Size = new System.Drawing.Size(102, 13);
             this.HyphenVersionLABEL.TabIndex = 5;
-            this.HyphenVersionLABEL.Text = "© 2006-2007, virtuoso";
+            this.HyphenVersionLABEL.Text = "(Hyphen Copyright)";
             // 
             // VersionLABEL
             // 
             this.VersionLABEL.AutoSize = true;
             this.VersionLABEL.BackColor = System.Drawing.Color.Transparent;
-            this.VersionLABEL.LinkArea = new System.Windows.Forms.LinkArea(13, 8);
+            this.VersionLABEL.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
             this.VersionLABEL.Location = new System.Drawing.Point(78, 88);
             this.VersionLABEL.Name = "VersionLABEL";
-            this.VersionLABEL.Size = new System.Drawing.Size(115, 18);
+            this.VersionLABEL.Size = new System.Drawing.Size(110, 13);
             this.VersionLABEL.TabIndex = 3;
-            this.VersionLABEL.TabStop = true;
-            this.VersionLABEL.Text = "© 2006-2007, virtuoso";
-            this.VersionLABEL.UseCompatibleTextRendering = true;
+            this.VersionLABEL.Text = "(Assembly Copyright)";
             this.VersionLABEL.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.VirtuosoLINK_LinkClicked);
             // 
             // label6
@@ -125,9 +123,9 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             this.label2.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.label2.Location = new System.Drawing.Point(75, 125);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(134, 13);
+            this.label2.Size = new System.Drawing.Size(119, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Using Virtuoso.Hyphen";
+            this.label2.Text = "Powered by Hyphen";
             // 
             // label1
             // 
@@ -136,16 +134,16 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             this.label1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.label1.Location = new System.Drawing.Point(75, 72);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(246, 13);
+            this.label1.Size = new System.Drawing.Size(222, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Roamie - a database proxy for Miranda IM";
+            this.label1.Text = "Miranda profile synchronization plugin";
             // 
             // IconPBOX
             // 
-            this.IconPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_48x48_Roamie;
+            this.IconPBOX.Image = ((System.Drawing.Image)(resources.GetObject("IconPBOX.Image")));
             this.IconPBOX.Location = new System.Drawing.Point(21, 72);
             this.IconPBOX.Name = "IconPBOX";
-            this.IconPBOX.Size = new System.Drawing.Size(46, 47);
+            this.IconPBOX.Size = new System.Drawing.Size(48, 48);
             this.IconPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.IconPBOX.TabIndex = 9;
             this.IconPBOX.TabStop = false;

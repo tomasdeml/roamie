@@ -445,9 +445,6 @@
   <data name="Balloon_Title_DeltaWarning" xml:space="preserve">
     <value>Delta synchronization warning</value>
   </data>
-  <data name="Image_48x48_Roamie" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icon 162_48x48.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Text_UI_LogText_Uploading" xml:space="preserve">
     <value>Uploading...</value>
   </data>
@@ -564,5 +561,20 @@
   </data>
   <data name="MsgBox_Title_InvalidMasterKey" xml:space="preserve">
     <value>Invalid master key</value>
+  </data>
+  <data name="Image_24x24_Computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284199740_computer.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_24x24_Create" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284199993_001_01.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_24x24_Download" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284197730_001_52.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_24x24_Web" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284198427_Globe1.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_48x48_Roamie" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284196867_Butterfly.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

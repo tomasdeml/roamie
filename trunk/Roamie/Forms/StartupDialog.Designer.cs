@@ -63,15 +63,15 @@
             this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label2.Location = new System.Drawing.Point(9, 87);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(147, 13);
+            this.label2.Size = new System.Drawing.Size(262, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "What do you want to do?";
+            this.label2.Text = "Where do you want to load your profile from?";
             // 
             // OkBTN
             // 
             this.OkBTN.Enabled = false;
             this.OkBTN.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OkBTN.Location = new System.Drawing.Point(11, 339);
+            this.OkBTN.Location = new System.Drawing.Point(12, 342);
             this.OkBTN.Name = "OkBTN";
             this.OkBTN.Size = new System.Drawing.Size(75, 23);
             this.OkBTN.TabIndex = 0;
@@ -81,33 +81,33 @@
             // 
             // DownloadPBOX
             // 
-            this.DownloadPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_32x32_Web;
+            this.DownloadPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_24x24_Web;
             this.DownloadPBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DownloadPBOX.Location = new System.Drawing.Point(22, 115);
+            this.DownloadPBOX.Location = new System.Drawing.Point(28, 112);
             this.DownloadPBOX.Name = "DownloadPBOX";
-            this.DownloadPBOX.Size = new System.Drawing.Size(29, 32);
+            this.DownloadPBOX.Size = new System.Drawing.Size(24, 24);
             this.DownloadPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.DownloadPBOX.TabIndex = 16;
             this.DownloadPBOX.TabStop = false;
             // 
             // LocalPBOX
             // 
-            this.LocalPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_32x32_Local;
+            this.LocalPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_24x24_Computer;
             this.LocalPBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LocalPBOX.Location = new System.Drawing.Point(22, 201);
+            this.LocalPBOX.Location = new System.Drawing.Point(27, 200);
             this.LocalPBOX.Name = "LocalPBOX";
-            this.LocalPBOX.Size = new System.Drawing.Size(28, 26);
+            this.LocalPBOX.Size = new System.Drawing.Size(24, 24);
             this.LocalPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.LocalPBOX.TabIndex = 16;
             this.LocalPBOX.TabStop = false;
             // 
             // NewPBOX
             // 
-            this.NewPBOX.Image = ((System.Drawing.Image)(resources.GetObject("NewPBOX.Image")));
+            this.NewPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_24x24_Create;
             this.NewPBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.NewPBOX.Location = new System.Drawing.Point(22, 268);
+            this.NewPBOX.Location = new System.Drawing.Point(27, 266);
             this.NewPBOX.Name = "NewPBOX";
-            this.NewPBOX.Size = new System.Drawing.Size(32, 32);
+            this.NewPBOX.Size = new System.Drawing.Size(24, 24);
             this.NewPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.NewPBOX.TabIndex = 16;
             this.NewPBOX.TabStop = false;
@@ -119,9 +119,9 @@
             this.UseLocalRBTN.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.UseLocalRBTN.Location = new System.Drawing.Point(68, 201);
             this.UseLocalRBTN.Name = "UseLocalRBTN";
-            this.UseLocalRBTN.Size = new System.Drawing.Size(131, 17);
+            this.UseLocalRBTN.Size = new System.Drawing.Size(106, 17);
             this.UseLocalRBTN.TabIndex = 6;
-            this.UseLocalRBTN.Text = "Use local database";
+            this.UseLocalRBTN.Text = "This computer";
             this.UseLocalRBTN.UseVisualStyleBackColor = true;
             this.UseLocalRBTN.CheckedChanged += new System.EventHandler(this.RadioBtn_Checked);
             // 
@@ -134,9 +134,9 @@
             this.RoamNewOnExitCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.RoamNewOnExitCHBOX.Location = new System.Drawing.Point(88, 294);
             this.RoamNewOnExitCHBOX.Name = "RoamNewOnExitCHBOX";
-            this.RoamNewOnExitCHBOX.Size = new System.Drawing.Size(167, 17);
+            this.RoamNewOnExitCHBOX.Size = new System.Drawing.Size(172, 17);
             this.RoamNewOnExitCHBOX.TabIndex = 9;
-            this.RoamNewOnExitCHBOX.Text = "On exit, upload the database";
+            this.RoamNewOnExitCHBOX.Text = "Synchronize the profile on exit";
             this.RoamNewOnExitCHBOX.UseVisualStyleBackColor = true;
             // 
             // RoamLocalOnExitCHBOX
@@ -147,9 +147,9 @@
             this.RoamLocalOnExitCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.RoamLocalOnExitCHBOX.Location = new System.Drawing.Point(88, 227);
             this.RoamLocalOnExitCHBOX.Name = "RoamLocalOnExitCHBOX";
-            this.RoamLocalOnExitCHBOX.Size = new System.Drawing.Size(167, 17);
+            this.RoamLocalOnExitCHBOX.Size = new System.Drawing.Size(172, 17);
             this.RoamLocalOnExitCHBOX.TabIndex = 7;
-            this.RoamLocalOnExitCHBOX.Text = "On exit, upload the database";
+            this.RoamLocalOnExitCHBOX.Text = "Synchronize the profile on exit";
             this.RoamLocalOnExitCHBOX.UseVisualStyleBackColor = true;
             // 
             // SandboxModeCHBOX
@@ -160,9 +160,9 @@
             this.SandboxModeCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.SandboxModeCHBOX.Location = new System.Drawing.Point(88, 167);
             this.SandboxModeCHBOX.Name = "SandboxModeCHBOX";
-            this.SandboxModeCHBOX.Size = new System.Drawing.Size(254, 17);
+            this.SandboxModeCHBOX.Size = new System.Drawing.Size(275, 17);
             this.SandboxModeCHBOX.TabIndex = 5;
-            this.SandboxModeCHBOX.Text = "On exit, discard changes made to the database";
+            this.SandboxModeCHBOX.Text = "Read only profile (changes will not be synchronized)";
             this.SandboxModeCHBOX.UseVisualStyleBackColor = false;
             // 
             // PublicComputerCHBOX
@@ -174,9 +174,9 @@
             this.PublicComputerCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.PublicComputerCHBOX.Location = new System.Drawing.Point(88, 141);
             this.PublicComputerCHBOX.Name = "PublicComputerCHBOX";
-            this.PublicComputerCHBOX.Size = new System.Drawing.Size(288, 17);
+            this.PublicComputerCHBOX.Size = new System.Drawing.Size(142, 17);
             this.PublicComputerCHBOX.TabIndex = 4;
-            this.PublicComputerCHBOX.Text = "This is a public computer, remove the database on exit";
+            this.PublicComputerCHBOX.Text = "This is a public computer";
             this.PublicComputerCHBOX.UseVisualStyleBackColor = true;
             // 
             // CreateNewRBTN
@@ -186,9 +186,9 @@
             this.CreateNewRBTN.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.CreateNewRBTN.Location = new System.Drawing.Point(68, 268);
             this.CreateNewRBTN.Name = "CreateNewRBTN";
-            this.CreateNewRBTN.Size = new System.Drawing.Size(155, 17);
+            this.CreateNewRBTN.Size = new System.Drawing.Size(87, 17);
             this.CreateNewRBTN.TabIndex = 8;
-            this.CreateNewRBTN.Text = "Create a new database";
+            this.CreateNewRBTN.Text = "New profile";
             this.CreateNewRBTN.UseVisualStyleBackColor = true;
             this.CreateNewRBTN.CheckedChanged += new System.EventHandler(this.RadioBtn_Checked);
             // 
@@ -199,9 +199,9 @@
             this.DownloadExistingRBTN.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.DownloadExistingRBTN.Location = new System.Drawing.Point(68, 115);
             this.DownloadExistingRBTN.Name = "DownloadExistingRBTN";
-            this.DownloadExistingRBTN.Size = new System.Drawing.Size(201, 17);
+            this.DownloadExistingRBTN.Size = new System.Drawing.Size(206, 17);
             this.DownloadExistingRBTN.TabIndex = 3;
-            this.DownloadExistingRBTN.Text = "Download an existing database";
+            this.DownloadExistingRBTN.Text = "Web or another remote location";
             this.DownloadExistingRBTN.UseVisualStyleBackColor = true;
             this.DownloadExistingRBTN.CheckedChanged += new System.EventHandler(this.RadioBtn_Checked);
             // 
@@ -223,7 +223,7 @@
             this.gradientPanel1.Controls.Add(this.pictureBox2);
             this.gradientPanel1.Controls.Add(this.label1);
             this.gradientPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gradientPanel1.GradientColor = System.Drawing.Color.YellowGreen;
+            this.gradientPanel1.GradientColor = System.Drawing.Color.Khaki;
             this.gradientPanel1.Location = new System.Drawing.Point(0, 0);
             this.gradientPanel1.Name = "gradientPanel1";
             this.gradientPanel1.Rotation = -90F;
@@ -235,8 +235,8 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
-            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Location = new System.Drawing.Point(66, 11);
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(75, 13);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 0;
@@ -245,10 +245,10 @@
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_48x48_Roamie;
-            this.pictureBox2.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(16, 12);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(46, 47);
+            this.pictureBox2.Size = new System.Drawing.Size(48, 48);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox2.TabIndex = 21;
             this.pictureBox2.TabStop = false;
@@ -256,13 +256,14 @@
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(66, 29);
+            this.label1.Location = new System.Drawing.Point(75, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(354, 35);
+            this.label1.Size = new System.Drawing.Size(339, 35);
             this.label1.TabIndex = 1;
-            this.label1.Text = "To begin your session, choose an option below and click the Continue button.";
+            this.label1.Text = "Begin your session by selecting a Miranda profile source.\r\nRoamie will retrieve a" +
+                "nd load the profile for you.";
             // 
             // OptionsLINK
             // 
@@ -304,7 +305,7 @@
             this.MinimizeBox = false;
             this.Name = "StartupDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Welcome - ";
+            this.Text = "Select Miranda profile source - ";
             this.Load += new System.EventHandler(this.StartupDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DownloadPBOX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LocalPBOX)).EndInit();
