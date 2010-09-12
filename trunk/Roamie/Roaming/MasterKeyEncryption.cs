@@ -75,7 +75,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming
 
         private bool TryLoadKey()
         {
-            Key = MasterKeyCache.Load<MasterKeyCache>().Key;
+            Key = PluginConfiguration.Load<MasterKeyCache>().Key;
             return !String.IsNullOrEmpty(Key);
         }
 

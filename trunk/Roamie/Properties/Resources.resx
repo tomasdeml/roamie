@@ -535,9 +535,6 @@
   <data name="Information_Caption_YourChangesWiilBeLost" xml:space="preserve">
     <value>Your changes will be lost</value>
   </data>
-  <data name="Icon 215_48x48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icon 215_48x48.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="MsgBox_Text_InvalidMasterKey" xml:space="preserve">
     <value>The password you have entered is invalid, Roamie cannot be started.</value>
   </data>
@@ -579,5 +576,11 @@
   </data>
   <data name="Image_48x48_Profile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284281052_user_info.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Header_Golden" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StartupHeaderOK.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_48x48_Lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284314619_decrypted.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
