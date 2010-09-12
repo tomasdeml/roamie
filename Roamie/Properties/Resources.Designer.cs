@@ -463,16 +463,16 @@ namespace Virtuoso.Miranda.Roamie.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap Icon_193 {
+        internal static System.Drawing.Bitmap Header_Golden {
             get {
-                object obj = ResourceManager.GetObject("Icon_193", resourceCulture);
+                object obj = ResourceManager.GetObject("Header_Golden", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap Icon_215_48x48 {
+        internal static System.Drawing.Bitmap Icon_193 {
             get {
-                object obj = ResourceManager.GetObject("Icon 215_48x48", resourceCulture);
+                object obj = ResourceManager.GetObject("Icon_193", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -634,6 +634,13 @@ namespace Virtuoso.Miranda.Roamie.Properties {
         internal static System.Drawing.Bitmap Image_48x48_Edit {
             get {
                 object obj = ResourceManager.GetObject("Image_48x48_Edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Image_48x48_Lock {
+            get {
+                object obj = ResourceManager.GetObject("Image_48x48_Lock", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

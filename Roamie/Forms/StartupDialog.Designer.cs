@@ -266,7 +266,7 @@
             // 
             // gradientPanel1
             // 
-            this.gradientPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gradientPanel1.BackgroundImage")));
+            this.gradientPanel1.BackgroundImage = global::Virtuoso.Miranda.Roamie.Properties.Resources.Header_Golden;
             this.gradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.gradientPanel1.Controls.Add(this.label3);
             this.gradientPanel1.Controls.Add(this.pictureBox2);
@@ -284,6 +284,7 @@
             this.AcceptButton = this.OkBTN;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(432, 377);
             this.Controls.Add(this.OptionsLINK);
             this.Controls.Add(this.SandboxModeCHBOX);

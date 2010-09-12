@@ -33,12 +33,12 @@ namespace Virtuoso.Miranda.Roamie.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfileSelectionDialog));
             this.OkBTN = new System.Windows.Forms.Button();
             this.CancelBTN = new System.Windows.Forms.Button();
-            this.ProfilesLVIEW = new Virtuoso.Miranda.Roamie.Forms.Controls.ProfilesListView();
             this.gradientPanel1 = new Virtuoso.Miranda.Plugins.Forms.Controls.GradientPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.IconPBOX = new System.Windows.Forms.PictureBox();
             this.ManageProfilesLBTN = new System.Windows.Forms.LinkLabel();
+            this.ProfilesLVIEW = new Virtuoso.Miranda.Roamie.Forms.Controls.ProfilesListView();
             this.gradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IconPBOX)).BeginInit();
             this.SuspendLayout();
@@ -67,23 +67,6 @@ namespace Virtuoso.Miranda.Roamie.Forms
             this.CancelBTN.TabIndex = 1;
             this.CancelBTN.Text = "Cancel";
             this.CancelBTN.UseVisualStyleBackColor = true;
-            // 
-            // ProfilesLVIEW
-            // 
-            this.ProfilesLVIEW.DoNotMaskNewProfileItem = true;
-            this.ProfilesLVIEW.HideSelection = false;
-            this.ProfilesLVIEW.Location = new System.Drawing.Point(16, 92);
-            this.ProfilesLVIEW.MultiSelect = false;
-            this.ProfilesLVIEW.Name = "ProfilesLVIEW";
-            this.ProfilesLVIEW.ShowInfoTips = true;
-            this.ProfilesLVIEW.Size = new System.Drawing.Size(390, 200);
-            this.ProfilesLVIEW.TabIndex = 3;
-            this.ProfilesLVIEW.TileSize = new System.Drawing.Size(300, 40);
-            this.ProfilesLVIEW.UseCompatibleStateImageBehavior = false;
-            this.ProfilesLVIEW.View = System.Windows.Forms.View.Tile;
-            this.ProfilesLVIEW.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ProfilesLVIEW_MouseDoubleClick);
-            this.ProfilesLVIEW.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.ProfilesLVIEW_ItemSelectionChanged);
-            this.ProfilesLVIEW.NewProfileRequested += new System.EventHandler(this.ProfilesLVIEW_NewProfileRequested);
             // 
             // gradientPanel1
             // 
@@ -119,7 +102,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label1.Location = new System.Drawing.Point(108, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(297, 34);
+            this.label1.Size = new System.Drawing.Size(312, 34);
             this.label1.TabIndex = 0;
             this.label1.Text = "Roamie will synchronize this computer with the selected roaming profile.";
             // 
@@ -148,6 +131,23 @@ namespace Virtuoso.Miranda.Roamie.Forms
             this.ManageProfilesLBTN.TabStop = true;
             this.ManageProfilesLBTN.Text = "Manage profiles...";
             this.ManageProfilesLBTN.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ManageProfilesLBTN_LinkClicked);
+            // 
+            // ProfilesLVIEW
+            // 
+            this.ProfilesLVIEW.DoNotMaskNewProfileItem = true;
+            this.ProfilesLVIEW.HideSelection = false;
+            this.ProfilesLVIEW.Location = new System.Drawing.Point(16, 92);
+            this.ProfilesLVIEW.MultiSelect = false;
+            this.ProfilesLVIEW.Name = "ProfilesLVIEW";
+            this.ProfilesLVIEW.ShowInfoTips = true;
+            this.ProfilesLVIEW.Size = new System.Drawing.Size(390, 200);
+            this.ProfilesLVIEW.TabIndex = 3;
+            this.ProfilesLVIEW.TileSize = new System.Drawing.Size(300, 40);
+            this.ProfilesLVIEW.UseCompatibleStateImageBehavior = false;
+            this.ProfilesLVIEW.View = System.Windows.Forms.View.Tile;
+            this.ProfilesLVIEW.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ProfilesLVIEW_MouseDoubleClick);
+            this.ProfilesLVIEW.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.ProfilesLVIEW_ItemSelectionChanged);
+            this.ProfilesLVIEW.NewProfileRequested += new System.EventHandler(this.ProfilesLVIEW_NewProfileRequested);
             // 
             // ProfileSelectionDialog
             // 
