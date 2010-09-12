@@ -565,9 +565,6 @@
   <data name="Image_48x48_Woman" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284278596_user4.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Watermark_Play_256x256" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Watermark_Play_256x256.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Image_32x32_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284281919_check.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

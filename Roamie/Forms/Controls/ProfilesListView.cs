@@ -84,7 +84,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             ImageList.ImageSize = new Size(32, 32);
             ImageList.Images.Add(ProfileIconName, Resources.Image_32x32_Profile);
             ImageList.Images.Add(NewProfileIconName, Resources.Image_32x32_Add);
-            ImageList.Images.Add(ActiveProfileIconName, Resources.Image_32x32_Running);
+            ImageList.Images.Add(ActiveProfileIconName, Resources.Image_32x32_Active);
             LargeImageList = ImageList;
         }
 
