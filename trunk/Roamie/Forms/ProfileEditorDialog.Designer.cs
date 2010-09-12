@@ -37,7 +37,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
             // categoryItemHeader1
             // 
             this.categoryItemHeader1.BackColor = System.Drawing.Color.Transparent;
-            this.categoryItemHeader1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.categoryItemHeader1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(181)))), ((int)(((byte)(0)))));
             this.categoryItemHeader1.Dock = System.Windows.Forms.DockStyle.Top;
             this.categoryItemHeader1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.categoryItemHeader1.HeaderFont = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -76,7 +76,6 @@ namespace Virtuoso.Miranda.Roamie.Forms
             this.Controls.Add(this.ProfileEditor);
             this.Font = new System.Drawing.Font("Tahoma", 8F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ProfileEditorDialog";

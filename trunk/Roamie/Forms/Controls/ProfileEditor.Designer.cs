@@ -73,7 +73,7 @@
             // 
             this.RemoteAddressTBOX.BannerFont = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.RemoteAddressTBOX.BannerForeColor = System.Drawing.SystemColors.GrayText;
-            this.RemoteAddressTBOX.BannerText = "ftp://my.com/dir/database.dat";
+            this.RemoteAddressTBOX.BannerText = "Example: ftp://my.com/dir/database.dat";
             this.RemoteAddressTBOX.FocusSelect = true;
             resources.ApplyResources(this.RemoteAddressTBOX, "RemoteAddressTBOX");
             this.RemoteAddressTBOX.Name = "RemoteAddressTBOX";
@@ -83,7 +83,7 @@
             // 
             this.DescriptionTBOX.BannerFont = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.DescriptionTBOX.BannerForeColor = System.Drawing.SystemColors.GrayText;
-            this.DescriptionTBOX.BannerText = "Type a profile description";
+            this.DescriptionTBOX.BannerText = "Enter a meaningful description...";
             this.DescriptionTBOX.FocusSelect = true;
             resources.ApplyResources(this.DescriptionTBOX, "DescriptionTBOX");
             this.DescriptionTBOX.Name = "DescriptionTBOX";
@@ -125,7 +125,7 @@
             // 
             this.ProfileNameTBOX.BannerFont = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.ProfileNameTBOX.BannerForeColor = System.Drawing.SystemColors.GrayText;
-            this.ProfileNameTBOX.BannerText = "Type a profile name";
+            this.ProfileNameTBOX.BannerText = "Enter a unique name...";
             this.ProfileNameTBOX.FocusSelect = true;
             resources.ApplyResources(this.ProfileNameTBOX, "ProfileNameTBOX");
             this.ProfileNameTBOX.Name = "ProfileNameTBOX";
@@ -205,7 +205,7 @@
             this.gradientPanel1.Controls.Add(this.TestBTN);
             this.gradientPanel1.Controls.Add(this.ActionBTN);
             resources.ApplyResources(this.gradientPanel1, "gradientPanel1");
-            this.gradientPanel1.GradientColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(255)))));
+            this.gradientPanel1.GradientColor = System.Drawing.Color.Transparent;
             this.gradientPanel1.Name = "gradientPanel1";
             this.gradientPanel1.Rotation = 90F;
             // 

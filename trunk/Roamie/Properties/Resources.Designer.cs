@@ -1356,13 +1356,6 @@ namespace Virtuoso.Miranda.Roamie.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap Watermark_Play_256x256 {
-            get {
-                object obj = ResourceManager.GetObject("Watermark_Play_256x256", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap Watermark_Profiles {
             get {
                 object obj = ResourceManager.GetObject("Watermark_Profiles", resourceCulture);

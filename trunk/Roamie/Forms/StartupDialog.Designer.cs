@@ -234,7 +234,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(109, 33);
+            this.label1.Location = new System.Drawing.Point(108, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(288, 35);
             this.label1.TabIndex = 1;
@@ -256,11 +256,11 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            this.label3.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(109, 17);
+            this.label3.Location = new System.Drawing.Point(108, 12);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 13);
+            this.label3.Size = new System.Drawing.Size(88, 24);
             this.label3.TabIndex = 0;
             this.label3.Text = "Welcome";
             // 
