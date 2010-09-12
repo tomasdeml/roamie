@@ -62,10 +62,10 @@
             // pictureBox2
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Watermark_Running;
-            this.pictureBox2.Location = new System.Drawing.Point(276, 15);
+            this.pictureBox2.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Watermark_Play_256x256;
+            this.pictureBox2.Location = new System.Drawing.Point(225, -45);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(205, 196);
+            this.pictureBox2.Size = new System.Drawing.Size(256, 256);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
@@ -134,7 +134,7 @@
             this.MinimizeBox = false;
             this.Name = "SyncDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Database synchronization";
+            this.Text = "Profile synchronization";
             this.Shown += new System.EventHandler(this.SyncDialog_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SyncDialog_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

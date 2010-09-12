@@ -56,7 +56,7 @@ namespace Virtuoso.Miranda.Roamie
 
         public override long Length
         {
-            get { return CustomLength.GetValueOrDefault(BaseStream.Length); }
+            get { return CustomLength == null ? BaseStream.Length : CustomLength.Value; }
         }
 
         public override long Position
