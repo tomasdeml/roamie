@@ -42,17 +42,17 @@
             this.CreateNewRBTN = new System.Windows.Forms.RadioButton();
             this.DownloadExistingRBTN = new System.Windows.Forms.RadioButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.gradientPanel1 = new Virtuoso.Miranda.Plugins.Forms.Controls.GradientPanel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.OptionsLINK = new System.Windows.Forms.LinkLabel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.gradientPanel1 = new Virtuoso.Miranda.Plugins.Forms.Controls.GradientPanel();
             ((System.ComponentModel.ISupportInitialize)(this.DownloadPBOX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LocalPBOX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NewPBOX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.gradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.gradientPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
@@ -61,7 +61,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(9, 87);
+            this.label2.Location = new System.Drawing.Point(9, 98);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(262, 13);
             this.label2.TabIndex = 2;
@@ -83,7 +83,7 @@
             // 
             this.DownloadPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_24x24_Web;
             this.DownloadPBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DownloadPBOX.Location = new System.Drawing.Point(28, 112);
+            this.DownloadPBOX.Location = new System.Drawing.Point(28, 123);
             this.DownloadPBOX.Name = "DownloadPBOX";
             this.DownloadPBOX.Size = new System.Drawing.Size(24, 24);
             this.DownloadPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -94,7 +94,7 @@
             // 
             this.LocalPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_24x24_Computer;
             this.LocalPBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LocalPBOX.Location = new System.Drawing.Point(27, 200);
+            this.LocalPBOX.Location = new System.Drawing.Point(27, 211);
             this.LocalPBOX.Name = "LocalPBOX";
             this.LocalPBOX.Size = new System.Drawing.Size(24, 24);
             this.LocalPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -103,9 +103,9 @@
             // 
             // NewPBOX
             // 
-            this.NewPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_24x24_Create;
+            this.NewPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_24x24_Add;
             this.NewPBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.NewPBOX.Location = new System.Drawing.Point(27, 266);
+            this.NewPBOX.Location = new System.Drawing.Point(27, 277);
             this.NewPBOX.Name = "NewPBOX";
             this.NewPBOX.Size = new System.Drawing.Size(24, 24);
             this.NewPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -117,7 +117,7 @@
             this.UseLocalRBTN.AutoSize = true;
             this.UseLocalRBTN.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.UseLocalRBTN.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.UseLocalRBTN.Location = new System.Drawing.Point(68, 201);
+            this.UseLocalRBTN.Location = new System.Drawing.Point(68, 212);
             this.UseLocalRBTN.Name = "UseLocalRBTN";
             this.UseLocalRBTN.Size = new System.Drawing.Size(106, 17);
             this.UseLocalRBTN.TabIndex = 6;
@@ -132,11 +132,11 @@
             this.RoamNewOnExitCHBOX.CheckState = System.Windows.Forms.CheckState.Checked;
             this.RoamNewOnExitCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Miranda.Roamie.Properties.Settings.Default, "CreateNewDb_RoamOnExit_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.RoamNewOnExitCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.RoamNewOnExitCHBOX.Location = new System.Drawing.Point(88, 294);
+            this.RoamNewOnExitCHBOX.Location = new System.Drawing.Point(88, 305);
             this.RoamNewOnExitCHBOX.Name = "RoamNewOnExitCHBOX";
-            this.RoamNewOnExitCHBOX.Size = new System.Drawing.Size(172, 17);
+            this.RoamNewOnExitCHBOX.Size = new System.Drawing.Size(120, 17);
             this.RoamNewOnExitCHBOX.TabIndex = 9;
-            this.RoamNewOnExitCHBOX.Text = "Synchronize the profile on exit";
+            this.RoamNewOnExitCHBOX.Text = "Synchronize on exit";
             this.RoamNewOnExitCHBOX.UseVisualStyleBackColor = true;
             // 
             // RoamLocalOnExitCHBOX
@@ -145,11 +145,11 @@
             this.RoamLocalOnExitCHBOX.Checked = global::Virtuoso.Miranda.Roamie.Properties.Settings.Default.UseLocalDb_RoamOnExit_Checked;
             this.RoamLocalOnExitCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Miranda.Roamie.Properties.Settings.Default, "UseLocalDb_RoamOnExit_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.RoamLocalOnExitCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.RoamLocalOnExitCHBOX.Location = new System.Drawing.Point(88, 227);
+            this.RoamLocalOnExitCHBOX.Location = new System.Drawing.Point(88, 238);
             this.RoamLocalOnExitCHBOX.Name = "RoamLocalOnExitCHBOX";
-            this.RoamLocalOnExitCHBOX.Size = new System.Drawing.Size(172, 17);
+            this.RoamLocalOnExitCHBOX.Size = new System.Drawing.Size(120, 17);
             this.RoamLocalOnExitCHBOX.TabIndex = 7;
-            this.RoamLocalOnExitCHBOX.Text = "Synchronize the profile on exit";
+            this.RoamLocalOnExitCHBOX.Text = "Synchronize on exit";
             this.RoamLocalOnExitCHBOX.UseVisualStyleBackColor = true;
             // 
             // SandboxModeCHBOX
@@ -158,7 +158,7 @@
             this.SandboxModeCHBOX.Checked = global::Virtuoso.Miranda.Roamie.Properties.Settings.Default.DownloadDb_Sandbox_Checked;
             this.SandboxModeCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Miranda.Roamie.Properties.Settings.Default, "DownloadDb_Sandbox_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.SandboxModeCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SandboxModeCHBOX.Location = new System.Drawing.Point(88, 167);
+            this.SandboxModeCHBOX.Location = new System.Drawing.Point(88, 178);
             this.SandboxModeCHBOX.Name = "SandboxModeCHBOX";
             this.SandboxModeCHBOX.Size = new System.Drawing.Size(275, 17);
             this.SandboxModeCHBOX.TabIndex = 5;
@@ -172,7 +172,7 @@
             this.PublicComputerCHBOX.CheckState = System.Windows.Forms.CheckState.Checked;
             this.PublicComputerCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Miranda.Roamie.Properties.Settings.Default, "DownloadDb_PublicPc_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.PublicComputerCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.PublicComputerCHBOX.Location = new System.Drawing.Point(88, 141);
+            this.PublicComputerCHBOX.Location = new System.Drawing.Point(88, 152);
             this.PublicComputerCHBOX.Name = "PublicComputerCHBOX";
             this.PublicComputerCHBOX.Size = new System.Drawing.Size(142, 17);
             this.PublicComputerCHBOX.TabIndex = 4;
@@ -184,7 +184,7 @@
             this.CreateNewRBTN.AutoSize = true;
             this.CreateNewRBTN.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.CreateNewRBTN.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CreateNewRBTN.Location = new System.Drawing.Point(68, 268);
+            this.CreateNewRBTN.Location = new System.Drawing.Point(68, 279);
             this.CreateNewRBTN.Name = "CreateNewRBTN";
             this.CreateNewRBTN.Size = new System.Drawing.Size(87, 17);
             this.CreateNewRBTN.TabIndex = 8;
@@ -197,7 +197,7 @@
             this.DownloadExistingRBTN.AutoSize = true;
             this.DownloadExistingRBTN.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.DownloadExistingRBTN.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DownloadExistingRBTN.Location = new System.Drawing.Point(68, 115);
+            this.DownloadExistingRBTN.Location = new System.Drawing.Point(68, 126);
             this.DownloadExistingRBTN.Name = "DownloadExistingRBTN";
             this.DownloadExistingRBTN.Size = new System.Drawing.Size(206, 17);
             this.DownloadExistingRBTN.TabIndex = 3;
@@ -217,18 +217,40 @@
             this.pictureBox1.TabIndex = 17;
             this.pictureBox1.TabStop = false;
             // 
-            // gradientPanel1
+            // OptionsLINK
             // 
-            this.gradientPanel1.Controls.Add(this.label3);
-            this.gradientPanel1.Controls.Add(this.pictureBox2);
-            this.gradientPanel1.Controls.Add(this.label1);
-            this.gradientPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gradientPanel1.GradientColor = System.Drawing.Color.Khaki;
-            this.gradientPanel1.Location = new System.Drawing.Point(0, 0);
-            this.gradientPanel1.Name = "gradientPanel1";
-            this.gradientPanel1.Rotation = -90F;
-            this.gradientPanel1.Size = new System.Drawing.Size(432, 84);
-            this.gradientPanel1.TabIndex = 1;
+            this.OptionsLINK.AutoSize = true;
+            this.OptionsLINK.BackColor = System.Drawing.Color.Transparent;
+            this.OptionsLINK.Location = new System.Drawing.Point(384, 98);
+            this.OptionsLINK.Name = "OptionsLINK";
+            this.OptionsLINK.Size = new System.Drawing.Size(44, 13);
+            this.OptionsLINK.TabIndex = 22;
+            this.OptionsLINK.TabStop = true;
+            this.OptionsLINK.Text = "Options";
+            this.OptionsLINK.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OptionsLINK_LinkClicked);
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label1.Location = new System.Drawing.Point(109, 33);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(288, 35);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Begin your session by selecting a Miranda profile source.\r\nRoamie will retrieve a" +
+                "nd load the profile for you.";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(21, 14);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(48, 48);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 21;
+            this.pictureBox2.TabStop = false;
             // 
             // label3
             // 
@@ -236,46 +258,26 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(75, 13);
+            this.label3.Location = new System.Drawing.Point(109, 17);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 0;
             this.label3.Text = "Welcome";
             // 
-            // pictureBox2
+            // gradientPanel1
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(16, 12);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(48, 48);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 21;
-            this.pictureBox2.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(75, 29);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(339, 35);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Begin your session by selecting a Miranda profile source.\r\nRoamie will retrieve a" +
-                "nd load the profile for you.";
-            // 
-            // OptionsLINK
-            // 
-            this.OptionsLINK.AutoSize = true;
-            this.OptionsLINK.BackColor = System.Drawing.Color.Transparent;
-            this.OptionsLINK.Location = new System.Drawing.Point(384, 87);
-            this.OptionsLINK.Name = "OptionsLINK";
-            this.OptionsLINK.Size = new System.Drawing.Size(44, 13);
-            this.OptionsLINK.TabIndex = 22;
-            this.OptionsLINK.TabStop = true;
-            this.OptionsLINK.Text = "Options";
-            this.OptionsLINK.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OptionsLINK_LinkClicked);
+            this.gradientPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gradientPanel1.BackgroundImage")));
+            this.gradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.gradientPanel1.Controls.Add(this.label3);
+            this.gradientPanel1.Controls.Add(this.pictureBox2);
+            this.gradientPanel1.Controls.Add(this.label1);
+            this.gradientPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gradientPanel1.GradientColor = System.Drawing.Color.Transparent;
+            this.gradientPanel1.Location = new System.Drawing.Point(0, 0);
+            this.gradientPanel1.Name = "gradientPanel1";
+            this.gradientPanel1.Rotation = -90F;
+            this.gradientPanel1.Size = new System.Drawing.Size(432, 84);
+            this.gradientPanel1.TabIndex = 1;
             // 
             // StartupDialog
             // 
@@ -305,15 +307,15 @@
             this.MinimizeBox = false;
             this.Name = "StartupDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Select Miranda profile source - ";
+            this.Text = "Miranda profile source - ";
             this.Load += new System.EventHandler(this.StartupDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DownloadPBOX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LocalPBOX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NewPBOX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.gradientPanel1.ResumeLayout(false);
             this.gradientPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -334,10 +336,10 @@
         private System.Windows.Forms.PictureBox LocalPBOX;
         private System.Windows.Forms.PictureBox NewPBOX;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private Virtuoso.Miranda.Plugins.Forms.Controls.GradientPanel gradientPanel1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel OptionsLINK;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label label3;
+        private Virtuoso.Miranda.Plugins.Forms.Controls.GradientPanel gradientPanel1;
     }
 }

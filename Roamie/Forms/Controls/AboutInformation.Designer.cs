@@ -45,12 +45,12 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             // categoryItemHeader1
             // 
             this.categoryItemHeader1.BackColor = System.Drawing.Color.Transparent;
-            this.categoryItemHeader1.Color = System.Drawing.Color.SkyBlue;
+            this.categoryItemHeader1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(181)))), ((int)(((byte)(0)))));
             this.categoryItemHeader1.Dock = System.Windows.Forms.DockStyle.Top;
             this.categoryItemHeader1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.categoryItemHeader1.HeaderFont = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.categoryItemHeader1.HeaderText = "About Roamie";
-            this.categoryItemHeader1.Image = ((System.Drawing.Image)(resources.GetObject("categoryItemHeader1.Image")));
+            this.categoryItemHeader1.HeaderText = "About";
+            this.categoryItemHeader1.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_32x32_Information;
             this.categoryItemHeader1.Location = new System.Drawing.Point(0, 0);
             this.categoryItemHeader1.MinimumSize = new System.Drawing.Size(300, 40);
             this.categoryItemHeader1.Name = "categoryItemHeader1";
@@ -60,10 +60,10 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             // categoryItemSection1
             // 
             this.categoryItemSection1.BackColor = System.Drawing.Color.Transparent;
-            this.categoryItemSection1.Color = System.Drawing.Color.LightSteelBlue;
+            this.categoryItemSection1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(226)))), ((int)(((byte)(157)))));
             this.categoryItemSection1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.categoryItemSection1.ForeColor = System.Drawing.Color.Black;
-            this.categoryItemSection1.Location = new System.Drawing.Point(10, 46);
+            this.categoryItemSection1.Location = new System.Drawing.Point(10, 56);
             this.categoryItemSection1.MinimumSize = new System.Drawing.Size(300, 20);
             this.categoryItemSection1.Name = "categoryItemSection1";
             this.categoryItemSection1.SectionName = "Roamie";
@@ -75,7 +75,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             this.FxVersionLABEL.AutoSize = true;
             this.FxVersionLABEL.BackColor = System.Drawing.Color.Transparent;
             this.FxVersionLABEL.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.FxVersionLABEL.Location = new System.Drawing.Point(75, 193);
+            this.FxVersionLABEL.Location = new System.Drawing.Point(75, 203);
             this.FxVersionLABEL.Name = "FxVersionLABEL";
             this.FxVersionLABEL.Size = new System.Drawing.Size(94, 13);
             this.FxVersionLABEL.TabIndex = 7;
@@ -86,7 +86,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             this.HyphenVersionLABEL.AutoSize = true;
             this.HyphenVersionLABEL.BackColor = System.Drawing.Color.Transparent;
             this.HyphenVersionLABEL.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.HyphenVersionLABEL.Location = new System.Drawing.Point(75, 141);
+            this.HyphenVersionLABEL.Location = new System.Drawing.Point(75, 151);
             this.HyphenVersionLABEL.Name = "HyphenVersionLABEL";
             this.HyphenVersionLABEL.Size = new System.Drawing.Size(102, 13);
             this.HyphenVersionLABEL.TabIndex = 5;
@@ -97,7 +97,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             this.VersionLABEL.AutoSize = true;
             this.VersionLABEL.BackColor = System.Drawing.Color.Transparent;
             this.VersionLABEL.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
-            this.VersionLABEL.Location = new System.Drawing.Point(78, 88);
+            this.VersionLABEL.Location = new System.Drawing.Point(78, 98);
             this.VersionLABEL.Name = "VersionLABEL";
             this.VersionLABEL.Size = new System.Drawing.Size(110, 13);
             this.VersionLABEL.TabIndex = 3;
@@ -110,7 +110,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label6.Location = new System.Drawing.Point(75, 177);
+            this.label6.Location = new System.Drawing.Point(75, 187);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(234, 13);
             this.label6.TabIndex = 6;
@@ -121,7 +121,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(75, 125);
+            this.label2.Location = new System.Drawing.Point(75, 135);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(119, 13);
             this.label2.TabIndex = 4;
@@ -132,7 +132,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(75, 72);
+            this.label1.Location = new System.Drawing.Point(75, 82);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(222, 13);
             this.label1.TabIndex = 2;
@@ -141,7 +141,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             // IconPBOX
             // 
             this.IconPBOX.Image = ((System.Drawing.Image)(resources.GetObject("IconPBOX.Image")));
-            this.IconPBOX.Location = new System.Drawing.Point(21, 72);
+            this.IconPBOX.Location = new System.Drawing.Point(21, 82);
             this.IconPBOX.Name = "IconPBOX";
             this.IconPBOX.Size = new System.Drawing.Size(48, 48);
             this.IconPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -151,7 +151,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             // HomepageLBTN
             // 
             this.HomepageLBTN.AutoSize = true;
-            this.HomepageLBTN.Location = new System.Drawing.Point(717, 72);
+            this.HomepageLBTN.Location = new System.Drawing.Point(717, 82);
             this.HomepageLBTN.Name = "HomepageLBTN";
             this.HomepageLBTN.Size = new System.Drawing.Size(58, 13);
             this.HomepageLBTN.TabIndex = 8;
