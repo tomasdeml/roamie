@@ -1,16 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using Virtuoso.Miranda.Plugins.Configuration.Forms.Controls;
-using Virtuoso.Miranda.Roamie.Roaming;
 using System.Net;
-using Virtuoso.Miranda.Roamie.Properties;
+using Virtuoso.Roamie.Roaming;
+using Virtuoso.Roamie.Properties;
 
-namespace Virtuoso.Miranda.Roamie.Forms.Controls.Configuration
+namespace Virtuoso.Roamie.Forms.Controls.Configuration
 {
     internal sealed partial class ProxyOptions : CategoryItemControl
     {

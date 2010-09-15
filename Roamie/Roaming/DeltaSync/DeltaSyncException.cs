@@ -20,12 +20,10 @@
 \***********************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.Serialization;
-using Virtuoso.Miranda.Roamie.Properties;
+using Virtuoso.Roamie.Properties;
 
-namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
+namespace Virtuoso.Roamie.Roaming.DeltaSync
 {
     [Serializable]
     internal class DeltaSyncException : SyncException

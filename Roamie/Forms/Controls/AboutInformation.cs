@@ -20,19 +20,14 @@
 \***********************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Virtuoso.Miranda.Roamie.Properties;
 using System.Reflection;
 using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Miranda.Plugins.Configuration.Forms.Controls;
+using Virtuoso.Roamie.Properties;
 
-namespace Virtuoso.Miranda.Roamie.Forms.Controls
+namespace Virtuoso.Roamie.Forms.Controls
 {
     public partial class AboutInformation : CategoryItemControl
     {

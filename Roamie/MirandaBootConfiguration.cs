@@ -22,12 +22,11 @@
 using System;
 using Virtuoso.Miranda.Plugins.Helpers;
 using Virtuoso.Miranda.Plugins.Infrastructure;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
-using Virtuoso.Miranda.Roamie.Roaming;
 using System.IO;
 using System.Diagnostics;
+using Virtuoso.Roamie.Roaming.Profiles;
 
-namespace Virtuoso.Miranda.Roamie
+namespace Virtuoso.Roamie
 {
     internal enum StartupOption
     {

@@ -19,19 +19,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. *
 \***********************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
-
-namespace Virtuoso.Miranda.Roamie.Roaming.Providers
+namespace Virtuoso.Roamie.RoamingProviders
 {
-    public interface ISiteAdapter
+    /// <summary>
+    /// Marker interface for Delta Sync aware providers.
+    /// </summary>
+    public interface IDeltaAwareProvider
     {
-        bool FileExists(RoamingProfile profile, string path);
-        Stream PullFile(RoamingProfile profile, string path);
-        void PushFile(RoamingProfile profile, string path, Stream sourceStream);
-        bool DeleteFile(RoamingProfile profile, string path);
     }
 }

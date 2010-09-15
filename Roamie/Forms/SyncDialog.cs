@@ -20,19 +20,15 @@
 \***********************************************************************************/
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Media;
-using Virtuoso.Miranda.Roamie.Roaming;
-using Virtuoso.Miranda.Roamie.Properties;
 using System.Diagnostics;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
+using Virtuoso.Roamie.Roaming.Profiles;
+using Virtuoso.Roamie.Properties;
 
-namespace Virtuoso.Miranda.Roamie.Forms
+namespace Virtuoso.Roamie.Forms
 {
     #region Delegates
 
@@ -49,7 +45,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
         Unrepeatable = 2,
         IgnoreErrors = 4,
         NoThrow = 8,
-        SilenceEligible = 16,
+        Silenceable = 16,
     }
 
     #endregion
@@ -77,9 +73,9 @@ namespace Virtuoso.Miranda.Roamie.Forms
             if (syncOperator == null) 
                 throw new ArgumentNullException("syncOperator");
 
-            if ((options & SyncOptions.SilenceEligible) == SyncOptions.SilenceEligible && 
+            if ((options & SyncOptions.Silenceable) == SyncOptions.Silenceable && 
                 !RoamiePlugin.Singleton.RoamingContext.Configuration.SilentStartup)
-                options &= ~SyncOptions.SilenceEligible;
+                options &= ~SyncOptions.Silenceable;
 
             SyncOperator = syncOperator;
             Options = options;
@@ -96,7 +92,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
         {
             using (SyncDialog dlg = new SyncDialog(syncOperator, options))
             {
-                if ((dlg.Options & SyncOptions.SilenceEligible) == SyncOptions.SilenceEligible)
+                if ((dlg.Options & SyncOptions.Silenceable) == SyncOptions.Silenceable)
                     dlg.ToggleVisibility(false);
 
                 dlg.ShowDialog();
@@ -118,7 +114,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
             {
                 RunModal(delegate
                 {
-                    profile.GetProvider().TestSync(profile);
+                    profile.GetProvider().VerifyProfile(profile);
                     return null;
                 });
 

@@ -21,7 +21,7 @@
 
 using System.Diagnostics;
 
-namespace Virtuoso.Miranda.Roamie
+namespace Virtuoso.Roamie
 {
     internal static class ProgressMediator
     {

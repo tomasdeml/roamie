@@ -1,4 +1,4 @@
-﻿namespace Virtuoso.Miranda.Roamie.Forms
+﻿namespace Virtuoso.Roamie.Forms
 {
     partial class SyncDialog
     {
@@ -44,7 +44,7 @@
             // 
             this.ProgressPBAR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ProgressPBAR.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.ProgressPBAR.Location = new System.Drawing.Point(12, 174);
+            this.ProgressPBAR.Location = new System.Drawing.Point(12, 154);
             this.ProgressPBAR.MarqueeAnimationSpeed = 50;
             this.ProgressPBAR.Name = "ProgressPBAR";
             this.ProgressPBAR.Size = new System.Drawing.Size(366, 18);
@@ -64,11 +64,11 @@
             this.LogTBOX.BackColor = System.Drawing.Color.White;
             this.LogTBOX.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.LogTBOX.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
-            this.LogTBOX.Location = new System.Drawing.Point(17, 51);
+            this.LogTBOX.Location = new System.Drawing.Point(12, 52);
             this.LogTBOX.Multiline = true;
             this.LogTBOX.Name = "LogTBOX";
             this.LogTBOX.ReadOnly = true;
-            this.LogTBOX.Size = new System.Drawing.Size(361, 117);
+            this.LogTBOX.Size = new System.Drawing.Size(366, 96);
             this.LogTBOX.TabIndex = 6;
             this.LogTBOX.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SyncDialog_KeyDown);
             // 
@@ -122,7 +122,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(390, 201);
+            this.ClientSize = new System.Drawing.Size(390, 184);
             this.ControlBox = false;
             this.Controls.Add(this.gradientPanel1);
             this.Controls.Add(this.LogTBOX);

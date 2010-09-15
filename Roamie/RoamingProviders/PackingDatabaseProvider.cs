@@ -20,15 +20,14 @@
 \***********************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
-using Virtuoso.Miranda.Roamie.Roaming.Packing;
-using Virtuoso.Miranda.Roamie.Properties;
 using System.Diagnostics;
 using System.IO;
+using Virtuoso.Roamie.Properties;
+using Virtuoso.Roamie.Roaming;
+using Virtuoso.Roamie.Roaming.Packing;
+using Virtuoso.Roamie.Roaming.Profiles;
 
-namespace Virtuoso.Miranda.Roamie.Roaming.Providers
+namespace Virtuoso.Roamie.RoamingProviders
 {
     public abstract class PackingDatabaseProvider : DatabaseProvider
     {

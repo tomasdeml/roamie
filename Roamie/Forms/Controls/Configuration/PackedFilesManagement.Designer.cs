@@ -1,4 +1,4 @@
-namespace Virtuoso.Miranda.Roamie.Forms.Controls.Configuration
+namespace Virtuoso.Roamie.Forms.Controls.Configuration
 {
     partial class PackedFilesManagement
     {

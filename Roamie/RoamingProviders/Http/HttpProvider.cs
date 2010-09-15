@@ -20,21 +20,18 @@
 \***********************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
-using Virtuoso.Miranda.Roamie.Forms;
 using System.Net;
 using System.IO;
-using Virtuoso.Miranda.Roamie.Properties;
-using Virtuoso.Miranda.Roamie.Roaming;
 using System.Diagnostics;
 using Virtuoso.Miranda.Plugins.Forms;
 using System.Security.Cryptography;
+using Virtuoso.Roamie.Properties;
+using Virtuoso.Roamie.Roaming;
+using Virtuoso.Roamie.Roaming.Profiles;
 
-namespace Virtuoso.Miranda.Roamie.Roaming.Providers
+namespace Virtuoso.Roamie.RoamingProviders.Http
 {
-    internal partial class HttpProvider : PackingDatabaseProvider, IDeltaAwareProvider, ISiteAdapter
+    internal class HttpProvider : PackingDatabaseProvider, IDeltaAwareProvider
     {
         #region Fields
 
@@ -44,7 +41,10 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
 
         #region .ctors
 
-        public HttpProvider() { }
+        public HttpProvider()
+        {
+            adapter = new HttpSiteAdapter();
+        }
 
         #endregion
 
@@ -52,7 +52,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
 
         public override string Name
         {
-            get { return "Http Download-only"; }
+            get { return "HTTP (read-only)"; }
         }
 
         public override bool CredentialsRequired
@@ -60,9 +60,10 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
             get { return false; }
         }
 
+        private readonly ISiteAdapter adapter;
         public override ISiteAdapter Adapter
         {
-            get { return this; }
+            get { return adapter; }
         }
 
         #endregion
@@ -75,10 +76,10 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
             Context.State |= RoamingState.DiscardLocalChanges;
 
             if ((Context.State & RoamingState.WipeLocalDbOnExit) == RoamingState.WipeLocalDbOnExit)
-                InformationDialog.PresentModal(Resources.Information_Caption_YourChangesWiilBeLost, Resources.Information_Formatable1_Text_YourChangesWillBeLost, Resources.Image_32x32_Profile);
+                InformationDialog.PresentModal(Resources.Information_Caption_YourChangesWillBeLost, Resources.Information_Formatable1_Text_YourChangesWillBeLost, Resources.Image_32x32_Profile);
         }
 
-        public override void TestSync(RoamingProfile profile)
+        public override void VerifyProfile(RoamingProfile profile)
         {
             try
             {
@@ -102,29 +103,13 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
                 throw new SyncException(Resources.ExceptionMsg_SyncTestFailed, e);
             }
         }
-
-        public override void NonSyncShutdown()
-        {
-            if ((Context.State & RoamingState.WipeLocalDbOnExit) != RoamingState.WipeLocalDbOnExit ||
-                (Context.State & RoamingState.DiscardLocalChanges) != RoamingState.DiscardLocalChanges)
-                InformationDialog.PresentModal(Resources.Information_Caption_CannotMirrorChanges, String.Format(Resources.Information_Formatable1_Text_CannotMirrorChanges, Path.GetFileName(Context.ProfilePath)), Resources.Image_32x32_Web);
-
-            RemoveLocalDb();
-
-            // Base impl must not be called, http provider cannot upload files...
-        }
-
-        public override void SyncRemoteDatabase(RoamingProfile profile)
-        {
-            // Base impl must not be called, http provider cannot upload files...
-        }
-
+       
         public override void SyncLocalDatabase(RoamingProfile profile)
         {
             try
             {
                 Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceVerbose, "Synchronizing local database...", TraceCategory);
-                HttpWebRequest request = CreateWebRequest(profile);
+                HttpWebRequest request = HttpRequestFactory.CreateWebRequest(profile);
 
                 if (!String.IsNullOrEmpty(profile.UserName))
                     request.Credentials = new NetworkCredential(profile.UserName, profile.Password);
@@ -134,8 +119,8 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
                     using (Stream remoteStream = response.GetResponseStream(),
-                        downloadedStream = new MemoryStream(response.ContentLength < 0 ? 2048 : (int)response.ContentLength),
-                        unprotectedStream = new MemoryStream((int)downloadedStream.Length * 2))
+                                  downloadedStream = new MemoryStream(response.ContentLength < 0 ? 2048 : (int)response.ContentLength),
+                                  unprotectedStream = new MemoryStream((int)downloadedStream.Length * 2))
                     {
                         ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_DownloadingDb, SignificantProgress.Running);
                         StreamUtility.CopyStream(new UndisposableStream(remoteStream, ((MemoryStream)downloadedStream).Capacity), downloadedStream, delegate(int _progress) { ProgressMediator.ChangeProgress(null, _progress); });
@@ -147,6 +132,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
                         unprotectedStream.Seek(0, SeekOrigin.Begin);
 
                         ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Saving, SignificantProgress.Running);
+                        
                         using (FileStream localStream = new FileStream(Context.ProfilePath, FileMode.Create))
                             StreamUtility.CopyStream(unprotectedStream, localStream);
                     }
@@ -172,54 +158,20 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
             }
         }
 
-        private static HttpWebRequest CreateWebRequest(RoamingProfile profile)
+        public override void SyncRemoteDatabase(RoamingProfile profile)
         {
-            return CreateWebRequest(profile, new Uri(profile.RemoteHost));
+            // Base impl must not be called, http provider cannot upload files...
         }
 
-        private static HttpWebRequest CreateWebRequest(RoamingProfile profile, Uri remoteUri)
+        public override void NonSyncShutdown()
         {
-            HttpWebRequest request = WebRequest.Create(remoteUri) as HttpWebRequest;
+            if ((Context.State & RoamingState.WipeLocalDbOnExit) != RoamingState.WipeLocalDbOnExit ||
+                (Context.State & RoamingState.DiscardLocalChanges) != RoamingState.DiscardLocalChanges)
+                InformationDialog.PresentModal(Resources.Information_Caption_CannotMirrorChanges, String.Format(Resources.Information_Formatable1_Text_CannotMirrorChanges, Path.GetFileName(Context.ProfilePath)), Resources.Image_32x32_Web);
 
-            if (request == null)
-                throw new FormatException(Resources.ExceptionMsg_RemoteUriNotSupported);
+            RemoveLocalDb();
 
-            return request;
-        }
-
-        #endregion
-
-        #region ISiteAdapter
-
-        bool ISiteAdapter.FileExists(RoamingProfile profile, string path)
-        {
-            HttpWebRequest req = CreateWebRequest(profile, new Uri(path));
-
-            try
-            {
-                using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
-                    return resp.StatusCode == HttpStatusCode.OK;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        Stream ISiteAdapter.PullFile(RoamingProfile profile, string path)
-        {
-            HttpWebRequest req = CreateWebRequest(profile, new Uri(path));
-            return req.GetResponse().GetResponseStream();
-        }
-
-        void ISiteAdapter.PushFile(RoamingProfile profile, string path, Stream sourceStream)
-        {
-            throw new NotSupportedException();
-        }
-
-        bool ISiteAdapter.DeleteFile(RoamingProfile profile, string path)
-        {
-            throw new NotSupportedException();
+            // Base impl must not be called, http provider cannot upload files...
         }
 
         #endregion

@@ -1,4 +1,6 @@
-namespace Virtuoso.Miranda.Roamie.Forms
+using Virtuoso.Roamie.Forms.Controls;
+
+namespace Virtuoso.Roamie.Forms
 {
     partial class ProfileViewingDialog
     {
@@ -33,7 +35,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
             // 
             // ProfileEditor
             // 
-            this.ProfileEditor.Mode = Virtuoso.Miranda.Roamie.Forms.Controls.ProfileEditor.EditingMode.ViewProfile;
+            this.ProfileEditor.Mode = ProfileEditor.EditingMode.ViewProfile;
             this.ProfileEditor.Close += new System.EventHandler(this.ProfileEditor_Close);
             // 
             // ProfileViewingDialog

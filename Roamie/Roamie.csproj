@@ -7,7 +7,7 @@
     <ProjectGuid>{C3F99EC9-12E4-461F-A82E-E038E51339C2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Virtuoso.Miranda.Roamie</RootNamespace>
+    <RootNamespace>Virtuoso.Roamie</RootNamespace>
     <AssemblyName>dbx_Roamie.master</AssemblyName>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <FileUpgradeFlags>
@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\C++\Miranda\BINARIES\LatestStable\plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -53,15 +53,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Native\ExternalDatabaseDriver.cs" />
-    <Compile Include="Roaming\Providers\DatabaseProvider.cs" />
+    <Compile Include="RoamingProviders\DatabaseProvider.cs" />
     <Compile Include="Forms\SyncDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\SyncDialog.Designer.cs">
       <DependentUpon>SyncDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Roaming\Providers\FtpProvider.cs" />
-    <Compile Include="Roaming\Providers\IDeltaAwareProvider.cs" />
+    <Compile Include="RoamingProviders\IDeltaAwareProvider.cs" />
     <Compile Include="Roaming\RoamingState.cs" />
     <Compile Include="Forms\StartupDialog.cs">
       <SubType>Form</SubType>
@@ -83,6 +82,17 @@
     <Content Include="Docs\Diagnostics.txt" />
     <Content Include="Docs\History.txt" />
     <Content Include="Docs\Readme.txt" />
+    <None Include="Resources\1284314619_decrypted.png" />
+    <None Include="Resources\StartupHeaderOK.png" />
+    <None Include="Resources\1284281919_check.png" />
+    <None Include="Resources\1284281579_plus_48.png" />
+    <None Include="Resources\1284281564_plus_32.png" />
+    <None Include="Resources\1284281311_add.png" />
+    <None Include="Resources\1284281052_user_info.png" />
+    <None Include="Resources\1284281010_user_info.png" />
+    <None Include="Resources\1284279125_user_info.png" />
+    <None Include="Resources\1284278596_user4.png" />
+    <None Include="Resources\1284278048_Information.png" />
     <None Include="Resources\Icon 215_48x48.png" />
     <None Include="Resources\Icon 175_32x32.png" />
     <None Include="Resources\Icon 176_32x32.png" />
@@ -97,17 +107,11 @@
     <None Include="Resources\Icon 244_256x256_Trans.png" />
     <EmbeddedResource Include="Resources\MenuItems.About.ico" />
     <None Include="Resources\Icon 161_32x32.png" />
-    <None Include="Resources\Icon 304_32x32.png" />
     <None Include="Resources\Icon 180_32x32.png" />
-    <None Include="Resources\Icon 162_48x48.png" />
     <EmbeddedResource Include="Resources\MenuItems.RoamingSettings.ico" />
     <None Include="Resources\Icon 036_48x48.png" />
     <None Include="Resources\Icon 005_48x48.png" />
-    <None Include="Resources\Icon 234_32x32.png" />
-    <None Include="Resources\Icon 233_32x32.png" />
-    <None Include="Resources\Icon 304_48x48.png" />
     <None Include="Resources\Icon 300_48x48.png" />
-    <None Include="Resources\Icon 233_256x256_Trans.png" />
     <None Include="Resources\Icon 232_128x128_Trans.png" />
     <None Include="Resources\Icon 036_32x32.png" />
     <None Include="Properties\Settings.settings">
@@ -120,7 +124,6 @@
     <None Include="Resources\Icon 036_16x16.png" />
     <None Include="Resources\Icon 036_Trans_Partial.png" />
     <None Include="Resources\Icon 046.png" />
-    <None Include="Resources\Icon 162.png" />
     <None Include="Resources\Icon 172_Trans_Partial.png" />
     <None Include="Resources\Icon 193.png" />
     <None Include="Resources\Icon 237.png" />
@@ -153,10 +156,6 @@
     <EmbeddedResource Include="Forms\Controls\Configuration\ProxyOptions.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ProxyOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DbTokenMismatchDialog.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>DbTokenMismatchDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MasterKeyDialog.resx">
       <DependentUpon>MasterKeyDialog.cs</DependentUpon>
@@ -244,36 +243,30 @@
       <DependentUpon>MasterKeyDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="ProgressMediator.cs" />
+    <Compile Include="RoamingProviders\Ftp\FtpRequestFactory.cs" />
+    <Compile Include="RoamingProviders\Ftp\FtpSiteAdapter.cs" />
+    <Compile Include="RoamingProviders\Http\HttpSiteAdapter.cs" />
+    <Compile Include="RoamingProviders\Http\HttpRequestFactory.cs" />
+    <Compile Include="Roaming\DeltaSync\DeltaSyncEngineFactory.cs" />
+    <Compile Include="Roaming\DeltaSync\IDeltaSyncEngine.cs" />
+    <Compile Include="Roaming\DeltaSync\MicrosoftPatchDeltaSyncEngine.cs" />
+    <Compile Include="Roaming\DeltaSync\MicrosoftPatchApi.cs" />
     <Compile Include="Roaming\MasterKeyCache.cs" />
     <Compile Include="Roaming\MasterKeyEncryption.cs" />
-    <Compile Include="Roaming\DeltaSync\DbTokenMismatchException.cs" />
-    <Compile Include="Roaming\DeltaSync\DeltaSettingEntriesFilter.cs" />
-    <Compile Include="Roaming\DeltaSync\DeltaSettingEntry.cs" />
-    <Compile Include="Roaming\DeltaSync\DatabaseReplicator.cs" />
-    <Compile Include="Roaming\DeltaSync\DeltaEventEntry.cs" />
     <Compile Include="Roaming\DeltaSync\DeltaSyncException.cs" />
     <Compile Include="Roaming\Packing\PackingContainer.cs" />
     <Compile Include="Roaming\Packing\PackedFile.cs" />
     <Compile Include="Roaming\Packing\FileCollection.cs" />
-    <Compile Include="Roaming\Providers\PackingDatabaseProvider.cs" />
+    <Compile Include="RoamingProviders\Ftp\FtpProvider.cs" />
+    <Compile Include="RoamingProviders\PackingDatabaseProvider.cs" />
     <Compile Include="Roaming\RoamingOrchestration.cs" />
-    <Compile Include="Forms\DbTokenMismatchDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DbTokenMismatchDialog.Designer.cs">
-      <DependentUpon>DbTokenMismatchDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\WarningDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\WarningDialog.Designer.cs">
       <DependentUpon>WarningDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Roaming\DeltaSync\Delta.cs" />
-    <Compile Include="Roaming\DeltaSync\DeltaEntry.cs" />
-    <Compile Include="Roaming\DeltaSync\DeltaChain.cs" />
-    <Compile Include="Roaming\DeltaSync\Snapshot.cs" />
-    <Compile Include="Roaming\Providers\HttpProvider.cs" />
+    <Compile Include="RoamingProviders\Http\HttpProvider.cs" />
     <Compile Include="Forms\Controls\Configuration\ProfileManagement.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -346,12 +339,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Roaming\Providers\ISiteAdapter.cs" />
+    <Compile Include="RoamingProviders\ISiteAdapter.cs" />
     <Compile Include="Roaming\DeltaSync\DeltaManifest.cs" />
     <Compile Include="Roaming\Profiles\ProfileCollection.cs" />
     <Compile Include="Roaming\Profiles\ProfileManager.cs" />
     <Compile Include="Roaming\Profiles\RoamingProfile.cs" />
-    <Compile Include="Roaming\DeltaSync\DeltaSyncEngine.cs" />
     <Compile Include="StreamUtility.cs" />
     <Compile Include="UndisposableStream.cs" />
     <Compile Include="Roaming\RoamingConfiguration.cs" />

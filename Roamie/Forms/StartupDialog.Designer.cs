@@ -1,4 +1,4 @@
-﻿namespace Virtuoso.Miranda.Roamie.Forms
+﻿namespace Virtuoso.Roamie.Forms
 {
     partial class StartupDialog
     {
@@ -81,7 +81,7 @@
             // 
             // DownloadPBOX
             // 
-            this.DownloadPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_24x24_Web;
+            this.DownloadPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Image_24x24_Web;
             this.DownloadPBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.DownloadPBOX.Location = new System.Drawing.Point(28, 123);
             this.DownloadPBOX.Name = "DownloadPBOX";
@@ -92,7 +92,7 @@
             // 
             // LocalPBOX
             // 
-            this.LocalPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_24x24_Computer;
+            this.LocalPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Image_24x24_Computer;
             this.LocalPBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.LocalPBOX.Location = new System.Drawing.Point(27, 211);
             this.LocalPBOX.Name = "LocalPBOX";
@@ -103,7 +103,7 @@
             // 
             // NewPBOX
             // 
-            this.NewPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_24x24_Add;
+            this.NewPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Image_24x24_Add;
             this.NewPBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.NewPBOX.Location = new System.Drawing.Point(27, 277);
             this.NewPBOX.Name = "NewPBOX";
@@ -128,9 +128,9 @@
             // RoamNewOnExitCHBOX
             // 
             this.RoamNewOnExitCHBOX.AutoSize = true;
-            this.RoamNewOnExitCHBOX.Checked = global::Virtuoso.Miranda.Roamie.Properties.Settings.Default.CreateNewDb_RoamOnExit_Checked;
+            this.RoamNewOnExitCHBOX.Checked = global::Virtuoso.Roamie.Properties.Settings.Default.CreateNewDb_RoamOnExit_Checked;
             this.RoamNewOnExitCHBOX.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.RoamNewOnExitCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Miranda.Roamie.Properties.Settings.Default, "CreateNewDb_RoamOnExit_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.RoamNewOnExitCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Roamie.Properties.Settings.Default, "CreateNewDb_RoamOnExit_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.RoamNewOnExitCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.RoamNewOnExitCHBOX.Location = new System.Drawing.Point(88, 305);
             this.RoamNewOnExitCHBOX.Name = "RoamNewOnExitCHBOX";
@@ -142,8 +142,8 @@
             // RoamLocalOnExitCHBOX
             // 
             this.RoamLocalOnExitCHBOX.AutoSize = true;
-            this.RoamLocalOnExitCHBOX.Checked = global::Virtuoso.Miranda.Roamie.Properties.Settings.Default.UseLocalDb_RoamOnExit_Checked;
-            this.RoamLocalOnExitCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Miranda.Roamie.Properties.Settings.Default, "UseLocalDb_RoamOnExit_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.RoamLocalOnExitCHBOX.Checked = global::Virtuoso.Roamie.Properties.Settings.Default.UseLocalDb_RoamOnExit_Checked;
+            this.RoamLocalOnExitCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Roamie.Properties.Settings.Default, "UseLocalDb_RoamOnExit_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.RoamLocalOnExitCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.RoamLocalOnExitCHBOX.Location = new System.Drawing.Point(88, 238);
             this.RoamLocalOnExitCHBOX.Name = "RoamLocalOnExitCHBOX";
@@ -155,8 +155,8 @@
             // SandboxModeCHBOX
             // 
             this.SandboxModeCHBOX.AutoSize = true;
-            this.SandboxModeCHBOX.Checked = global::Virtuoso.Miranda.Roamie.Properties.Settings.Default.DownloadDb_Sandbox_Checked;
-            this.SandboxModeCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Miranda.Roamie.Properties.Settings.Default, "DownloadDb_Sandbox_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.SandboxModeCHBOX.Checked = global::Virtuoso.Roamie.Properties.Settings.Default.DownloadDb_Sandbox_Checked;
+            this.SandboxModeCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Roamie.Properties.Settings.Default, "DownloadDb_Sandbox_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.SandboxModeCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.SandboxModeCHBOX.Location = new System.Drawing.Point(88, 178);
             this.SandboxModeCHBOX.Name = "SandboxModeCHBOX";
@@ -168,9 +168,9 @@
             // PublicComputerCHBOX
             // 
             this.PublicComputerCHBOX.AutoSize = true;
-            this.PublicComputerCHBOX.Checked = global::Virtuoso.Miranda.Roamie.Properties.Settings.Default.DownloadDb_PublicPc_Checked;
+            this.PublicComputerCHBOX.Checked = global::Virtuoso.Roamie.Properties.Settings.Default.DownloadDb_PublicPc_Checked;
             this.PublicComputerCHBOX.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.PublicComputerCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Miranda.Roamie.Properties.Settings.Default, "DownloadDb_PublicPc_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.PublicComputerCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Roamie.Properties.Settings.Default, "DownloadDb_PublicPc_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.PublicComputerCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.PublicComputerCHBOX.Location = new System.Drawing.Point(88, 152);
             this.PublicComputerCHBOX.Name = "PublicComputerCHBOX";
@@ -209,7 +209,7 @@
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Watermark_Sync;
+            this.pictureBox1.Image = global::Virtuoso.Roamie.Properties.Resources.Watermark_Sync;
             this.pictureBox1.Location = new System.Drawing.Point(283, 187);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(149, 190);
@@ -266,7 +266,7 @@
             // 
             // gradientPanel1
             // 
-            this.gradientPanel1.BackgroundImage = global::Virtuoso.Miranda.Roamie.Properties.Resources.Header_Golden;
+            this.gradientPanel1.BackgroundImage = global::Virtuoso.Roamie.Properties.Resources.Header_Golden;
             this.gradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.gradientPanel1.Controls.Add(this.label3);
             this.gradientPanel1.Controls.Add(this.pictureBox2);

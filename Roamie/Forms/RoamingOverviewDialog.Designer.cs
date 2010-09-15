@@ -1,4 +1,4 @@
-﻿namespace Virtuoso.Miranda.Roamie.Forms
+﻿namespace Virtuoso.Roamie.Forms
 {
     partial class RoamingOverviewDialog
     {
@@ -186,7 +186,7 @@
             // pictureBox4
             // 
             this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox4.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_32x32_Profile;
+            this.pictureBox4.Image = global::Virtuoso.Roamie.Properties.Resources.Image_32x32_Profile;
             this.pictureBox4.Location = new System.Drawing.Point(54, 192);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(27, 32);
@@ -233,7 +233,7 @@
             // ForceFullSyncHBTN
             // 
             this.ForceFullSyncHBTN.Cursor = System.Windows.Forms.Cursors.Help;
-            this.ForceFullSyncHBTN.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Icon_228_16x16;
+            this.ForceFullSyncHBTN.Image = global::Virtuoso.Roamie.Properties.Resources.Icon_228_16x16;
             this.ForceFullSyncHBTN.Location = new System.Drawing.Point(234, 318);
             this.ForceFullSyncHBTN.Name = "ForceFullSyncHBTN";
             this.ForceFullSyncHBTN.Size = new System.Drawing.Size(16, 16);

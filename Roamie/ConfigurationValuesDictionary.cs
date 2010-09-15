@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Virtuoso.Miranda.Roamie
+namespace Virtuoso.Roamie
 {
     [Serializable]
     public sealed class ConfigurationValuesDictionary : Dictionary<string, string>

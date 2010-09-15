@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Virtuoso.Miranda.Roamie.Forms
+namespace Virtuoso.Roamie.Forms
 {
     public partial class MasterKeyDialog : Form
     {

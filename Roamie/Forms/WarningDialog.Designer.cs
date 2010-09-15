@@ -1,4 +1,4 @@
-﻿namespace Virtuoso.Miranda.Roamie.Forms
+﻿namespace Virtuoso.Roamie.Forms
 {
     partial class WarningDialog
     {
@@ -41,7 +41,7 @@
             // DialogWatermarkPBOX
             // 
             this.DialogWatermarkPBOX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.DialogWatermarkPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Icon_244_256x256_Trans;
+            this.DialogWatermarkPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Icon_244_256x256_Trans;
             this.DialogWatermarkPBOX.Location = new System.Drawing.Point(329, 114);
             this.DialogWatermarkPBOX.Name = "DialogWatermarkPBOX";
             this.DialogWatermarkPBOX.Size = new System.Drawing.Size(172, 204);
@@ -53,7 +53,7 @@
             // DialogPicturePBOX
             // 
             this.DialogPicturePBOX.BackColor = System.Drawing.Color.Transparent;
-            this.DialogPicturePBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Icon_244_48x48;
+            this.DialogPicturePBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Icon_244_48x48;
             this.DialogPicturePBOX.Location = new System.Drawing.Point(10, 9);
             this.DialogPicturePBOX.Name = "DialogPicturePBOX";
             this.DialogPicturePBOX.Size = new System.Drawing.Size(48, 43);

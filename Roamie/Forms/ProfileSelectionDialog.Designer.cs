@@ -1,5 +1,6 @@
-﻿using Virtuoso.Miranda.Roamie.Forms.Controls;
-namespace Virtuoso.Miranda.Roamie.Forms
+﻿using Virtuoso.Roamie.Forms.Controls;
+
+namespace Virtuoso.Roamie.Forms
 {
     partial class ProfileSelectionDialog
     {
@@ -38,7 +39,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.IconPBOX = new System.Windows.Forms.PictureBox();
             this.ManageProfilesLBTN = new System.Windows.Forms.LinkLabel();
-            this.ProfilesLVIEW = new Virtuoso.Miranda.Roamie.Forms.Controls.ProfilesListView();
+            this.ProfilesLVIEW = new ProfilesListView();
             this.gradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IconPBOX)).BeginInit();
             this.SuspendLayout();
@@ -109,7 +110,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
             // IconPBOX
             // 
             this.IconPBOX.BackColor = System.Drawing.Color.Transparent;
-            this.IconPBOX.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_48x48_Woman;
+            this.IconPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Image_48x48_Woman;
             this.IconPBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.IconPBOX.Location = new System.Drawing.Point(21, 14);
             this.IconPBOX.Name = "IconPBOX";

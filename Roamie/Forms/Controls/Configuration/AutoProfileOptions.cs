@@ -20,21 +20,14 @@
 \***********************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
-using Virtuoso.Miranda.Plugins.Forms.Controls;
-using Virtuoso.Miranda.Roamie.Properties;
-using Virtuoso.Miranda.Plugins.Helpers;
 using Virtuoso.Miranda.Plugins.Infrastructure;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
 using Virtuoso.Miranda.Plugins.Forms;
 using Virtuoso.Miranda.Plugins.Configuration.Forms.Controls;
+using Virtuoso.Roamie.Properties;
+using Virtuoso.Roamie.Roaming.Profiles;
 
-namespace Virtuoso.Miranda.Roamie.Forms.Controls.Configuration
+namespace Virtuoso.Roamie.Forms.Controls.Configuration
 {
     internal sealed partial class AutoProfileOptions : CategoryItemControl
     {

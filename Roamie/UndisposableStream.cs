@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Virtuoso.Miranda.Roamie
+namespace Virtuoso.Roamie
 {
     internal class UndisposableStream : Stream
     {

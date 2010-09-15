@@ -21,14 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
-using Virtuoso.Miranda.Roamie.Roaming.Providers;
-using Virtuoso.Miranda.Roamie.Properties;
+using Virtuoso.Roamie.Properties;
+using Virtuoso.Roamie.Roaming.Profiles;
+using Virtuoso.Roamie.RoamingProviders;
 
-namespace Virtuoso.Miranda.Roamie.Roaming.Packing
+namespace Virtuoso.Roamie.Roaming.Packing
 {
     [Serializable]
     internal sealed class PackingContainer : IDisposable

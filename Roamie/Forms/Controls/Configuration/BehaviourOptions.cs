@@ -1,16 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using Virtuoso.Miranda.Plugins.Forms.Controls;
 using Virtuoso.Miranda.Plugins.Configuration.Forms.Controls;
-using Virtuoso.Miranda.Roamie.Roaming;
-using Virtuoso.Miranda.Roamie.Roaming.DeltaSync;
+using Virtuoso.Roamie.Roaming;
 
-namespace Virtuoso.Miranda.Roamie.Forms.Controls.Configuration
+namespace Virtuoso.Roamie.Forms.Controls.Configuration
 {
     internal sealed partial class BehaviourOptions : CategoryItemControl
     {
@@ -19,7 +10,6 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls.Configuration
             InitializeComponent();
 
             AllowSilentCHKBOX.CheckedChanged += SetControlDirtyHandler;
-            FullSyncAfterThresholdCHBOX.CheckedChanged += SetControlDirtyHandler;
         }
 
         protected override bool OnShow(bool firstTime)
@@ -31,7 +21,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls.Configuration
                 AllowSilentCHKBOX.Checked = config.SilentStartup;
 
                 FullSyncAfterThresholdCHBOX.Checked = config.FullSyncAfterThreshold;
-                FullSyncAfterThresholdCHBOX.Text = String.Format(FullSyncAfterThresholdCHBOX.Text, DeltaSyncEngine.DeltaCountThreshold.ToString());
+                FullSyncAfterThresholdCHBOX.Text = "CHANGE TO FULLSYNC AFTER DELTA SIZE!!!";
             }
 
             return false;

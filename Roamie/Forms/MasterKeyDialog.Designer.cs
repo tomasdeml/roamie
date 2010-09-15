@@ -1,4 +1,4 @@
-﻿namespace Virtuoso.Miranda.Roamie.Forms
+﻿namespace Virtuoso.Roamie.Forms
 {
     partial class MasterKeyDialog
     {
@@ -60,7 +60,7 @@
             // 
             // gradientPanel1
             // 
-            this.gradientPanel1.BackgroundImage = global::Virtuoso.Miranda.Roamie.Properties.Resources.Header_Golden;
+            this.gradientPanel1.BackgroundImage = global::Virtuoso.Roamie.Properties.Resources.Header_Golden;
             this.gradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.gradientPanel1.Controls.Add(this.label3);
             this.gradientPanel1.Controls.Add(this.pictureBox2);
@@ -88,7 +88,7 @@
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_48x48_Lock;
+            this.pictureBox2.Image = global::Virtuoso.Roamie.Properties.Resources.Image_48x48_Lock;
             this.pictureBox2.Location = new System.Drawing.Point(21, 14);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(48, 48);

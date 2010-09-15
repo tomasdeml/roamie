@@ -20,20 +20,15 @@
 \***********************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using Virtuoso.Miranda.Roamie.Properties;
-using Virtuoso.Miranda.Roamie.Roaming;
-using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Miranda.Plugins.Forms;
 using Virtuoso.Miranda.Plugins.Configuration.Forms;
 using System.Diagnostics;
+using Virtuoso.Roamie.Roaming;
+using Virtuoso.Roamie.Properties;
 
-namespace Virtuoso.Miranda.Roamie.Forms
+namespace Virtuoso.Roamie.Forms
 {
     internal sealed partial class RoamingOverviewDialog : SingletonDialog
     {
@@ -209,10 +204,10 @@ namespace Virtuoso.Miranda.Roamie.Forms
                 if ((PrivateState & RoamingState.DeltaIncompatibleChangeOccured) != RoamingState.DeltaIncompatibleChangeOccured)
                 {
                     StatusLVIEW.Items.Add(CreateHighlightedItem(Resources.Text_UI_RoamingStatus_DeltaSync, TraceEventType.Information));
-                    Virtuoso.Miranda.Roamie.Roaming.DeltaSync.DeltaSyncEngine engine = RoamiePlugin.Singleton.RoamingContext.DeltaEngine;
+                    /*Virtuoso.Miranda.Roamie.Roaming.DeltaSync.IDeltaSyncEngine engine = RoamiePlugin.Singleton.RoamingContext.DeltaEngine;
 
                     if (engine.DeltaMergeRecommended)
-                        StatusLVIEW.Items.Add(CreateHighlightedItem(String.Format(Resources.Text_Formatable1_UI_RoamingStatus_DeltaMergeRecommended, engine.DeltaManifest.DeltaCount.ToString()), TraceEventType.Warning));
+                        StatusLVIEW.Items.Add(CreateHighlightedItem(String.Format(Resources.Text_Formatable1_UI_RoamingStatus_DeltaMergeRecommended, engine.DeltaManifest.DeltaCount.ToString()), TraceEventType.Warning));*/
                 }
                 else
                     StatusLVIEW.Items.Add(CreateHighlightedItem(Resources.Text_UI_RoamingStatus_DeltaIncompatibleChange, TraceEventType.Warning));
