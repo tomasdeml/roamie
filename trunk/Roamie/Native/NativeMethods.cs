@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Virtuoso.Miranda.Roamie.Native
+namespace Virtuoso.Roamie.Native
 {
     internal static class NativeMethods
     {

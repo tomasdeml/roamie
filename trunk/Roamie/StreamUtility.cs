@@ -24,7 +24,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Security.Cryptography;
 
-namespace Virtuoso.Miranda.Roamie
+namespace Virtuoso.Roamie
 {
     public static class StreamUtility
     {

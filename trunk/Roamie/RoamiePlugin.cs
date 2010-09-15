@@ -22,26 +22,26 @@
 using System;
 using Virtuoso.Miranda.Plugins;
 using Virtuoso.Miranda.Plugins.Forms;
-using Virtuoso.Miranda.Roamie;
 using Virtuoso.Hyphen.Mini.Custom;
 using System.Reflection;
 using System.IO;
-using Virtuoso.Miranda.Roamie.Forms;
-using Virtuoso.Miranda.Roamie.Roaming;
 using System.Diagnostics;
 using System.Windows.Forms;
 using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Miranda.Plugins.Collections;
-using Virtuoso.Miranda.Roamie.Properties;
-using Virtuoso.Miranda.Roamie.Native;
 using Virtuoso.Miranda.Plugins.ThirdParty.Updater;
-using Virtuoso.Miranda.Roamie.Forms.Controls.Configuration;
 using Virtuoso.Miranda.Plugins.Configuration;
-using Virtuoso.Miranda.Roamie.Forms.Controls;
+using Virtuoso.Roamie;
+using Virtuoso.Roamie.Forms;
+using Virtuoso.Roamie.Forms.Controls;
+using Virtuoso.Roamie.Forms.Controls.Configuration;
+using Virtuoso.Roamie.Native;
+using Virtuoso.Roamie.Roaming;
+using Virtuoso.Roamie.Properties;
 
 [assembly: ExposingPlugin(typeof(RoamiePlugin))]
 
-namespace Virtuoso.Miranda.Roamie
+namespace Virtuoso.Roamie
 {
     [LoaderOptions("0.8.3000.909")]
     internal sealed class RoamiePlugin : DatabaseDriver, IConfigurablePlugin

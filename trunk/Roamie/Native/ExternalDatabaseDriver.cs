@@ -24,10 +24,10 @@ using Virtuoso.Hyphen.Mini.Custom;
 using System.Runtime.InteropServices;
 using System.IO;
 using Virtuoso.Miranda.Plugins.Infrastructure;
-using Virtuoso.Miranda.Roamie.Properties;
 using Microsoft.Win32.SafeHandles;
+using Virtuoso.Roamie.Properties;
 
-namespace Virtuoso.Miranda.Roamie.Native
+namespace Virtuoso.Roamie.Native
 {
     internal sealed class ExternalDatabaseDriver : SafeHandleZeroOrMinusOneIsInvalid
     {

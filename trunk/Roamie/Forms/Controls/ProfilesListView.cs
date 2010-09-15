@@ -20,15 +20,13 @@
 \***********************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
-using Virtuoso.Miranda.Roamie.Properties;
 using System.Drawing;
 using System.ComponentModel;
+using Virtuoso.Roamie.Properties;
+using Virtuoso.Roamie.Roaming.Profiles;
 
-namespace Virtuoso.Miranda.Roamie.Forms.Controls
+namespace Virtuoso.Roamie.Forms.Controls
 {
     internal class ProfilesListView : ListView
     {

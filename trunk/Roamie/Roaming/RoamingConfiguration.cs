@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using Virtuoso.Miranda.Plugins.Infrastructure;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
-using Virtuoso.Miranda.Roamie.Roaming.Providers;
 using Virtuoso.Miranda.Plugins.Configuration;
+using Virtuoso.Roamie.Roaming.Profiles;
+using Virtuoso.Roamie.RoamingProviders;
 
-namespace Virtuoso.Miranda.Roamie.Roaming
+namespace Virtuoso.Roamie.Roaming
 {
     [Serializable, ConfigurationOptions("0.2.0.0", Encrypt = true, ProfileBound = false, Encryption = typeof(MasterKeyEncryption), Storage = typeof(PortableStorage))]
     public class RoamingConfiguration : PluginConfiguration

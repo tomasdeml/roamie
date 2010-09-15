@@ -19,30 +19,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. *
 \***********************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
-using Virtuoso.Miranda.Roamie.Roaming;
-using System.Security.Cryptography;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
-using Virtuoso.Miranda.Roamie.Forms;
 using System.Diagnostics;
-using System.Net;
+using Virtuoso.Roamie.Roaming;
+using Virtuoso.Roamie.Roaming.Profiles;
 
-namespace Virtuoso.Miranda.Roamie.Roaming.Providers
+namespace Virtuoso.Roamie.RoamingProviders
 {
     public abstract class DatabaseProvider
     {
         #region Fields
 
         public const string RoamingExtension = "roaming.dat";
-
-        #endregion
-
-        #region .ctors
-
-        protected DatabaseProvider() { }
 
         #endregion
 
@@ -72,7 +60,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
 
         public virtual void NonSyncShutdown() { }
 
-        public abstract void TestSync(RoamingProfile profile);
+        public abstract void VerifyProfile(RoamingProfile profile);
 
         public abstract void SyncLocalDatabase(RoamingProfile profile);
 
@@ -96,25 +84,28 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
 
             DatabaseProvider other = obj as DatabaseProvider;
 
-            if (object.ReferenceEquals(other, null)) 
+            if (ReferenceEquals(other, null)) 
                 return false;
 
-            return this.GetHashCode() == other.GetHashCode();
+            return GetHashCode() == other.GetHashCode();
         }
 
         protected void InitializeSafeProfilePath()
         {
-            if (!Path.GetFileName(Context.ProfilePath).ToLower().EndsWith(RoamingExtension))
-            {
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Changing database file extension...", RoamiePlugin.TraceCategory);
-                ChangeProfilePath(Path.ChangeExtension(Context.ProfilePath, RoamingExtension));
-            }
+            if (Path.GetFileName(Context.ProfilePath).ToLower().EndsWith(RoamingExtension)) 
+                return;
+
+            Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Changing database file extension...", RoamiePlugin.TraceCategory);
+            ChangeProfilePath(Path.ChangeExtension(Context.ProfilePath, RoamingExtension));
         }
 
         protected void ChangeProfilePath(string path)
         {
             Context.ProfilePath = path;
         }
+
+        // TODO
+#warning RoamingOrchestration must call this!
 
         protected void RemoveLocalDb()
         {

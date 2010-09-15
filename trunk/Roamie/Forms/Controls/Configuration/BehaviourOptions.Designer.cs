@@ -1,4 +1,4 @@
-namespace Virtuoso.Miranda.Roamie.Forms.Controls.Configuration
+namespace Virtuoso.Roamie.Forms.Controls.Configuration
 {
     partial class BehaviourOptions
     {
@@ -67,7 +67,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls.Configuration
             this.categoryItemHeader1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.categoryItemHeader1.HeaderFont = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.categoryItemHeader1.HeaderText = "Configure behaviour of Roamie";
-            this.categoryItemHeader1.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_32x32_Settings;
+            this.categoryItemHeader1.Image = global::Virtuoso.Roamie.Properties.Resources.Image_32x32_Settings;
             this.categoryItemHeader1.Location = new System.Drawing.Point(0, 0);
             this.categoryItemHeader1.MinimumSize = new System.Drawing.Size(300, 40);
             this.categoryItemHeader1.Name = "categoryItemHeader1";
@@ -90,7 +90,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls.Configuration
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Watermark_Sync;
+            this.pictureBox1.Image = global::Virtuoso.Roamie.Properties.Resources.Watermark_Sync;
             this.pictureBox1.Location = new System.Drawing.Point(643, 210);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(149, 190);

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Virtuoso.Miranda.Roamie.Properties {
+namespace Virtuoso.Roamie.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Virtuoso.Miranda.Roamie.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Virtuoso.Miranda.Roamie.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Virtuoso.Roamie.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -756,9 +756,9 @@ namespace Virtuoso.Miranda.Roamie.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Your changes will be lost.
         /// </summary>
-        internal static string Information_Caption_YourChangesWiilBeLost {
+        internal static string Information_Caption_YourChangesWillBeLost {
             get {
-                return ResourceManager.GetString("Information_Caption_YourChangesWiilBeLost", resourceCulture);
+                return ResourceManager.GetString("Information_Caption_YourChangesWillBeLost", resourceCulture);
             }
         }
         

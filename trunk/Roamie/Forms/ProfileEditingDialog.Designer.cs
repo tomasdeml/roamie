@@ -1,4 +1,6 @@
-namespace Virtuoso.Miranda.Roamie.Forms
+using Virtuoso.Roamie.Forms.Controls;
+
+namespace Virtuoso.Roamie.Forms
 {
     partial class ProfileEditingDialog
     {
@@ -33,7 +35,7 @@ namespace Virtuoso.Miranda.Roamie.Forms
             // ProfileEditor
             // 
             this.ProfileEditor.Cancel += new System.EventHandler(this.ProfileEditor_Cancel);
-            this.ProfileEditor.Save += new System.EventHandler<Virtuoso.Miranda.Roamie.Forms.Controls.ProfileEditor.SaveEventArgs>(this.ProfileEditor_Save);
+            this.ProfileEditor.Save += new System.EventHandler<ProfileEditor.SaveEventArgs>(this.ProfileEditor_Save);
             // 
             // ProfileEditingDialog
             // 

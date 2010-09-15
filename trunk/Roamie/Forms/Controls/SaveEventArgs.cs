@@ -20,11 +20,9 @@
 \***********************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
+using Virtuoso.Roamie.Roaming.Profiles;
 
-namespace Virtuoso.Miranda.Roamie.Forms.Controls
+namespace Virtuoso.Roamie.Forms.Controls
 {
     partial class ProfileEditor
     {

@@ -1,4 +1,4 @@
-﻿namespace Virtuoso.Miranda.Roamie.Forms.Controls.Configuration
+﻿namespace Virtuoso.Roamie.Forms.Controls.Configuration
 {
     partial class AutoProfileOptions
     {
@@ -126,7 +126,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Watermark_Sync;
+            this.pictureBox1.Image = global::Virtuoso.Roamie.Properties.Resources.Watermark_Sync;
             this.pictureBox1.Location = new System.Drawing.Point(643, 210);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(149, 190);
@@ -212,7 +212,7 @@
             this.categoryItemHeader1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.categoryItemHeader1.Dock = System.Windows.Forms.DockStyle.Top;
             this.categoryItemHeader1.HeaderText = "Configure Roamie to automatically select a profile";
-            this.categoryItemHeader1.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_32x32_Favourite;
+            this.categoryItemHeader1.Image = global::Virtuoso.Roamie.Properties.Resources.Image_32x32_Favourite;
             this.categoryItemHeader1.Location = new System.Drawing.Point(0, 0);
             this.categoryItemHeader1.MinimumSize = new System.Drawing.Size(300, 40);
             this.categoryItemHeader1.Name = "categoryItemHeader1";

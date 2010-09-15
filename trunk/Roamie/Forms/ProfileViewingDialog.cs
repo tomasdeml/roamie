@@ -20,16 +20,11 @@
 \***********************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
-using Virtuoso.Miranda.Roamie.Properties;
+using Virtuoso.Roamie.Roaming.Profiles;
+using Virtuoso.Roamie.Properties;
 
-namespace Virtuoso.Miranda.Roamie.Forms
+namespace Virtuoso.Roamie.Forms
 {
     internal sealed partial class ProfileViewingDialog : ProfileEditorDialog
     {

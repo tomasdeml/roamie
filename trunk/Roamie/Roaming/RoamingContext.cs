@@ -22,46 +22,32 @@
 using System;
 using System.Collections.Generic;
 using Virtuoso.Miranda.Plugins.Infrastructure;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
 using System.Diagnostics;
-using Virtuoso.Miranda.Roamie.Roaming.Providers;
-using Virtuoso.Miranda.Roamie.Roaming.DeltaSync;
 using System.Net;
+using Virtuoso.Roamie.Roaming.Profiles;
+using Virtuoso.Roamie.RoamingProviders;
+using Virtuoso.Roamie.RoamingProviders.Ftp;
+using Virtuoso.Roamie.RoamingProviders.Http;
 
-namespace Virtuoso.Miranda.Roamie.Roaming
+namespace Virtuoso.Roamie.Roaming
 {
     public sealed class RoamingContext
     {
+        #region Fields
+
+        private string InitialProfilePath;
+
+        #endregion
+
         #region Properties
 
-        private readonly object syncObject = new object();
-        private string profilePath;
-        private string initialProfilePath;
-        private RoamingState state;
-        private DatabaseProvider activeProvider;
+        public object SyncObject { get; private set; }
+
+        public Dictionary<string, DatabaseProvider> DatabaseProviders { get; private set; }
+
+        public RoamingProfile ActiveProfile { get; private set; }
+
         private RoamingConfiguration configuration;
-        private RoamingProfile activeProfile;
-        private Dictionary<string, DatabaseProvider> databaseProviders;
-        private DeltaSyncEngine deltaEngine;
-
-        public object SyncObject
-        {
-            get
-            {
-                return syncObject;
-            }
-        }
-
-        public Dictionary<string, DatabaseProvider> DatabaseProviders
-        {
-            get { return databaseProviders; }
-        }
-
-        public RoamingProfile ActiveProfile
-        {
-            get { return activeProfile; }
-        }
-
         public RoamingConfiguration Configuration
         {
             get { return configuration; }
@@ -73,16 +59,11 @@ namespace Virtuoso.Miranda.Roamie.Roaming
             }
         }
 
-        public DatabaseProvider ActiveProvider
-        {
-            get { return activeProvider; }
-        }
+        public DatabaseProvider ActiveProvider { get; private set; }
 
-        public RoamingState State
-        {
-            get { return state; }
-            set { state = value; }
-        }
+        public RoamingState State { get; set; }
+
+        private string profilePath;
 
         public string ProfilePath
         {
@@ -99,18 +80,14 @@ namespace Virtuoso.Miranda.Roamie.Roaming
             }
         }
 
-        internal DeltaSyncEngine DeltaEngine
-        {
-            get { return deltaEngine; }
-            set { deltaEngine = value; }
-        }                
-
         #endregion
 
         #region .ctors
 
         internal RoamingContext(string profilePath)
         {
+            SyncObject = new object();
+
             if (String.IsNullOrEmpty(profilePath))
                 throw new ArgumentNullException("profilePath");
 
@@ -119,10 +96,18 @@ namespace Virtuoso.Miranda.Roamie.Roaming
             InitializeProviders();
         }
 
+        private void Initalize(string profilePath)
+        {
+            InitialProfilePath = this.profilePath = profilePath;
+            State = RoamingState.Disabled;
+            configuration = PluginConfiguration.Load<RoamingConfiguration>();
+            DatabaseProviders = new Dictionary<string, DatabaseProvider>(1);
+        }
+
         internal void InitializeProxySettings()
         {
             if (Configuration.UseProxy)
-                WebRequest.DefaultWebProxy = (IWebProxy)Configuration.Proxy ?? WebRequest.GetSystemWebProxy();
+                WebRequest.DefaultWebProxy = Configuration.Proxy ?? WebRequest.GetSystemWebProxy();
         }
 
         private void InitializeProviders()
@@ -130,15 +115,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming
             DatabaseProvider[] providers = { new FtpProvider(), new HttpProvider() };
 
             foreach (DatabaseProvider provider in providers)
-                databaseProviders.Add(provider.Name, provider);
-        }
-
-        private void Initalize(string profilePath)
-        {
-            this.initialProfilePath = this.profilePath = profilePath;
-            this.state = RoamingState.Disabled;
-            this.configuration = RoamingConfiguration.Load<RoamingConfiguration>();
-            this.databaseProviders = new Dictionary<string, DatabaseProvider>(1);
+                DatabaseProviders[provider.Name] = provider;
         }
 
         #endregion
@@ -152,14 +129,14 @@ namespace Virtuoso.Miranda.Roamie.Roaming
 
             try
             {
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceVerbose, "Activating a roaming profile: " + profile.Name, RoamiePlugin.TraceCategory);
+                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceVerbose, "Activating roaming profile: " + profile.Name, RoamiePlugin.TraceCategory);
 
-                activeProfile = profile;
-                activeProvider = databaseProviders[profile.RoamingProvider];
-                activeProvider.OnSelected();
+                ActiveProfile = profile;
+                ActiveProvider = DatabaseProviders[profile.RoamingProvider];
+                ActiveProvider.OnSelected();
 
                 if (profile.PreferFullSync)
-                    state |= RoamingState.PreferFullSync;
+                    State |= RoamingState.PreferFullSync;
             }
             catch (Exception e)
             {
@@ -174,12 +151,12 @@ namespace Virtuoso.Miranda.Roamie.Roaming
             {
                 Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Deactivating the roaming profile. No synchronization will be performed!", RoamiePlugin.TraceCategory);
 
-                activeProfile = null;
-                activeProvider = null;
+                ActiveProfile = null;
+                ActiveProvider = null;
 
-                state = RoamingState.Disabled;
-                state |= RoamingState.LocalDbInUse;
-                state |= RoamingState.DiscardLocalChanges;
+                State = RoamingState.Disabled;
+                State |= RoamingState.LocalDbInUse;
+                State |= RoamingState.DiscardLocalChanges;
             }
         }
 
@@ -190,12 +167,12 @@ namespace Virtuoso.Miranda.Roamie.Roaming
 
         internal void RestoreProfilePath()
         {
-            profilePath = initialProfilePath;
+            profilePath = InitialProfilePath;
         }
 
         public bool IsInState(RoamingState stateInQuestion)
         {
-            return (state & stateInQuestion) == stateInQuestion;
+            return (State & stateInQuestion) == stateInQuestion;
         }
 
         #endregion

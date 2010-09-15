@@ -20,27 +20,22 @@
 \***********************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net;
-using System.IO;
 using System.Diagnostics;
-using Virtuoso.Miranda.Roamie.Roaming;
-using Virtuoso.Miranda.Roamie.Forms;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
-using Virtuoso.Miranda.Roamie.Properties;
+using System.IO;
+using System.Net;
 using System.Security.Cryptography;
-using Virtuoso.Miranda.Roamie.Roaming.DeltaSync;
-using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Miranda.Plugins.Forms;
+using Virtuoso.Roamie.Properties;
+using Virtuoso.Roamie.Roaming;
+using Virtuoso.Roamie.Roaming.Profiles;
 
-namespace Virtuoso.Miranda.Roamie.Roaming.Providers
+namespace Virtuoso.Roamie.RoamingProviders.Ftp
 {
-    internal class FtpProvider : PackingDatabaseProvider, IDeltaAwareProvider, ISiteAdapter
+    internal class FtpProvider : PackingDatabaseProvider, IDeltaAwareProvider
     {
         #region Fields
 
-        private const string TraceCategory = "FtpProvider";
+        public const string TraceCategory = "FtpProvider";
 
         #endregion
 
@@ -48,6 +43,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
 
         public FtpProvider()
         {
+            adapter = new FtpSiteAdapter();
             Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceVerbose, "Ftp Provider loaded.", TraceCategory);
         }
 
@@ -57,7 +53,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
 
         public override string Name
         {
-            get { return "File Transfer Protocol"; }
+            get { return "FTP"; }
         }
 
         public override bool CredentialsRequired
@@ -65,9 +61,10 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
             get { return true; }
         }
 
+        private readonly ISiteAdapter adapter;
         public override ISiteAdapter Adapter
         {
-            get { return this; }
+            get { return adapter; }
         }
 
         #endregion
@@ -80,89 +77,12 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
                 InformationDialog.PresentModal(Resources.Information_Caption_ProxyNotSupported, String.Format(Resources.Information_Formatable1_Text_ProxyNotSupported, Environment.NewLine), Resources.Image_32x32_Web);
         }
 
-        #endregion
-
-        #region Sync Methods
-
-        #region Request factories
-
-        protected static FtpWebRequest CreateRequest(string method, RoamingProfile profile)
-        {
-            return CreateRequest(method, profile, new Uri(profile.RemoteHost));
-        }
-
-        protected static FtpWebRequest CreateRequest(string method, RoamingProfile profile, Uri remoteAddress)
-        {
-            FtpWebRequest ftpRequest = WebRequest.Create(remoteAddress) as FtpWebRequest;
-
-            if (ftpRequest == null)
-                throw new FormatException(Resources.ExceptionMsg_RemoteUriNotSupported);
-
-            ftpRequest.Credentials = new NetworkCredential(profile.UserName, profile.Password);
-            ftpRequest.UseBinary = true;
-            ftpRequest.Proxy = null;
-            ftpRequest.Method = method;
-            ftpRequest.UsePassive = true;
-            ftpRequest.KeepAlive = false;
-            ftpRequest.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
-
-            Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceVerbose, "Ftp request created: " + String.Format("Url = '{0}', Method = '{1}', UsePassive = '{2}', UserName = '{3}', CachePolicy = '{4}'.", remoteAddress, method, ftpRequest.UsePassive.ToString(), profile.UserName, ftpRequest.CachePolicy.ToString()), TraceCategory);
-            return ftpRequest;
-        }
-
-        protected static FtpWebRequest CloneRequest(string newMethod, FtpWebRequest request)
-        {
-            if (String.IsNullOrEmpty(newMethod))
-                throw new ArgumentNullException("newMethod");
-
-            if (request == null)
-                throw new ArgumentNullException("request");
-
-            FtpWebRequest ftpRequest = WebRequest.Create(request.RequestUri) as FtpWebRequest;
-
-            if (ftpRequest == null)
-                throw new FormatException(Resources.ExceptionMsg_RemoteUriNotSupported);
-
-            ftpRequest.Credentials = request.Credentials;
-            ftpRequest.UseBinary = request.UseBinary;
-            ftpRequest.Proxy = request.Proxy;
-            ftpRequest.Method = newMethod;
-            ftpRequest.UsePassive = request.UsePassive;
-            ftpRequest.CachePolicy = request.CachePolicy;
-
-            return ftpRequest;
-        }
-
-        protected static FtpWebRequest CreateTestRequest(RoamingProfile profile)
-        {
-            RoamingProfile testProfile = new RoamingProfile(profile.Name, profile.Description, new Uri(profile.RemoteHost).GetComponents(UriComponents.SchemeAndServer, UriFormat.SafeUnescaped), profile.UserName, profile.Password, profile.DatabasePassword, profile.RoamingProvider);        
-            return CreateRequest(WebRequestMethods.Ftp.PrintWorkingDirectory, testProfile);
-        }
-
-        protected static int? GetFileSize(FtpWebRequest ftpFileRequest)
-        {
-            try
-            {
-                FtpWebRequest ftpSizeRequest = CloneRequest(WebRequestMethods.Ftp.GetFileSize, ftpFileRequest);
-
-                using (FtpWebResponse ftpSizeResponse = (FtpWebResponse)ftpSizeRequest.GetResponse())
-                    return (int)ftpSizeResponse.ContentLength;
-            }
-            catch (Exception e)
-            {
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceWarning, StringUtility.FormatExceptionMessage("The target FTP server does not support the SIZE command, progress notifications will not be available.", e));
-                return null;
-            }
-        }
-
-        #endregion
-
-        public override void TestSync(RoamingProfile profile)
+        public override void VerifyProfile(RoamingProfile profile)
         {
             try
             {
                 Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceVerbose, "Testing roaming profile...", TraceCategory);
-                FtpWebRequest ftpRequest = CreateTestRequest(profile);
+                FtpWebRequest ftpRequest = FtpRequestFactory.CreateTestRequest(profile);
 
                 using (FtpWebResponse ftpResponse = (FtpWebResponse)ftpRequest.GetResponse())
                 {
@@ -173,8 +93,8 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
                         Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, String.Format("Unexpected ftp request response. Expected '{0}', but got '{1}'. Check profile settings. Throwing...", FtpStatusCode.PathnameCreated.ToString(), ftpResponse.StatusCode), TraceCategory);
                         throw new SyncException(Resources.ExceptionMsg_SyncTestFailed);
                     }
-                    else
-                        Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceVerbose, "Sync test successful.", TraceCategory);
+                    
+                    Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceVerbose, "Sync test successful.", TraceCategory);
                 }
             }
             catch (SyncException)
@@ -194,14 +114,15 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
                 Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceVerbose, "Synchronizing local database...", TraceCategory);
                 InitializeSafeProfilePath();
 
-                FtpWebRequest ftpFileRequest = CreateRequest(WebRequestMethods.Ftp.DownloadFile, profile);                              
+                FtpWebRequest ftpFileRequest = FtpRequestFactory.CreateRequest(WebRequestMethods.Ftp.DownloadFile, profile);                              
 
                 using (FtpWebResponse ftpFileResponse = (FtpWebResponse)ftpFileRequest.GetResponse())
                 {
-                    int? fileSize = GetFileSize(ftpFileRequest);
+                    int? fileSize = FtpRequestFactory.GetFileSize(ftpFileRequest);
 
                     using (Stream remoteStream = ftpFileResponse.GetResponseStream(),
-                        downloadedStream = new MemoryStream(fileSize == null ? 10240 : fileSize.Value), unprotectedStream = new MemoryStream((int)downloadedStream.Length * 2))
+                        downloadedStream = new MemoryStream(fileSize == null ? 10240 : fileSize.Value), 
+                        unprotectedStream = new MemoryStream((int)downloadedStream.Length * 2))
                     {
                         if (fileSize != null && fileSize.Value <= 0)
                         {
@@ -211,9 +132,10 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
 
                         ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_DownloadingDb, SignificantProgress.Running);
                         
-                        // Show percentage progress ONLY if we have successfully obtained the file size, otherwise show marquee
-                        StreamUtility.CopyStream(new UndisposableStream(remoteStream, ((MemoryStream)downloadedStream).Capacity), downloadedStream, 
-                            fileSize != null ? delegate(int _progress) { ProgressMediator.ChangeProgress(null, _progress); } : (StreamUtility.ProgressCallback)null);
+                        var source = new UndisposableStream(remoteStream, ((MemoryStream)downloadedStream).Capacity);
+                        var progressCallback = (fileSize != null ? (progress => ProgressMediator.ChangeProgress(null, progress)) : (StreamUtility.ProgressCallback)null);
+
+                        StreamUtility.CopyStream(source, downloadedStream, progressCallback);
 
                         ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_DecryptingDecompressing, SignificantProgress.Running);
                         downloadedStream.Seek(0, SeekOrigin.Begin);
@@ -262,32 +184,37 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
                 Uri remoteUri = new Uri(profile.RemoteHost);
                 Uri tempRemoteUri = new Uri(profile.RemoteHost + ".tmp");
 
-                FtpWebRequest ftpRequest = CreateRequest(WebRequestMethods.Ftp.UploadFile, profile, tempRemoteUri);
+                // First upload new database as *.tmp file (to preserve original database if the transfer fails)
+                FtpWebRequest ftpRequest = FtpRequestFactory.CreateRequest(WebRequestMethods.Ftp.UploadFile, profile,
+                                                                           tempRemoteUri);
 
                 using (Stream localStream = new FileStream(Context.ProfilePath, FileMode.Open),                    
                     protectedStream = new MemoryStream((int)localStream.Length / 2),
                     remoteStream = ftpRequest.GetRequestStream())
                 {
                     ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_CompressingEncrypting, SignificantProgress.Running);
-                    StreamUtility.CompressAndEncrypt(localStream, protectedStream, profile.DatabasePassword);
+                    StreamUtility.CompressAndEncrypt(localStream, remoteStream, profile.DatabasePassword);
 
                     ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Uploading, SignificantProgress.Stopped);
                     protectedStream.Seek(0, SeekOrigin.Begin);
-                    StreamUtility.CopyStream(protectedStream, remoteStream, delegate(int _progress) { ProgressMediator.ChangeProgress(null, _progress); });              
+                    StreamUtility.CopyStream(protectedStream, remoteStream,
+                                             progress => ProgressMediator.ChangeProgress(null, progress));
                 }
 
                 GetAndVerifyFtpResponse(ftpRequest, FtpStatusCode.ClosingData);
                 ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Finishing, SignificantProgress.Running);
 
+                // Now delete any previous existing *.dat profiles
                 try
                 {
-                    ftpRequest = CreateRequest(WebRequestMethods.Ftp.DeleteFile, profile, remoteUri);
+                    ftpRequest = FtpRequestFactory.CreateRequest(WebRequestMethods.Ftp.DeleteFile, profile, remoteUri);
                     GetAndVerifyFtpResponse(ftpRequest, FtpStatusCode.FileActionOK);
                 }
                 // Ignore exception when deleting a non-existent file
                 catch { }
 
-                ftpRequest = CreateRequest(WebRequestMethods.Ftp.Rename, profile, tempRemoteUri);
+                // Lastly rename *.tmp to *.dat
+                ftpRequest = FtpRequestFactory.CreateRequest(WebRequestMethods.Ftp.Rename, profile, tempRemoteUri);
                 ftpRequest.RenameTo = remoteUri.Segments[remoteUri.Segments.Length - 1];
                 GetAndVerifyFtpResponse(ftpRequest, FtpStatusCode.FileActionOK);
 
@@ -311,13 +238,14 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
         {
             using (FtpWebResponse ftpResponse = (FtpWebResponse)ftpRequest.GetResponse())
             {
-                if (ftpResponse.StatusCode != expectedStatus)
-                {
-                    string message = String.Format(Resources.ExceptionMsg_Formatable2_UnexpectedResponse, ftpResponse.StatusCode.ToString(), expectedStatus.ToString());
-                    Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, message, TraceCategory);
+                if (ftpResponse.StatusCode == expectedStatus)
+                    return;
 
-                    throw new SyncException(message);
-                }
+                string message = String.Format(Resources.ExceptionMsg_Formatable2_UnexpectedResponse,
+                                               ftpResponse.StatusCode, expectedStatus);
+                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, message, TraceCategory);
+
+                throw new SyncException(message);
             }
         }        
 
@@ -327,53 +255,6 @@ namespace Virtuoso.Miranda.Roamie.Roaming.Providers
 
             base.NonSyncShutdown();
             RemoveLocalDb();
-        }
-
-        #endregion        
-
-        #region ISiteAdapter
-
-        [DebuggerHidden]
-        bool ISiteAdapter.FileExists(RoamingProfile profile, string path)
-        {
-            FtpWebRequest req = CreateRequest(WebRequestMethods.Ftp.DownloadFile, profile, new Uri(path));
-
-            try
-            {
-                using (FtpWebResponse resp = (FtpWebResponse)req.GetResponse())
-                {
-                    bool exists = (resp.StatusCode == FtpStatusCode.OpeningData || resp.StatusCode == FtpStatusCode.DataAlreadyOpen);
-                    Debug.Assert(exists);
-
-                    return exists;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        Stream ISiteAdapter.PullFile(RoamingProfile profile, string path)
-        {
-            FtpWebRequest req = CreateRequest(WebRequestMethods.Ftp.DownloadFile, profile, new Uri(path));
-            return req.GetResponse().GetResponseStream();
-        }
-
-        void ISiteAdapter.PushFile(RoamingProfile profile, string path, Stream sourceStream)
-        {
-           FtpWebRequest req = CreateRequest(WebRequestMethods.Ftp.UploadFile, profile, new Uri(path));
-
-           using (Stream remoteStream = req.GetRequestStream())
-               StreamUtility.CopyStream(sourceStream, remoteStream);
-        }
-
-        bool ISiteAdapter.DeleteFile(RoamingProfile profile, string path)
-        {
-            FtpWebRequest req = CreateRequest(WebRequestMethods.Ftp.DeleteFile, profile, new Uri(path));
-
-            using (FtpWebResponse resp = (FtpWebResponse)req.GetResponse())
-                return resp.StatusCode == FtpStatusCode.FileActionOK;
         }
 
         #endregion

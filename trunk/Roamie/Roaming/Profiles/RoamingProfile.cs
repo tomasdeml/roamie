@@ -21,12 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Net;
-using System.Runtime.Serialization;
-using Virtuoso.Miranda.Roamie.Roaming.Providers;
+using Virtuoso.Roamie.RoamingProviders;
 
-namespace Virtuoso.Miranda.Roamie.Roaming.Profiles
+namespace Virtuoso.Roamie.Roaming.Profiles
 {
     [Serializable]
     public class RoamingProfile

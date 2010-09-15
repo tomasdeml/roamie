@@ -1,4 +1,4 @@
-﻿namespace Virtuoso.Miranda.Roamie.Forms.Controls
+﻿namespace Virtuoso.Roamie.Forms.Controls
 {
     partial class ProfileEditor
     {

@@ -20,17 +20,11 @@
 \***********************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using Virtuoso.Miranda.Roamie.Roaming.DeltaSync;
-using System.Runtime.Serialization;
-using Virtuoso.Miranda.Roamie.Properties;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
-using Virtuoso.Miranda.Roamie.Roaming.Providers;
+using Virtuoso.Roamie.Roaming.Profiles;
 
-namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
+namespace Virtuoso.Roamie.Roaming.DeltaSync
 {
     [Serializable]
     internal class DeltaManifest
@@ -102,12 +96,12 @@ namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
             if (databaseToken == Guid.Empty)
                 throw new ArgumentNullException("databaseToken");
 
-            this.associatedProfile = profile;
+            associatedProfile = profile;
             this.databaseToken = databaseToken;
-            this.packageVersion = SupportedPackageVersion;
+            packageVersion = SupportedPackageVersion;
 
             // Do not touch
-            this.isNew = true;
+            isNew = true;
         }        
 
         #endregion
@@ -156,40 +150,12 @@ namespace Virtuoso.Miranda.Roamie.Roaming.DeltaSync
             }
         }        
 
-        public void Validate()
-        {
-            if (DeltaSyncEngine.GetDatabaseToken() != DatabaseToken)
-                throw new DbTokenMismatchException();
-        }
-
         public static string GetManifestPath(RoamingProfile profile)
         {
             if (profile == null)
                 throw new ArgumentNullException("profile");
 
             return String.Format("{0}.{1}", profile.RemoteHost, ManifestSuffix);
-        }
-
-        public IEnumerable<string> GetDeltaPaths()
-        {
-            for (int i = 1; i <= DeltaCount; i++)
-                yield return Delta.GetPathForDelta(this, i);
-        }
-
-        public void Remove()
-        {
-            if (IsNew)
-                return;
-
-            ISiteAdapter adapter = AssociatedProfile.GetProvider().Adapter;
-            RoamingProfile profile = AssociatedProfile;
-
-            adapter.DeleteFile(AssociatedProfile, GetManifestPath(profile));
-
-            foreach (string deltaPath in GetDeltaPaths())
-                adapter.DeleteFile(profile, deltaPath);
-
-            deltaCount = 0;
         }
 
         #endregion

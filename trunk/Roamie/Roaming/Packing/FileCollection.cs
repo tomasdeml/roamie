@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Virtuoso.Miranda.Roamie.Roaming.Packing
+namespace Virtuoso.Roamie.Roaming.Packing
 {
     [Serializable]
     internal class FileCollection : IList<PackedFile>

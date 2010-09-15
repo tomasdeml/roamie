@@ -19,15 +19,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. *
 \***********************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
-namespace Virtuoso.Miranda.Roamie.Forms
+namespace Virtuoso.Roamie.Forms
 {
     internal partial class WarningDialog : Form
     {

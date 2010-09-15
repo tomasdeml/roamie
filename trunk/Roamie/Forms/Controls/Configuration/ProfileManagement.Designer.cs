@@ -1,4 +1,4 @@
-﻿namespace Virtuoso.Miranda.Roamie.Forms.Controls.Configuration
+﻿namespace Virtuoso.Roamie.Forms.Controls.Configuration
 {
     partial class ProfileManagement
     {
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfileManagement));
-            this.ProfilesLVIEW = new Virtuoso.Miranda.Roamie.Forms.Controls.ProfilesListView();
+            this.ProfilesLVIEW = new ProfilesListView();
             this.ProfilesCMENU = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.EditProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -80,7 +80,7 @@
             // EditProfileToolStripMenuItem
             // 
             this.EditProfileToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
-            this.EditProfileToolStripMenuItem.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Icon_193;
+            this.EditProfileToolStripMenuItem.Image = global::Virtuoso.Roamie.Properties.Resources.Icon_193;
             this.EditProfileToolStripMenuItem.Name = "EditProfileToolStripMenuItem";
             this.EditProfileToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.EditProfileToolStripMenuItem.Text = "&Edit";
@@ -94,7 +94,7 @@
             // ViewProfileToolStripMenuItem
             // 
             this.ViewProfileToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 8F);
-            this.ViewProfileToolStripMenuItem.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Icon_292;
+            this.ViewProfileToolStripMenuItem.Image = global::Virtuoso.Roamie.Properties.Resources.Icon_292;
             this.ViewProfileToolStripMenuItem.Name = "ViewProfileToolStripMenuItem";
             this.ViewProfileToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.ViewProfileToolStripMenuItem.Text = "&Show details";
@@ -102,7 +102,7 @@
             // 
             // TestToolStripMenuItem
             // 
-            this.TestToolStripMenuItem.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Icon_237;
+            this.TestToolStripMenuItem.Image = global::Virtuoso.Roamie.Properties.Resources.Icon_237;
             this.TestToolStripMenuItem.Name = "TestToolStripMenuItem";
             this.TestToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.TestToolStripMenuItem.Text = "&Test connection";
@@ -110,7 +110,7 @@
             // 
             // DeleteProfileToolStripMenuItem
             // 
-            this.DeleteProfileToolStripMenuItem.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.CbtnIcon_Delete;
+            this.DeleteProfileToolStripMenuItem.Image = global::Virtuoso.Roamie.Properties.Resources.CbtnIcon_Delete;
             this.DeleteProfileToolStripMenuItem.Name = "DeleteProfileToolStripMenuItem";
             this.DeleteProfileToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.DeleteProfileToolStripMenuItem.Text = "&Delete";
@@ -169,7 +169,7 @@
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Watermark_Profiles;
+            this.pictureBox1.Image = global::Virtuoso.Roamie.Properties.Resources.Watermark_Profiles;
             this.pictureBox1.Location = new System.Drawing.Point(627, 180);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(165, 220);
@@ -183,7 +183,7 @@
             this.categoryItemHeader1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.categoryItemHeader1.Dock = System.Windows.Forms.DockStyle.Top;
             this.categoryItemHeader1.HeaderText = "Manage your roaming profiles";
-            this.categoryItemHeader1.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_32x32_Profile;
+            this.categoryItemHeader1.Image = global::Virtuoso.Roamie.Properties.Resources.Image_32x32_Profile;
             this.categoryItemHeader1.Location = new System.Drawing.Point(0, 0);
             this.categoryItemHeader1.MinimumSize = new System.Drawing.Size(300, 40);
             this.categoryItemHeader1.Name = "categoryItemHeader1";

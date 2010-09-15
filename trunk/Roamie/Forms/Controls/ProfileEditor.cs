@@ -21,16 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
-using Virtuoso.Miranda.Roamie.Roaming.Profiles;
-using Virtuoso.Miranda.Roamie.Properties;
-using Virtuoso.Miranda.Roamie.Roaming.Providers;
+using Virtuoso.Roamie.Roaming.Profiles;
+using Virtuoso.Roamie.RoamingProviders;
+using Virtuoso.Roamie.Properties;
 
-namespace Virtuoso.Miranda.Roamie.Forms.Controls
+namespace Virtuoso.Roamie.Forms.Controls
 {
     internal partial class ProfileEditor : UserControl
     {

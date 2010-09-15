@@ -1,4 +1,4 @@
-namespace Virtuoso.Miranda.Roamie.Forms.Controls
+namespace Virtuoso.Roamie.Forms.Controls
 {
     partial class AboutInformation
     {
@@ -50,7 +50,7 @@ namespace Virtuoso.Miranda.Roamie.Forms.Controls
             this.categoryItemHeader1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.categoryItemHeader1.HeaderFont = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.categoryItemHeader1.HeaderText = "About";
-            this.categoryItemHeader1.Image = global::Virtuoso.Miranda.Roamie.Properties.Resources.Image_32x32_Information;
+            this.categoryItemHeader1.Image = global::Virtuoso.Roamie.Properties.Resources.Image_32x32_Information;
             this.categoryItemHeader1.Location = new System.Drawing.Point(0, 0);
             this.categoryItemHeader1.MinimumSize = new System.Drawing.Size(300, 40);
             this.categoryItemHeader1.Name = "categoryItemHeader1";

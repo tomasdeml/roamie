@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Virtuoso.Miranda.Roamie.Roaming
+namespace Virtuoso.Roamie.Roaming
 {
     [Flags]
     public enum RoamingState

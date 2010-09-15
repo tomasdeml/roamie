@@ -20,10 +20,10 @@
 \***********************************************************************************/
 
 using System;
-using Virtuoso.Miranda.Roamie.Properties;
 using System.Runtime.Serialization;
+using Virtuoso.Roamie.Properties;
 
-namespace Virtuoso.Miranda.Roamie
+namespace Virtuoso.Roamie
 {
     [Serializable]
     public class SyncException : Exception

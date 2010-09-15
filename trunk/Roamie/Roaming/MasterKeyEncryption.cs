@@ -20,15 +20,13 @@
 \***********************************************************************************/
 
 using System;
-using System.IO;
 using System.Security.Cryptography;
-using System.Text;
 using System.Windows.Forms;
 using Virtuoso.Miranda.Plugins.Configuration;
 using Virtuoso.Miranda.Plugins.Infrastructure;
-using Virtuoso.Miranda.Roamie.Properties;
+using Virtuoso.Roamie.Properties;
 
-namespace Virtuoso.Miranda.Roamie.Roaming
+namespace Virtuoso.Roamie.Roaming
 {
     internal sealed class MasterKeyEncryption : PortableEncryption
     {

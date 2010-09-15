@@ -21,12 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-
 using System.Diagnostics;
-using Virtuoso.Miranda.Roamie.Roaming.Providers;
+using Virtuoso.Roamie.RoamingProviders;
 
-namespace Virtuoso.Miranda.Roamie.Roaming.Profiles
+namespace Virtuoso.Roamie.Roaming.Profiles
 {
     [Serializable]
     public sealed class ProfileManager

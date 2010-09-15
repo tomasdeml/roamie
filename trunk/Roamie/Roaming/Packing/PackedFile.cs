@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using Virtuoso.Miranda.Plugins.Infrastructure;
 
-namespace Virtuoso.Miranda.Roamie.Roaming.Packing
+namespace Virtuoso.Roamie.Roaming.Packing
 {
     [Serializable]
     internal class PackedFile : IDisposable

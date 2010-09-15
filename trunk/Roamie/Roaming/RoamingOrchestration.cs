@@ -20,20 +20,15 @@
 \***********************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Virtuoso.Miranda.Roamie.Roaming.Providers;
-using Virtuoso.Miranda.Roamie.Forms;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Virtuoso.Miranda.Roamie.Properties;
-using Virtuoso.Miranda.Roamie.Roaming.DeltaSync;
 using System.Threading;
-using Virtuoso.Miranda.Roamie.Roaming.Packing;
-using Virtuoso.Miranda.Plugins.Infrastructure;
-using System.Media;
+using Virtuoso.Roamie.Forms;
+using Virtuoso.Roamie.Roaming.DeltaSync;
+using Virtuoso.Roamie.RoamingProviders;
+using Virtuoso.Roamie.Properties;
 
-namespace Virtuoso.Miranda.Roamie.Roaming
+namespace Virtuoso.Roamie.Roaming
 {
     internal static class RoamingOrchestration
     {
@@ -65,7 +60,7 @@ namespace Virtuoso.Miranda.Roamie.Roaming
                                           "Synchronization completed.",
                                           RoamiePlugin.TraceCategory);
                         return null;
-                    }, SyncOptions.Repeatable | SyncOptions.SilenceEligible);
+                    }, SyncOptions.Repeatable | SyncOptions.Silenceable);
                 }
                 catch
                 {
@@ -107,22 +102,17 @@ namespace Virtuoso.Miranda.Roamie.Roaming
                 if (!(Context.ActiveProvider is IDeltaAwareProvider))
                     return;
 
-                Context.DeltaEngine = new DeltaSyncEngine(Context.ActiveProfile);
-                SyncDialog.RunModal(DeltaEngineInitializer, SyncOptions.SilenceEligible | SyncOptions.Unrepeatable | SyncOptions.NoThrow);
+                DeltaSyncEngineFactory.GetEngine().Initialize(Context.ProfilePath);
+                SyncDialog.RunModal(DeltaEngineInitializer, SyncOptions.Silenceable | SyncOptions.Unrepeatable | SyncOptions.NoThrow);
             }
 
             private static object DeltaEngineInitializer()
             {
-                bool engineLoaded = InitializeDeltaEngine();
-
                 try
                 {
-                    if (engineLoaded)
+                    // Set during the Arrangement when a provider is delta aware
+                    if (Context.IsInState(RoamingState.ApplyNeccessaryDeltas))
                     {
-                        // Set during the Arrangement when a provider is delta aware
-                        if (Context.IsInState(RoamingState.ApplyNeccessaryDeltas))
-                            if (!Context.DeltaEngine.ApplyDeltas())
-                                SystemSounds.Exclamation.Play();
                     }
                 }
                 catch (Exception e)
@@ -132,54 +122,8 @@ namespace Virtuoso.Miranda.Roamie.Roaming
 
                     throw new DeltaSyncException(message, e);
                 }
-                finally
-                {
-                    Context.DeltaEngine.BeginReplication();
-                }
 
                 return null;
-            }
-
-            private static bool InitializeDeltaEngine()
-            {
-                bool engineLoaded;
-
-                try
-                {
-                    Context.DeltaEngine.Initialize();
-                    engineLoaded = true;
-                }
-                catch (DbTokenMismatchException)
-                {
-                    engineLoaded = HandleDbTokenMismatch();
-                }
-                catch (Exception e)
-                {
-                    // Unknown error during engine init, mark it unloaded
-                    Context.State &= ~RoamingState.DeltaSyncEngineLoaded;
-                    throw new DeltaSyncException(Resources.ExceptionMsg_UnableToInitDeltaEngine + e.Message, e);
-                }
-
-                return engineLoaded;
-            }
-
-            private static bool HandleDbTokenMismatch()
-            {
-                using (DbTokenMismatchDialog dlg = new DbTokenMismatchDialog())
-                {
-                    if (DialogResult.Cancel == dlg.ShowDialog())
-                    {
-                        lock (Context.SyncObject)
-                            Context.DeactivateProfile();
-
-                        return false;
-                    }
-
-                    if (Context.DeltaEngine.LegacyManifest != null)
-                        Context.DeltaEngine.LegacyManifest.Remove();
-
-                    return true;
-                }
             }
         }
 
@@ -191,7 +135,9 @@ namespace Virtuoso.Miranda.Roamie.Roaming
             public static void FinalizeDeltaEngine()
             {
                 if (Context.IsInState(RoamingState.DeltaSyncEngineLoaded) && !Context.IsInState(RoamingState.DiscardLocalChanges))
-                    Context.DeltaEngine.FinalizeDelta();
+                {
+                    // TODO Finalize Delta
+                }
             }
 
             /// <summary>
@@ -199,11 +145,11 @@ namespace Virtuoso.Miranda.Roamie.Roaming
             /// </summary>
             public static void PerformRemoteSync()
             {
-                MethodInvoker syncChain = null;
+                MethodInvoker syncChain;
 
                 if (Context.IsInState(RoamingState.DiscardLocalChanges))
                 {
-                    syncChain = delegate { RoamiePlugin.Singleton.RoamingContext.ActiveProvider.NonSyncShutdown(); };
+                    syncChain = () => RoamiePlugin.Singleton.RoamingContext.ActiveProvider.NonSyncShutdown();
                     Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Sandbox mode active, no synchronization required => shutting down the database provider...", RoamiePlugin.TraceCategory);
                 }
                 else
@@ -261,7 +207,8 @@ namespace Virtuoso.Miranda.Roamie.Roaming
             /// </summary>
             private static void DeltaSyncRemoteDb()
             {
-                Context.DeltaEngine.PublishDelta();
+                // TODO
+                //Context.DeltaEngine.PublishDelta();
                 Context.ActiveProvider.NonSyncShutdown();
 
                 Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Delta synchronization completed.", RoamiePlugin.TraceCategory);
@@ -275,7 +222,8 @@ namespace Virtuoso.Miranda.Roamie.Roaming
                 FullSyncRemoteDb();
 
                 ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_RemovingDeltas, SignificantProgress.Running);
-                Context.DeltaEngine.DeltaManifest.Remove();
+                // TODO
+                //Context.DeltaEngine.DeltaManifest.Remove();
             }
         }
     }
