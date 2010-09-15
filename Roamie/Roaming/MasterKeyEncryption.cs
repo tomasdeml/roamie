@@ -26,6 +26,8 @@ using Virtuoso.Miranda.Plugins.Configuration;
 using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Roamie.Properties;
 
+// TODO Get rid of and generate password
+
 namespace Virtuoso.Roamie.Roaming
 {
     internal sealed class MasterKeyEncryption : PortableEncryption
