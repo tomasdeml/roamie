@@ -79,9 +79,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>RoamiePlugin.cs</DependentUpon>
     </Content>
-    <Content Include="Docs\Diagnostics.txt" />
-    <Content Include="Docs\History.txt" />
-    <Content Include="Docs\Readme.txt" />
     <None Include="Resources\1284314619_decrypted.png" />
     <None Include="Resources\StartupHeaderOK.png" />
     <None Include="Resources\1284281919_check.png" />
