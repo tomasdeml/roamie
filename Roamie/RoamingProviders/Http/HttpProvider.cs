@@ -31,7 +31,7 @@ using Virtuoso.Roamie.Roaming.Profiles;
 
 namespace Virtuoso.Roamie.RoamingProviders.Http
 {
-    internal class HttpProvider : PackingDatabaseProvider, IDeltaAwareProvider
+    internal class HttpProvider : DatabaseProvider, IDeltaAwareProvider
     {
         #region Fields
 
@@ -76,17 +76,14 @@ namespace Virtuoso.Roamie.RoamingProviders.Http
             Context.State |= RoamingState.DiscardLocalChanges;
 
             if ((Context.State & RoamingState.WipeLocalDbOnExit) == RoamingState.WipeLocalDbOnExit)
-                InformationDialog.PresentModal(Resources.Information_Caption_YourChangesWillBeLost, Resources.Information_Formatable1_Text_YourChangesWillBeLost, Resources.Image_32x32_Profile);
+                InformationDialog.PresentModal(Resources.Information_Caption_YourChangesWiilBeLost, Resources.Information_Formatable1_Text_YourChangesWillBeLost, Resources.Image_32x32_Profile);
         }
 
         public override void VerifyProfile(RoamingProfile profile)
         {
             try
             {
-                HttpWebRequest request = WebRequest.Create(profile.RemoteHost) as HttpWebRequest;
-
-                if (request == null)
-                    throw new FormatException(Resources.ExceptionMsg_RemoteUriNotSupported);
+                HttpWebRequest request = HttpRequestFactory.CreateWebRequest(profile);
 
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
@@ -103,62 +100,8 @@ namespace Virtuoso.Roamie.RoamingProviders.Http
                 throw new SyncException(Resources.ExceptionMsg_SyncTestFailed, e);
             }
         }
-       
-        public override void SyncLocalDatabase(RoamingProfile profile)
-        {
-            try
-            {
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceVerbose, "Synchronizing local database...", TraceCategory);
-                HttpWebRequest request = HttpRequestFactory.CreateWebRequest(profile);
 
-                if (!String.IsNullOrEmpty(profile.UserName))
-                    request.Credentials = new NetworkCredential(profile.UserName, profile.Password);
-
-                InitializeSafeProfilePath();
-
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                {
-                    using (Stream remoteStream = response.GetResponseStream(),
-                                  downloadedStream = new MemoryStream(response.ContentLength < 0 ? 2048 : (int)response.ContentLength),
-                                  unprotectedStream = new MemoryStream((int)downloadedStream.Length * 2))
-                    {
-                        ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_DownloadingDb, SignificantProgress.Running);
-                        StreamUtility.CopyStream(new UndisposableStream(remoteStream, ((MemoryStream)downloadedStream).Capacity), downloadedStream, delegate(int _progress) { ProgressMediator.ChangeProgress(null, _progress); });
-
-                        ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_CompressingEncrypting, SignificantProgress.Running);
-                        downloadedStream.Seek(0, SeekOrigin.Begin);
-
-                        StreamUtility.DecryptAndDecompress(downloadedStream, unprotectedStream, profile.DatabasePassword);
-                        unprotectedStream.Seek(0, SeekOrigin.Begin);
-
-                        ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Saving, SignificantProgress.Running);
-                        
-                        using (FileStream localStream = new FileStream(Context.ProfilePath, FileMode.Create))
-                            StreamUtility.CopyStream(unprotectedStream, localStream);
-                    }
-                }
-
-                // Sync attached files
-                base.SyncLocalDatabase(profile);
-
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Local database synchronized.", TraceCategory);
-                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Completed, SignificantProgress.Complete);
-            }
-            catch (CryptographicException cE)
-            {
-                throw new SyncException(String.Format(Resources.ExceptionMsg_Formatable1_CryptoError, cE.Message), cE);
-            }
-            catch (WebException wE)
-            {
-                throw new SyncException(String.Format(Resources.ExceptionMsg_Formatable2_DownloadError, profile.RemoteHost, wE.Message), wE);
-            }
-            catch (Exception e)
-            {
-                throw new SyncException(String.Format(Resources.ExceptionMsg_Formatable1_GeneralDownloadError, e.Message), e);
-            }
-        }
-
-        public override void SyncRemoteDatabase(RoamingProfile profile)
+        protected override void PerformRemoteSiteSync(RoamingProfile profile)
         {
             // Base impl must not be called, http provider cannot upload files...
         }
@@ -168,8 +111,6 @@ namespace Virtuoso.Roamie.RoamingProviders.Http
             if ((Context.State & RoamingState.WipeLocalDbOnExit) != RoamingState.WipeLocalDbOnExit ||
                 (Context.State & RoamingState.DiscardLocalChanges) != RoamingState.DiscardLocalChanges)
                 InformationDialog.PresentModal(Resources.Information_Caption_CannotMirrorChanges, String.Format(Resources.Information_Formatable1_Text_CannotMirrorChanges, Path.GetFileName(Context.ProfilePath)), Resources.Image_32x32_Web);
-
-            RemoveLocalDb();
 
             // Base impl must not be called, http provider cannot upload files...
         }

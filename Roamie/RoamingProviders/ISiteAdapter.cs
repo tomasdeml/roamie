@@ -26,9 +26,9 @@ namespace Virtuoso.Roamie.RoamingProviders
 {
     public interface ISiteAdapter
     {
-        bool FileExists(RoamingProfile profile, string path);
-        Stream PullFile(RoamingProfile profile, string path);
-        void PushFile(RoamingProfile profile, string path, Stream sourceStream);
-        bool DeleteFile(RoamingProfile profile, string path);
+        bool FileExists(RoamingProfile profile, string remotePath);
+        bool PullFile(RoamingProfile profile, string remotePath, Stream outputStream);
+        void PushFile(RoamingProfile profile, Stream sourceStream, string remotePath, bool reliable);
+        bool DeleteFile(RoamingProfile profile, string remotePath);
     }
 }

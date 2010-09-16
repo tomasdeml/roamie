@@ -19,6 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. *
 \***********************************************************************************/
 
+using System;
 using System.IO;
 using System.Diagnostics;
 using Virtuoso.Roamie.Roaming;
@@ -62,11 +63,70 @@ namespace Virtuoso.Roamie.RoamingProviders
 
         public abstract void VerifyProfile(RoamingProfile profile);
 
-        public abstract void SyncLocalDatabase(RoamingProfile profile);
+        public void SyncLocalSite(RoamingProfile profile)
+        {
+            InitializeSafeProfilePath();
 
-        public abstract void SyncRemoteDatabase(RoamingProfile profile);
+            using (Stream dbStream = File.Create(Context.ProfilePath))
+            {
+                // TODO
+                if (!Adapter.PullFile(profile, profile.RemoteHost, dbStream))
+                    throw new Exception();
+            }
 
-        protected virtual void RemoveLocalData(bool localDbRemoved) { }
+            PerformLocalSiteSync(profile);
+        }
+
+        protected virtual void PerformLocalSiteSync(RoamingProfile profile)
+        {
+        }
+
+        public void SyncRemoteSite(RoamingProfile profile)
+        {
+            if (Context.IsInState(RoamingState.DiscardLocalChanges))
+            {
+                // TODO Log
+                //Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Sandbox mode is active, no synchronization required.", "");
+                return;
+            }
+
+            using (Stream dbStream = File.OpenRead(Context.ProfilePath))
+                Adapter.PushFile(profile, dbStream, profile.RemoteHost, true);
+
+            PerformRemoteSiteSync(profile);
+        }
+
+        protected virtual void PerformRemoteSiteSync(RoamingProfile profile)
+        {
+        }
+
+        protected virtual void RemoveLocalData(bool localDbRemoved)
+        {
+        }
+
+        public void RemoveLocalDb()
+        {
+            try
+            {
+                bool removeDb = Context.IsInState(RoamingState.WipeLocalDbOnExit);
+
+                if (removeDb)
+                {
+                    Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "PublicMode is active, preparing for local database removal...", RoamiePlugin.TraceCategory);
+
+                    if (File.Exists(Context.ProfilePath))
+                    {
+                        File.Delete(Context.ProfilePath);
+                        Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Local database removed.", RoamiePlugin.TraceCategory);
+                    }
+                    else
+                        Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceWarning, "Local database no longer exist! Cannot remove local database.", RoamiePlugin.TraceCategory);
+                }
+
+                RemoveLocalData(removeDb);
+            }
+            catch { }
+        }
 
         #endregion
 
@@ -102,33 +162,6 @@ namespace Virtuoso.Roamie.RoamingProviders
         protected void ChangeProfilePath(string path)
         {
             Context.ProfilePath = path;
-        }
-
-        // TODO
-#warning RoamingOrchestration must call this!
-
-        protected void RemoveLocalDb()
-        {
-            try
-            {
-                bool removeDb = Context.IsInState(RoamingState.WipeLocalDbOnExit);
-
-                if (removeDb)
-                {
-                    Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "PublicMode is active, preparing for local database removal...", RoamiePlugin.TraceCategory);
-
-                    if (File.Exists(Context.ProfilePath))
-                    {
-                        File.Delete(Context.ProfilePath);
-                        Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Local database removed.", RoamiePlugin.TraceCategory);
-                    }
-                    else
-                        Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceWarning, "Local database no longer exist! Cannot remove local database.", RoamiePlugin.TraceCategory);                    
-                }
-
-                RemoveLocalData(removeDb);
-            }
-            catch { }
         }
 
         #endregion

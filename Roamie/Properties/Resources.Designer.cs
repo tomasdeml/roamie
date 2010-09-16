@@ -401,11 +401,11 @@ namespace Virtuoso.Roamie.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remote database is corrupted. Previous synchronization may have failed..
+        ///   Looks up a localized string similar to The remote file is empty..
         /// </summary>
-        internal static string ExceptionMsg_InvalidRemoteDatabase {
+        internal static string ExceptionMsg_RemoteFileIsEmpty {
             get {
-                return ResourceManager.GetString("ExceptionMsg_InvalidRemoteDatabase", resourceCulture);
+                return ResourceManager.GetString("ExceptionMsg_RemoteFileIsEmpty", resourceCulture);
             }
         }
         
@@ -756,9 +756,9 @@ namespace Virtuoso.Roamie.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Your changes will be lost.
         /// </summary>
-        internal static string Information_Caption_YourChangesWillBeLost {
+        internal static string Information_Caption_YourChangesWiilBeLost {
             get {
-                return ResourceManager.GetString("Information_Caption_YourChangesWillBeLost", resourceCulture);
+                return ResourceManager.GetString("Information_Caption_YourChangesWiilBeLost", resourceCulture);
             }
         }
         

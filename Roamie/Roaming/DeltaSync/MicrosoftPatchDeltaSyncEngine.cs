@@ -22,7 +22,7 @@ namespace Virtuoso.Roamie.Roaming.DeltaSync
             OriginalDatabasePath = databasePath + OriginalDatabaseExtension;
             PatchPath = databasePath + PatchExtension;
 
-            File.Copy(WorkingDatabasePath, OriginalDatabasePath, true);
+            //File.Copy(WorkingDatabasePath, OriginalDatabasePath, true);
         }
 
         public Stream CreateDelta()

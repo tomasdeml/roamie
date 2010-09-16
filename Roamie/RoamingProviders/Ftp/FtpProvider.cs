@@ -21,17 +21,14 @@
 
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Net;
-using System.Security.Cryptography;
 using Virtuoso.Miranda.Plugins.Forms;
 using Virtuoso.Roamie.Properties;
-using Virtuoso.Roamie.Roaming;
 using Virtuoso.Roamie.Roaming.Profiles;
 
 namespace Virtuoso.Roamie.RoamingProviders.Ftp
 {
-    internal class FtpProvider : PackingDatabaseProvider, IDeltaAwareProvider
+    internal class FtpProvider : DatabaseProvider, IDeltaAwareProvider
     {
         #region Fields
 
@@ -105,156 +102,6 @@ namespace Virtuoso.Roamie.RoamingProviders.Ftp
             {
                 throw new SyncException(e.Message, e);
             }
-        }
-
-        public override void SyncLocalDatabase(RoamingProfile profile)
-        {
-            try
-            {               
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceVerbose, "Synchronizing local database...", TraceCategory);
-                InitializeSafeProfilePath();
-
-                FtpWebRequest ftpFileRequest = FtpRequestFactory.CreateRequest(WebRequestMethods.Ftp.DownloadFile, profile);                              
-
-                using (FtpWebResponse ftpFileResponse = (FtpWebResponse)ftpFileRequest.GetResponse())
-                {
-                    int? fileSize = FtpRequestFactory.GetFileSize(ftpFileRequest);
-
-                    using (Stream remoteStream = ftpFileResponse.GetResponseStream(),
-                        downloadedStream = new MemoryStream(fileSize == null ? 10240 : fileSize.Value), 
-                        unprotectedStream = new MemoryStream((int)downloadedStream.Length * 2))
-                    {
-                        if (fileSize != null && fileSize.Value <= 0)
-                        {
-                            Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, "The FTP SIZE response says the remote file length is 0 bytes. This indicates the database is corrupted. Aborting synchronization.", TraceCategory);
-                            throw new SyncException(Resources.ExceptionMsg_InvalidRemoteDatabase);
-                        }
-
-                        ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_DownloadingDb, SignificantProgress.Running);
-                        
-                        var source = new UndisposableStream(remoteStream, ((MemoryStream)downloadedStream).Capacity);
-                        var progressCallback = (fileSize != null ? (progress => ProgressMediator.ChangeProgress(null, progress)) : (StreamUtility.ProgressCallback)null);
-
-                        StreamUtility.CopyStream(source, downloadedStream, progressCallback);
-
-                        ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_DecryptingDecompressing, SignificantProgress.Running);
-                        downloadedStream.Seek(0, SeekOrigin.Begin);
-                        StreamUtility.DecryptAndDecompress(downloadedStream, unprotectedStream, profile.DatabasePassword);
-
-                        ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Saving);
-                        unprotectedStream.Seek(0, SeekOrigin.Begin);
-
-                        using (Stream localStream = new FileStream(Context.ProfilePath, FileMode.Create))
-                            StreamUtility.CopyStream(unprotectedStream, localStream);
-                    }
-                }
-
-                // Sync attached files
-                base.SyncLocalDatabase(profile);
-
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Local database synchronized.", TraceCategory);
-                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Completed, SignificantProgress.Complete);
-            }
-            catch (CryptographicException cE)
-            {
-                throw new SyncException(String.Format(Resources.ExceptionMsg_Formatable1_CryptoError, cE.Message), cE);
-            }
-            catch (WebException wE)
-            {
-                throw new SyncException(String.Format(Resources.ExceptionMsg_Formatable2_DownloadError, profile.RemoteHost, wE.Message), wE);
-            }
-            catch (Exception e)
-            {
-                throw new SyncException(String.Format(Resources.ExceptionMsg_Formatable1_GeneralDownloadError, e.Message), e);
-            }
-        }
-
-        public override void SyncRemoteDatabase(RoamingProfile profile)
-        {
-            try
-            {
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceVerbose, "Synchronizing remote database...", TraceCategory);
-
-                if ((Context.State & RoamingState.DiscardLocalChanges) == RoamingState.DiscardLocalChanges)
-                {
-                    Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Sandbox mode is active, no synchronization required.", TraceCategory);
-                    return;
-                }
-
-                Uri remoteUri = new Uri(profile.RemoteHost);
-                Uri tempRemoteUri = new Uri(profile.RemoteHost + ".tmp");
-
-                // First upload new database as *.tmp file (to preserve original database if the transfer fails)
-                FtpWebRequest ftpRequest = FtpRequestFactory.CreateRequest(WebRequestMethods.Ftp.UploadFile, profile,
-                                                                           tempRemoteUri);
-
-                using (Stream localStream = new FileStream(Context.ProfilePath, FileMode.Open),                    
-                    protectedStream = new MemoryStream((int)localStream.Length / 2),
-                    remoteStream = ftpRequest.GetRequestStream())
-                {
-                    ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_CompressingEncrypting, SignificantProgress.Running);
-                    StreamUtility.CompressAndEncrypt(localStream, remoteStream, profile.DatabasePassword);
-
-                    ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Uploading, SignificantProgress.Stopped);
-                    protectedStream.Seek(0, SeekOrigin.Begin);
-                    StreamUtility.CopyStream(protectedStream, remoteStream,
-                                             progress => ProgressMediator.ChangeProgress(null, progress));
-                }
-
-                GetAndVerifyFtpResponse(ftpRequest, FtpStatusCode.ClosingData);
-                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Finishing, SignificantProgress.Running);
-
-                // Now delete any previous existing *.dat profiles
-                try
-                {
-                    ftpRequest = FtpRequestFactory.CreateRequest(WebRequestMethods.Ftp.DeleteFile, profile, remoteUri);
-                    GetAndVerifyFtpResponse(ftpRequest, FtpStatusCode.FileActionOK);
-                }
-                // Ignore exception when deleting a non-existent file
-                catch { }
-
-                // Lastly rename *.tmp to *.dat
-                ftpRequest = FtpRequestFactory.CreateRequest(WebRequestMethods.Ftp.Rename, profile, tempRemoteUri);
-                ftpRequest.RenameTo = remoteUri.Segments[remoteUri.Segments.Length - 1];
-                GetAndVerifyFtpResponse(ftpRequest, FtpStatusCode.FileActionOK);
-
-                // Sync attached files
-                base.SyncRemoteDatabase(profile);
-
-                RemoveLocalDb();
-                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_Completed, SignificantProgress.Complete);
-            }
-            catch (WebException wE)
-            {
-                throw new SyncException(String.Format(Resources.ExceptionMsg_Formatable2_UploadError, profile.RemoteHost, wE.Message), wE);
-            }
-            catch (Exception e)
-            {
-                throw new SyncException(String.Format(Resources.ExceptionMsg_Formatable1_GeneralUploadError, e.Message), e);
-            }
-        }
-
-        private static void GetAndVerifyFtpResponse(FtpWebRequest ftpRequest, FtpStatusCode expectedStatus)
-        {
-            using (FtpWebResponse ftpResponse = (FtpWebResponse)ftpRequest.GetResponse())
-            {
-                if (ftpResponse.StatusCode == expectedStatus)
-                    return;
-
-                string message = String.Format(Resources.ExceptionMsg_Formatable2_UnexpectedResponse,
-                                               ftpResponse.StatusCode, expectedStatus);
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, message, TraceCategory);
-
-                throw new SyncException(message);
-            }
-        }        
-
-        public override void NonSyncShutdown()
-        {
-            Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "NonSyncShutdown requested => no synchronization is required.", TraceCategory);
-
-            base.NonSyncShutdown();
-            RemoveLocalDb();
         }
 
         #endregion

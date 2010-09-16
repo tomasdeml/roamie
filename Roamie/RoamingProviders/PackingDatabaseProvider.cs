@@ -36,33 +36,29 @@ namespace Virtuoso.Roamie.RoamingProviders
         private PackingContainer Container;
 
         #endregion
-
-        #region .ctors
-
-        protected PackingDatabaseProvider() { }
-
-        #endregion       
-
-        #region Impl
+ 
+        #region Methods
 
         /// <summary>
         /// Retrieves and deploys files packed with the database. Must be called AFTER your synchonization implementation.
         /// </summary>
         /// <param name="profile">Roaming profile.</param>
-        public override void SyncLocalDatabase(RoamingProfile profile)
+        protected override void PerformLocalSiteSync(RoamingProfile profile)
         {
             try
             {
-                using (PackingContainer container = (Container = PackingContainer.Load(profile)))
-                    Container.Deploy();
-
-                if (Container.Files.Count > 0)
-                    GC.Collect(0);
+                Container = PackingContainer.Load(profile);
+                Container.Deploy();
             }
             catch
             {
                 ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_CannotGetAttachedContainer);
                 Container = new PackingContainer(profile);
+            }
+            finally
+            {
+                if (Container != null)
+                    Container.Dispose();
             }
         }
 
@@ -70,7 +66,7 @@ namespace Virtuoso.Roamie.RoamingProviders
         /// Publishes packed files if neccessary. Must be called AFTER your synchronization implementation.
         /// </summary>
         /// <param name="profile">Roaming profile.</param>
-        public override void SyncRemoteDatabase(RoamingProfile profile)
+        protected override void PerformRemoteSiteSync(RoamingProfile profile)
         {
             SyncAttachedContainer();
         }
@@ -78,7 +74,6 @@ namespace Virtuoso.Roamie.RoamingProviders
         /// <summary>
         /// Publishes packed files if neccessary. Must be called AFTER your synchronization implementation.
         /// </summary>
-        /// <param name="profile">Roaming profile.</param>
         public override void NonSyncShutdown()
         {
             if (!Context.IsInState(RoamingState.DiscardLocalChanges))
@@ -90,19 +85,21 @@ namespace Virtuoso.Roamie.RoamingProviders
         /// </summary>
         private void SyncAttachedContainer()
         {
-            if (Container == null || !Container.IsDirty)
+            if (Container == null)
                 return;
 
             try
             {
-                using (PackingContainer container = Container)
-                    container.Publish();
-
+                Container.Publish();
                 Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Attached files synchronization completed.", RoamiePlugin.TraceCategory);
             }
             catch (Exception e)
             {
                 Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Attached files synchronization failed. " + e.ToString(), RoamiePlugin.TraceCategory);
+            }
+            finally
+            {
+                Container.Dispose();
             }
         }
             
