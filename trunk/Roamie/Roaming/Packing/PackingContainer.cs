@@ -46,7 +46,7 @@ namespace Virtuoso.Roamie.Roaming.Packing
                 throw new ArgumentNullException("profile");
 
             this.profile = profile;
-            this.files = new FileCollection();
+            this.Files = new FileCollection();
         }
 
         ~PackingContainer()
@@ -60,7 +60,7 @@ namespace Virtuoso.Roamie.Roaming.Packing
 
         public bool IsDirty
         {
-            get { return files.IsDirty; }
+            get { return Files.IsDirty; }
         }
 
         [NonSerialized]
@@ -70,56 +70,11 @@ namespace Virtuoso.Roamie.Roaming.Packing
             get { return profile; }
         }
 
-        private FileCollection files;
-        public FileCollection Files
-        {
-            get { return files; }
-        }
-                       
+        public FileCollection Files { get; private set; }
+
         #endregion
 
         #region Methods
-
-        private void Serialize(Stream destination)
-        {
-            if (destination == null)
-                throw new ArgumentNullException("destination");
-
-            if (!destination.CanWrite)
-                throw new ArgumentException();
-
-            using (MemoryStream encryptedStream = new MemoryStream(4092))
-            {
-                BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(encryptedStream, this);
-
-                encryptedStream.Seek(0, SeekOrigin.Begin);
-                StreamUtility.CompressAndEncrypt(encryptedStream, destination, RoamiePlugin.Singleton.RoamingContext.ActiveProfile.DatabasePassword);
-            }
-        }
-
-        private static PackingContainer Deserialize(Stream source, RoamingProfile profile)
-        {
-            if (source == null)
-                throw new ArgumentNullException("source");
-
-            if (profile == null)
-                throw new ArgumentNullException("profile");
-
-            if (!source.CanRead)
-                throw new ArgumentException();
-
-            using (MemoryStream decryptedStream = new MemoryStream(8192))
-            {
-                StreamUtility.DecryptAndDecompress(source, decryptedStream, profile.DatabasePassword);
-                decryptedStream.Seek(0, SeekOrigin.Begin);
-
-                BinaryFormatter formatter = new BinaryFormatter();
-                PackingContainer container = (PackingContainer)formatter.Deserialize(decryptedStream);
-
-                return container;
-            }
-        }
 
         private static string GetContainerPath(RoamingProfile profile)
         {
@@ -139,36 +94,30 @@ namespace Virtuoso.Roamie.Roaming.Packing
 
             if (!adapter.FileExists(profile, containerPath))
                 return new PackingContainer(profile);
-            else
-            {
-                using (Stream containerStream = adapter.PullFile(profile, containerPath))
-                {
-                    PackingContainer container = Deserialize(containerStream, profile);
-                    container.profile = profile;
 
-                    return container;
-                }
+            using (MemoryStream containerStream = new MemoryStream())
+            {
+                adapter.PullFile(profile, containerPath, containerStream);
+
+                BinaryFormatter formatter = new BinaryFormatter();
+                PackingContainer container = (PackingContainer)formatter.Deserialize(containerStream);
+                container.profile = profile;
+
+                return container;
             }
         }
 
         public void Deploy()
         {
-            foreach (PackedFile file in files)
-            {
-                string path = file.Path;
-
-                if (File.Exists(path))
-                    File.Delete(path);
-
-                File.WriteAllBytes(path, file.Stream.ToArray());
-            }
+            foreach (PackedFile packedFile in Files)
+                File.WriteAllBytes(packedFile.Path, packedFile.Stream.ToArray());
         }
 
         public void Publish()
         {
             List<PackedFile> invalidFiles = new List<PackedFile>(1);
 
-            foreach (PackedFile file in files)
+            foreach (PackedFile file in Files)
             {
                 try
                 {
@@ -181,23 +130,24 @@ namespace Virtuoso.Roamie.Roaming.Packing
             }
 
             foreach (PackedFile file in invalidFiles)
-                files.Remove(file);
+                Files.Remove(file);
 
             ISiteAdapter adapter = profile.GetProvider().Adapter;
 
-            using (MemoryStream containerStream = new MemoryStream(4096))
+            using (MemoryStream containerStream = new MemoryStream())
             {
-                Serialize(containerStream);
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(containerStream, this);
                 containerStream.Seek(0, SeekOrigin.Begin);
 
                 ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_PublishingDelta, SignificantProgress.Running);
-                adapter.PushFile(profile, GetContainerPath(profile), containerStream);
+                adapter.PushFile(profile, containerStream, GetContainerPath(profile), true);
             }
         }
 
         public void Dispose()
         {
-            foreach (PackedFile file in files)
+            foreach (PackedFile file in Files)
                 file.Dispose();
         }
 

@@ -496,8 +496,8 @@
   <data name="Label_UI_RoamingStatusDialog_OnExitCHBOX_NoAction" xml:space="preserve">
     <value>No synchronization required</value>
   </data>
-  <data name="ExceptionMsg_InvalidRemoteDatabase" xml:space="preserve">
-    <value>Remote database is corrupted. Previous synchronization may have failed.</value>
+  <data name="ExceptionMsg_RemoteFileIsEmpty" xml:space="preserve">
+    <value>The remote file is empty.</value>
   </data>
   <data name="Config_General_About" xml:space="preserve">
     <value>About</value>

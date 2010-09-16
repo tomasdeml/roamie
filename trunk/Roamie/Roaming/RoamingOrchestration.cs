@@ -78,7 +78,7 @@ namespace Virtuoso.Roamie.Roaming
             /// </summary>
             private static void SyncLocalDb()
             {
-                Context.ActiveProvider.SyncLocalDatabase(Context.ActiveProfile);
+                Context.ActiveProvider.SyncLocalSite(Context.ActiveProfile);
             }
 
             /// <summary>
@@ -113,6 +113,7 @@ namespace Virtuoso.Roamie.Roaming
                     // Set during the Arrangement when a provider is delta aware
                     if (Context.IsInState(RoamingState.ApplyNeccessaryDeltas))
                     {
+                        // TODO
                     }
                 }
                 catch (Exception e)
@@ -145,11 +146,12 @@ namespace Virtuoso.Roamie.Roaming
             /// </summary>
             public static void PerformRemoteSync()
             {
+                DatabaseProvider databaseProvider = RoamiePlugin.Singleton.RoamingContext.ActiveProvider;
                 MethodInvoker syncChain;
 
                 if (Context.IsInState(RoamingState.DiscardLocalChanges))
                 {
-                    syncChain = () => RoamiePlugin.Singleton.RoamingContext.ActiveProvider.NonSyncShutdown();
+                    syncChain = () => databaseProvider.NonSyncShutdown();
                     Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Sandbox mode active, no synchronization required => shutting down the database provider...", RoamiePlugin.TraceCategory);
                 }
                 else
@@ -168,8 +170,11 @@ namespace Virtuoso.Roamie.Roaming
                     }
                 }
 
+                syncChain += databaseProvider.RemoveLocalDb;
+
                 // Workaround for Clist_modern, otherwise we get an Access Violation exception...
-                Thread syncThread = new Thread(RemoteSyncPerformer);
+                Thread syncThread = new Thread(RemoteSyncPerformer) {IsBackground = false};
+                syncThread.SetApartmentState(ApartmentState.STA);
 
                 syncThread.Start(syncChain);
                 syncThread.Join();
@@ -198,7 +203,7 @@ namespace Virtuoso.Roamie.Roaming
             /// </summary>
             private static void FullSyncRemoteDb()
             {
-                Context.ActiveProvider.SyncRemoteDatabase(Context.ActiveProfile);
+                Context.ActiveProvider.SyncRemoteSite(Context.ActiveProfile);
                 Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Synchronization completed.", RoamiePlugin.TraceCategory);
             }
 
@@ -208,7 +213,7 @@ namespace Virtuoso.Roamie.Roaming
             private static void DeltaSyncRemoteDb()
             {
                 // TODO
-                //Context.DeltaEngine.PublishDelta();
+                //DeltaSyncEngineFactory.GetEngine().CreateDelta();
                 Context.ActiveProvider.NonSyncShutdown();
 
                 Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Delta synchronization completed.", RoamiePlugin.TraceCategory);

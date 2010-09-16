@@ -59,17 +59,17 @@ namespace Virtuoso.Roamie
 
         public static void CopyStream(Stream source, Stream destination, ProgressCallback callback)
         {
-            if (source == null)
-                throw new ArgumentNullException("source");
-
-            if (destination == null)
-                throw new ArgumentNullException("destination");
-
             if (callback == null)
             {
                 CopyStream(source, destination);
                 return;
             }
+            
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (destination == null)
+                throw new ArgumentNullException("destination");
 
             int count;
             byte[] buffer = new byte[2048];

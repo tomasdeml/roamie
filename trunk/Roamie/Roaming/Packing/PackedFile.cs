@@ -17,12 +17,12 @@ namespace Virtuoso.Roamie.Roaming.Packing
             if (!path.StartsWith(MirandaEnvironment.MirandaFolderPath))
                 throw new ArgumentOutOfRangeException("path");
             
-            this.relativePath = path.Substring(MirandaEnvironment.MirandaFolderPath.Length + 1);
+            RelativePath = path.Substring(MirandaEnvironment.MirandaFolderPath.Length + 1);
         }
 
         ~PackedFile()
         {
-            Dispose();
+            Dispose(false);
         }
 
         #endregion
@@ -33,27 +33,12 @@ namespace Virtuoso.Roamie.Roaming.Packing
         private string path;
         public string Path
         {
-            get
-            {
-                if (path == null)
-                    path = System.IO.Path.Combine(MirandaEnvironment.MirandaFolderPath, relativePath);
-
-                return path; 
-            }
+            get { return path ?? (path = System.IO.Path.Combine(MirandaEnvironment.MirandaFolderPath, RelativePath)); }
         }
 
-        private string relativePath;
-        public string RelativePath
-        {
-            get { return relativePath; }
-            set { relativePath = value; }
-        }
+        public string RelativePath { get; set; }
 
-        private MemoryStream stream;
-        public MemoryStream Stream
-        {
-            get { return stream; }
-        }
+        public MemoryStream Stream { get; private set; }
 
         #endregion
 
@@ -61,7 +46,7 @@ namespace Virtuoso.Roamie.Roaming.Packing
 
         public override int GetHashCode()
         {
-            return relativePath.GetHashCode();
+            return RelativePath.GetHashCode();
         }
 
         public override bool Equals(object obj)
@@ -69,21 +54,26 @@ namespace Virtuoso.Roamie.Roaming.Packing
             if (!(obj is PackedFile))
                 return false;
 
-            return this.GetHashCode() == obj.GetHashCode();
+            return GetHashCode() == obj.GetHashCode();
         }
 
         public void Prepare()
         {            
-            this.stream = new MemoryStream(File.ReadAllBytes(Path));
+            Stream = new MemoryStream(File.ReadAllBytes(Path));
         }
 
         public void Dispose()
         {
-            if (stream != null)
-            {
-                stream.Dispose();
-                stream = null;
-            }
+            Dispose(true);
+        }
+
+        protected void Dispose(bool disposing)
+        {
+            if (!disposing || Stream == null)
+                return;
+
+            Stream.Dispose();
+            Stream = null;
         }
 
         #endregion
