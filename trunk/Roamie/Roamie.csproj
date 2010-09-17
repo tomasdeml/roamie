@@ -60,7 +60,6 @@
     <Compile Include="Forms\SyncDialog.Designer.cs">
       <DependentUpon>SyncDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="RoamingProviders\IDeltaAwareProvider.cs" />
     <Compile Include="Roaming\RoamingState.cs" />
     <Compile Include="Forms\StartupDialog.cs">
       <SubType>Form</SubType>
@@ -240,10 +239,13 @@
       <DependentUpon>MasterKeyDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="ProgressMediator.cs" />
+    <Compile Include="RoamingProviders\DeltaSyncSupport.cs" />
+    <Compile Include="RoamingProviders\ProviderDecorator.cs" />
     <Compile Include="RoamingProviders\Ftp\FtpRequestFactory.cs" />
     <Compile Include="RoamingProviders\Ftp\FtpSiteAdapter.cs" />
     <Compile Include="RoamingProviders\Http\HttpSiteAdapter.cs" />
     <Compile Include="RoamingProviders\Http\HttpRequestFactory.cs" />
+    <Compile Include="RoamingProviders\OneWaySynchronization.cs" />
     <Compile Include="Roaming\DeltaSync\DeltaSyncEngineFactory.cs" />
     <Compile Include="Roaming\DeltaSync\IDeltaSyncEngine.cs" />
     <Compile Include="Roaming\DeltaSync\MicrosoftPatchDeltaSyncEngine.cs" />
@@ -251,11 +253,11 @@
     <Compile Include="Roaming\MasterKeyCache.cs" />
     <Compile Include="Roaming\MasterKeyEncryption.cs" />
     <Compile Include="Roaming\DeltaSync\DeltaSyncException.cs" />
-    <Compile Include="Roaming\Packing\PackingContainer.cs" />
-    <Compile Include="Roaming\Packing\PackedFile.cs" />
-    <Compile Include="Roaming\Packing\FileCollection.cs" />
+    <Compile Include="Roaming\Provisioning\ProvisioningContainer.cs" />
+    <Compile Include="Roaming\Provisioning\Content.cs" />
+    <Compile Include="Roaming\Provisioning\ContentCollection.cs" />
     <Compile Include="RoamingProviders\Ftp\FtpProvider.cs" />
-    <Compile Include="RoamingProviders\PackingDatabaseProvider.cs" />
+    <Compile Include="RoamingProviders\ContentProvisioningSupport.cs" />
     <Compile Include="Roaming\RoamingOrchestration.cs" />
     <Compile Include="Forms\WarningDialog.cs">
       <SubType>Form</SubType>

@@ -41,195 +41,77 @@ namespace Virtuoso.Roamie.Roaming
 
         #endregion
 
-        public static class Preparation
+        #region Preparation
+
+        /// <summary>
+        /// Begins local synchronization. Called right after user selects a roaming profile.
+        /// </summary>
+        public static void SyncLocalSite()
         {
-            /// <summary>
-            /// Begins local synchronization. Called right after user selects a roaming profile.
-            /// </summary>
-            public static void PerformLocalSynchronization()
+            try
             {
-                try
-                {
-                    SyncDialog.RunModal(() =>
-                    {
-                        MethodInvoker syncChain = new MethodInvoker(SyncLocalDb) +
-                                                  DecideOnDeltaExistence;
-                        syncChain();
-
-                        Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo,
-                                          "Synchronization completed.",
-                                          RoamiePlugin.TraceCategory);
-                        return null;
-                    }, SyncOptions.Repeatable | SyncOptions.Silenceable);
-                }
-                catch
-                {
-                    Context.State |= RoamingState.SyncErrorOccured;
-
-                    Context.DeactivateProfile();
-                    Context.RestoreProfilePath();
-
-                    throw;
-                }
+                SyncDialog.RunModal(DoSyncLocalSite, SyncOptions.Repeatable | SyncOptions.Silenceable);
             }
-
-            /// <summary>
-            /// Synchronizes local database.
-            /// </summary>
-            private static void SyncLocalDb()
+            catch
             {
-                Context.ActiveProvider.SyncLocalSite(Context.ActiveProfile);
-            }
+                Context.State |= RoamingState.SyncErrorOccured;
 
-            /// <summary>
-            /// Decides whether delta engine should apply deltas.
-            /// </summary>
-            private static void DecideOnDeltaExistence()
-            {
-                if (Context.ActiveProvider is IDeltaAwareProvider)
-                    Context.State |= RoamingState.ApplyNeccessaryDeltas;
+                Context.DeactivateProfile();
+                Context.RestoreProfilePath();
+
+                throw;
             }
         }
 
-        public static class Performance
+        /// <summary>
+        /// Synchronizes local database.
+        /// </summary>
+        private static object DoSyncLocalSite()
         {
-            /// <summary>
-            /// Loads the Delta engine. 
-            /// Called after the user selects a roaming profile and local database is synchronized.
-            /// </summary>
-            public static void LoadDeltaEngine()
-            {
-                if (!(Context.ActiveProvider is IDeltaAwareProvider))
-                    return;
+            Context.ActiveProvider.SyncLocalSite(Context.ActiveProfile);
+            return null;
+        }
 
-                DeltaSyncEngineFactory.GetEngine().Initialize(Context.ProfilePath);
-                SyncDialog.RunModal(DeltaEngineInitializer, SyncOptions.Silenceable | SyncOptions.Unrepeatable | SyncOptions.NoThrow);
+        #endregion
+
+        #region Finale
+
+        /// <summary>
+        /// Performs remote database synchronization. Called during the unload.
+        /// </summary>
+        public static void SyncRemoteSite()
+        {
+            // Workaround for Clist_modern, otherwise we get an Access Violation exception...
+            /*Thread syncThread = new Thread(RemoteSyncPerformer) {IsBackground = false};
+            syncThread.SetApartmentState(ApartmentState.STA);
+
+            syncThread.Start();
+            syncThread.Join();*/
+
+            RemoteSyncPerformer(null);
+        }
+
+        private static void RemoteSyncPerformer(object state)
+        {
+            try
+            {
+                SyncDialog.RunModal(DoSyncRemoteSite, SyncOptions.Repeatable);
             }
-
-            private static object DeltaEngineInitializer()
+            catch (Exception e)
             {
-                try
-                {
-                    // Set during the Arrangement when a provider is delta aware
-                    if (Context.IsInState(RoamingState.ApplyNeccessaryDeltas))
-                    {
-                        // TODO
-                    }
-                }
-                catch (Exception e)
-                {
-                    string message = String.Format(Resources.MsgBox_Formatable2Text_ErrorWhileApplyingDeltas, Environment.NewLine, e.Message);
-                    Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, RoamiePlugin.TraceCategory, message);
-
-                    throw new DeltaSyncException(message, e);
-                }
-
-                return null;
+                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, "=== Synchronization failed ===",
+                                  RoamiePlugin.TraceCategory);
+                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, e.ToString(),
+                                  RoamiePlugin.TraceCategory);
             }
         }
 
-        public static class Finale
+        private static object DoSyncRemoteSite()
         {
-            /// <summary>
-            /// Finalizes the delta. Called right at the begin of unload.
-            /// </summary>
-            public static void FinalizeDeltaEngine()
-            {
-                if (Context.IsInState(RoamingState.DeltaSyncEngineLoaded) && !Context.IsInState(RoamingState.DiscardLocalChanges))
-                {
-                    // TODO Finalize Delta
-                }
-            }
-
-            /// <summary>
-            /// Performs remote database synchronization. Called during the unload.
-            /// </summary>
-            public static void PerformRemoteSync()
-            {
-                DatabaseProvider databaseProvider = RoamiePlugin.Singleton.RoamingContext.ActiveProvider;
-                MethodInvoker syncChain;
-
-                if (Context.IsInState(RoamingState.DiscardLocalChanges))
-                {
-                    syncChain = () => databaseProvider.NonSyncShutdown();
-                    Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Sandbox mode active, no synchronization required => shutting down the database provider...", RoamiePlugin.TraceCategory);
-                }
-                else
-                {
-                    // Full sync is default
-                    syncChain = FullSyncRemoteDb;
-                    Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Sandbox mode inactive, synchronization required => starting...", RoamiePlugin.TraceCategory);
-
-                    // Engine loaded
-                    if (Context.IsInState(RoamingState.DeltaSyncEngineLoaded))
-                    {
-                        if (Context.IsInState(RoamingState.DeltaIncompatibleChangeOccured) || Context.IsInState(RoamingState.PreferFullSync))
-                            syncChain = FullSyncRemoteDbAndRemoveDeltas;
-                        else
-                            syncChain = DeltaSyncRemoteDb;
-                    }
-                }
-
-                syncChain += databaseProvider.RemoveLocalDb;
-
-                // Workaround for Clist_modern, otherwise we get an Access Violation exception...
-                Thread syncThread = new Thread(RemoteSyncPerformer) {IsBackground = false};
-                syncThread.SetApartmentState(ApartmentState.STA);
-
-                syncThread.Start(syncChain);
-                syncThread.Join();
-            }
-
-            private static void RemoteSyncPerformer(object syncChain)
-            {
-                SyncDialog.RunModal(delegate
-                {
-                    try
-                    {
-                        ((MethodInvoker)syncChain)();
-                    }
-                    catch (Exception e)
-                    {
-                        Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, "=== Synchronization failed ===", RoamiePlugin.TraceCategory);
-                        Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceError, e.ToString(), RoamiePlugin.TraceCategory);
-                    }
-
-                    return null;
-                });
-            }
-
-            /// <summary>
-            /// Performs full synchronization.
-            /// </summary>
-            private static void FullSyncRemoteDb()
-            {
-                Context.ActiveProvider.SyncRemoteSite(Context.ActiveProfile);
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Synchronization completed.", RoamiePlugin.TraceCategory);
-            }
-
-            /// <summary>
-            /// Performs delta synchronization.
-            /// </summary>
-            private static void DeltaSyncRemoteDb()
-            {
-                // TODO
-                //DeltaSyncEngineFactory.GetEngine().CreateDelta();
-                Context.ActiveProvider.NonSyncShutdown();
-
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Delta synchronization completed.", RoamiePlugin.TraceCategory);
-            }
-
-            /// <summary>
-            /// Performs full synchronization and removes deltas.
-            /// </summary>
-            private static void FullSyncRemoteDbAndRemoveDeltas()
-            {
-                FullSyncRemoteDb();
-
-                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_RemovingDeltas, SignificantProgress.Running);
-                // TODO
-                //Context.DeltaEngine.DeltaManifest.Remove();
-            }
+            Context.ActiveProvider.SyncRemoteSite(Context.ActiveProfile);
+            return null;
         }
+
+        #endregion
     }
 }

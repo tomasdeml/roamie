@@ -12,10 +12,10 @@ namespace Virtuoso.Roamie.RoamingProviders.Ftp
         [DebuggerHidden]
         public bool FileExists(RoamingProfile profile, string remotePath)
         {
-            FtpWebRequest req = FtpRequestFactory.CreateRequest(WebRequestMethods.Ftp.DownloadFile, profile, new Uri(remotePath));
-
             try
             {
+                FtpWebRequest req = FtpRequestFactory.CreateRequest(WebRequestMethods.Ftp.DownloadFile, profile, new Uri(remotePath));
+
                 using (FtpWebResponse resp = (FtpWebResponse)req.GetResponse())
                 {
                     bool exists = (resp.StatusCode == FtpStatusCode.OpeningData || resp.StatusCode == FtpStatusCode.DataAlreadyOpen);

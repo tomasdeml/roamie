@@ -128,7 +128,7 @@ namespace Virtuoso.Roamie.Forms
                         if (context.Configuration.SilentStartup)
                             Opacity = 0;
 
-                        RoamingOrchestration.Preparation.PerformLocalSynchronization();
+                        RoamingOrchestration.SyncLocalSite();
                     }
                     catch
                     {
