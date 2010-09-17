@@ -28,7 +28,7 @@ using Virtuoso.Roamie.Roaming.Profiles;
 
 namespace Virtuoso.Roamie.RoamingProviders.Ftp
 {
-    internal class FtpProvider : DatabaseProvider, IDeltaAwareProvider
+    internal class FtpProvider : DatabaseProvider
     {
         #region Fields
 

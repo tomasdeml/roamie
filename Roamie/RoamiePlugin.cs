@@ -335,10 +335,7 @@ namespace Virtuoso.Roamie
             int result = DatabaseDriver.DatabaseLink.Init(RoamingContext.ProfilePath, link);
 
             if (result == CallbackResult.Success)
-            {
-                RoamingOrchestration.Performance.LoadDeltaEngine();
                 Context.ModulesLoaded += RegisterForUpdates;
-            }
 
             return result;
         }
@@ -380,7 +377,6 @@ namespace Virtuoso.Roamie
             {
                 if (wasLoaded != 0)
                 {
-                    RoamingOrchestration.Finale.FinalizeDeltaEngine();
                     UnloadDriver(wasLoaded);
 
                     if (RoamingContext != null)
@@ -391,7 +387,7 @@ namespace Virtuoso.Roamie
                         if (CanSync)
                         {
                             Trace.WriteLineIf(TraceSwitch.TraceInfo, "Active roaming profile detected, no Sync Error detected, roaming state is defined => checking Sandbox mode...", TraceCategory);
-                            RoamingOrchestration.Finale.PerformRemoteSync();
+                            RoamingOrchestration.SyncRemoteSite();
                         }
                         else
                             Trace.WriteLineIf(TraceSwitch.TraceWarning, "No active roaming profile detected or undefined roaming state or sync error occured => no synchronization can be performed.", TraceCategory);

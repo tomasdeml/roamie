@@ -21,24 +21,13 @@
 
 using System;
 using System.Net;
-using System.IO;
-using System.Diagnostics;
-using Virtuoso.Miranda.Plugins.Forms;
-using System.Security.Cryptography;
 using Virtuoso.Roamie.Properties;
-using Virtuoso.Roamie.Roaming;
 using Virtuoso.Roamie.Roaming.Profiles;
 
 namespace Virtuoso.Roamie.RoamingProviders.Http
 {
-    internal class HttpProvider : DatabaseProvider, IDeltaAwareProvider
+    internal class HttpProvider : DatabaseProvider
     {
-        #region Fields
-
-        private const string TraceCategory = "HttpProvider";
-
-        #endregion
-
         #region .ctors
 
         public HttpProvider()
@@ -70,15 +59,6 @@ namespace Virtuoso.Roamie.RoamingProviders.Http
 
         #region Methods
 
-        public override void OnSelected()
-        {
-            Context.State |= RoamingState.MirroringNotSupported;
-            Context.State |= RoamingState.DiscardLocalChanges;
-
-            if ((Context.State & RoamingState.WipeLocalDbOnExit) == RoamingState.WipeLocalDbOnExit)
-                InformationDialog.PresentModal(Resources.Information_Caption_YourChangesWiilBeLost, Resources.Information_Formatable1_Text_YourChangesWillBeLost, Resources.Image_32x32_Profile);
-        }
-
         public override void VerifyProfile(RoamingProfile profile)
         {
             try
@@ -99,20 +79,6 @@ namespace Virtuoso.Roamie.RoamingProviders.Http
             {
                 throw new SyncException(Resources.ExceptionMsg_SyncTestFailed, e);
             }
-        }
-
-        protected override void PerformRemoteSiteSync(RoamingProfile profile)
-        {
-            // Base impl must not be called, http provider cannot upload files...
-        }
-
-        public override void NonSyncShutdown()
-        {
-            if ((Context.State & RoamingState.WipeLocalDbOnExit) != RoamingState.WipeLocalDbOnExit ||
-                (Context.State & RoamingState.DiscardLocalChanges) != RoamingState.DiscardLocalChanges)
-                InformationDialog.PresentModal(Resources.Information_Caption_CannotMirrorChanges, String.Format(Resources.Information_Formatable1_Text_CannotMirrorChanges, Path.GetFileName(Context.ProfilePath)), Resources.Image_32x32_Web);
-
-            // Base impl must not be called, http provider cannot upload files...
         }
 
         #endregion

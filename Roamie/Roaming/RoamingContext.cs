@@ -88,9 +88,6 @@ namespace Virtuoso.Roamie.Roaming
         {
             SyncObject = new object();
 
-            if (String.IsNullOrEmpty(profilePath))
-                throw new ArgumentNullException("profilePath");
-
             Initalize(profilePath);            
             InitializeProxySettings();
             InitializeProviders();
@@ -98,6 +95,9 @@ namespace Virtuoso.Roamie.Roaming
 
         private void Initalize(string profilePath)
         {
+            if (String.IsNullOrEmpty(profilePath))
+                throw new ArgumentNullException("profilePath");
+
             InitialProfilePath = this.profilePath = profilePath;
             State = RoamingState.Disabled;
             configuration = PluginConfiguration.Load<RoamingConfiguration>();
@@ -112,10 +112,18 @@ namespace Virtuoso.Roamie.Roaming
 
         private void InitializeProviders()
         {
-            DatabaseProvider[] providers = { new FtpProvider(), new HttpProvider() };
+            DatabaseProvider provider = new FtpProvider();
+            provider = new DeltaSyncSupport(provider);
+            provider = new ContentProvisioningSupport(provider);
 
-            foreach (DatabaseProvider provider in providers)
-                DatabaseProviders[provider.Name] = provider;
+            DatabaseProviders[provider.Name] = provider;
+
+            provider = new HttpProvider();
+            provider = new DeltaSyncSupport(provider);
+            provider = new ContentProvisioningSupport(provider);
+            provider = new OneWaySynchronization(provider);
+
+            DatabaseProviders[provider.Name] = provider;
         }
 
         #endregion

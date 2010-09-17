@@ -10,10 +10,10 @@ namespace Virtuoso.Roamie.RoamingProviders.Http
     {
         public bool FileExists(RoamingProfile profile, string remotePath)
         {
-            HttpWebRequest req = HttpRequestFactory.CreateWebRequest(profile, new Uri(remotePath));
-
             try
             {
+                HttpWebRequest req = HttpRequestFactory.CreateWebRequest(profile, new Uri(remotePath));
+
                 using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
                     return resp.StatusCode == HttpStatusCode.OK;
             }

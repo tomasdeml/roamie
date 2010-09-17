@@ -24,36 +24,42 @@ using System.Diagnostics;
 using System.IO;
 using Virtuoso.Roamie.Properties;
 using Virtuoso.Roamie.Roaming;
-using Virtuoso.Roamie.Roaming.Packing;
 using Virtuoso.Roamie.Roaming.Profiles;
+using Virtuoso.Roamie.Roaming.Provisioning;
 
 namespace Virtuoso.Roamie.RoamingProviders
 {
-    public abstract class PackingDatabaseProvider : DatabaseProvider
+    internal class ContentProvisioningSupport : ProviderDecorator
     {
         #region Fields
 
-        private PackingContainer Container;
+        private ProvisioningContainer Container;
 
         #endregion
- 
+
+        #region .ctors
+
+        public ContentProvisioningSupport(DatabaseProvider provider) : base(provider)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
-        /// <summary>
-        /// Retrieves and deploys files packed with the database. Must be called AFTER your synchonization implementation.
-        /// </summary>
-        /// <param name="profile">Roaming profile.</param>
-        protected override void PerformLocalSiteSync(RoamingProfile profile)
+        public override void  SyncLocalSite(RoamingProfile profile)
         {
+            base.SyncLocalSite(profile);
+
             try
             {
-                Container = PackingContainer.Load(profile);
+                Container = ProvisioningContainer.Load(profile);
                 Container.Deploy();
             }
             catch
             {
                 ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_CannotGetAttachedContainer);
-                Container = new PackingContainer(profile);
+                Container = new ProvisioningContainer(profile);
             }
             finally
             {
@@ -62,30 +68,11 @@ namespace Virtuoso.Roamie.RoamingProviders
             }
         }
 
-        /// <summary>
-        /// Publishes packed files if neccessary. Must be called AFTER your synchronization implementation.
-        /// </summary>
-        /// <param name="profile">Roaming profile.</param>
-        protected override void PerformRemoteSiteSync(RoamingProfile profile)
+        public override void SyncRemoteSite(RoamingProfile profile)
         {
-            SyncAttachedContainer();
-        }
+            base.SyncRemoteSite(profile);
 
-        /// <summary>
-        /// Publishes packed files if neccessary. Must be called AFTER your synchronization implementation.
-        /// </summary>
-        public override void NonSyncShutdown()
-        {
-            if (!Context.IsInState(RoamingState.DiscardLocalChanges))
-                SyncAttachedContainer();
-        }
-
-        /// <summary>
-        /// Uploads attached files when neccessary.
-        /// </summary>
-        private void SyncAttachedContainer()
-        {
-            if (Container == null)
+            if (Container == null || Container.Contents.Count == 0)
                 return;
 
             try
@@ -102,17 +89,12 @@ namespace Virtuoso.Roamie.RoamingProviders
                 Container.Dispose();
             }
         }
-            
-        /// <summary>
-        /// Removes deployed files if required.
-        /// </summary>
-        /// <param name="localDbRemoved"></param>
-        protected override void RemoveLocalData(bool localDbRemoved)
-        {
-            if (!localDbRemoved)
-                return;
 
-            foreach (PackedFile file in Container.Files)
+        public override void RemoveLocalSiteData()
+        {
+            base.RemoveLocalSiteData();
+
+            foreach (Content file in Container.Contents)
                 if (File.Exists(file.Path))
                     File.Delete(file.Path);
         }

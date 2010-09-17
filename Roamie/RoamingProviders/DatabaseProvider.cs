@@ -55,77 +55,84 @@ namespace Virtuoso.Roamie.RoamingProviders
 
         #region Methods
 
-        #region Abstract & Virtual
-
         public virtual void OnSelected() { }
-
-        public virtual void NonSyncShutdown() { }
 
         public abstract void VerifyProfile(RoamingProfile profile);
 
-        public void SyncLocalSite(RoamingProfile profile)
+        public virtual void SyncLocalSite(RoamingProfile profile)
         {
             InitializeSafeProfilePath();
+            PerformLocalSiteSync(profile);
+        }
 
+        protected virtual void PerformLocalSiteSync(RoamingProfile profile)
+        {
             using (Stream dbStream = File.Create(Context.ProfilePath))
             {
                 // TODO
                 if (!Adapter.PullFile(profile, profile.RemoteHost, dbStream))
                     throw new Exception();
             }
-
-            PerformLocalSiteSync(profile);
         }
 
-        protected virtual void PerformLocalSiteSync(RoamingProfile profile)
-        {
-        }
-
-        public void SyncRemoteSite(RoamingProfile profile)
+        public virtual void SyncRemoteSite(RoamingProfile profile)
         {
             if (Context.IsInState(RoamingState.DiscardLocalChanges))
             {
                 // TODO Log
                 //Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Sandbox mode is active, no synchronization required.", "");
-                return;
+                NonSyncShutdown();
+            }
+            else
+            {
+                PerformRemoteSiteSync(profile);
             }
 
-            using (Stream dbStream = File.OpenRead(Context.ProfilePath))
-                Adapter.PushFile(profile, dbStream, profile.RemoteHost, true);
-
-            PerformRemoteSiteSync(profile);
+            RemoveLocalSiteData();
         }
 
         protected virtual void PerformRemoteSiteSync(RoamingProfile profile)
         {
+            using (Stream dbStream = File.OpenRead(Context.ProfilePath))
+                Adapter.PushFile(profile, dbStream, profile.RemoteHost, true);
         }
 
-        protected virtual void RemoveLocalData(bool localDbRemoved)
-        {
-        }
+        public virtual void NonSyncShutdown() { }
 
-        public void RemoveLocalDb()
+        public virtual void RemoveLocalSiteData()
         {
+            bool removeDb = Context.IsInState(RoamingState.WipeLocalDbOnExit);
+
+            if (!removeDb)
+                return;
+
             try
             {
-                bool removeDb = Context.IsInState(RoamingState.WipeLocalDbOnExit);
+                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo,
+                                  "PublicMode is active, preparing for local database removal...",
+                                  RoamiePlugin.TraceCategory);
 
-                if (removeDb)
+                if (File.Exists(Context.ProfilePath))
                 {
-                    Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "PublicMode is active, preparing for local database removal...", RoamiePlugin.TraceCategory);
-
-                    if (File.Exists(Context.ProfilePath))
-                    {
-                        File.Delete(Context.ProfilePath);
-                        Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Local database removed.", RoamiePlugin.TraceCategory);
-                    }
-                    else
-                        Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceWarning, "Local database no longer exist! Cannot remove local database.", RoamiePlugin.TraceCategory);
+                    File.Delete(Context.ProfilePath);
+                    Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Local database removed.",
+                                      RoamiePlugin.TraceCategory);
                 }
+                else
+                    Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceWarning,
+                                      "Local database no longer exist! Cannot remove local database.",
+                                      RoamiePlugin.TraceCategory);
 
-                RemoveLocalData(removeDb);
+                RemoveLocalData();
             }
-            catch { }
+            catch (Exception)
+            {
+                // TODO Log
+            }
+        }
+
+        protected virtual void RemoveLocalData()
+        {
         }
 
         #endregion
@@ -152,19 +159,20 @@ namespace Virtuoso.Roamie.RoamingProviders
 
         protected void InitializeSafeProfilePath()
         {
+            return;
+
             if (Path.GetFileName(Context.ProfilePath).ToLower().EndsWith(RoamingExtension)) 
                 return;
 
             Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Changing database file extension...", RoamiePlugin.TraceCategory);
-            ChangeProfilePath(Path.ChangeExtension(Context.ProfilePath, RoamingExtension));
+            //ChangeProfilePath(Path.ChangeExtension(Context.ProfilePath, RoamingExtension));
+            ChangeProfilePath(Path.Combine(Path.GetDirectoryName(Context.ProfilePath), "Roaming_" + Path.GetFileName(Context.ProfilePath)));
         }
 
         protected void ChangeProfilePath(string path)
         {
             Context.ProfilePath = path;
         }
-
-        #endregion
 
         #endregion
     }
