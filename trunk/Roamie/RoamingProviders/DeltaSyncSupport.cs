@@ -69,6 +69,8 @@ namespace Virtuoso.Roamie.RoamingProviders
                 return;
             }
 
+            ProgressMediator.ChangeProgress("Computing delta, this may take a while...", SignificantProgress.Running);
+
             using (Stream deltaStream = DeltaEngine.ComputeDelta())
                 Adapter.PushFile(profile, deltaStream, remoteDeltaPath, false);
         }
