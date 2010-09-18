@@ -1096,7 +1096,7 @@ namespace Virtuoso.Roamie.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compressing &amp; encrypting database....
+        ///   Looks up a localized string similar to Compressing &amp; encrypting data....
         /// </summary>
         internal static string Text_UI_LogText_CompressingEncrypting {
             get {
@@ -1105,7 +1105,7 @@ namespace Virtuoso.Roamie.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Decrypting &amp; decompressing database....
+        ///   Looks up a localized string similar to Decrypting &amp; decompressing data....
         /// </summary>
         internal static string Text_UI_LogText_DecryptingDecompressing {
             get {
@@ -1123,7 +1123,7 @@ namespace Virtuoso.Roamie.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Downloading database....
+        ///   Looks up a localized string similar to Downloading....
         /// </summary>
         internal static string Text_UI_LogText_DownloadingDb {
             get {
@@ -1141,16 +1141,7 @@ namespace Virtuoso.Roamie.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Downloading delta no. {0}....
-        /// </summary>
-        internal static string Text_UI_LogText_Formatable1_DownloadingDelta {
-            get {
-                return ResourceManager.GetString("Text_UI_LogText_Formatable1_DownloadingDelta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initializing synchronization....
+        ///   Looks up a localized string similar to Starting synchronization....
         /// </summary>
         internal static string Text_UI_LogText_Initializing {
             get {

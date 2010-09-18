@@ -161,7 +161,7 @@
     <value>Some database changes present in the delta could not be applied.</value>
   </data>
   <data name="Text_UI_LogText_Initializing" xml:space="preserve">
-    <value>Initializing synchronization...</value>
+    <value>Starting synchronization...</value>
   </data>
   <data name="Label_UI_RoamingStatusDialog_NoProfile" xml:space="preserve">
     <value>(none)</value>
@@ -227,7 +227,7 @@
     <value>..\Resources\Icon 244_256x256_Trans.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Text_UI_LogText_DecryptingDecompressing" xml:space="preserve">
-    <value>Decrypting &amp; decompressing database...</value>
+    <value>Decrypting &amp; decompressing data...</value>
   </data>
   <data name="Image_32x32_Web" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon 161_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -266,7 +266,7 @@
     <value>..\Resources\Icon 180_64x67.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Text_UI_LogText_DownloadingDb" xml:space="preserve">
-    <value>Downloading database...</value>
+    <value>Downloading...</value>
   </data>
   <data name="Config_General_Proxy_Description" xml:space="preserve">
     <value>Configure Roamie to use a proxy.</value>
@@ -383,7 +383,7 @@
     <value>Tokenizing database...</value>
   </data>
   <data name="Text_UI_LogText_CompressingEncrypting" xml:space="preserve">
-    <value>Compressing &amp; encrypting database...</value>
+    <value>Compressing &amp; encrypting data...</value>
   </data>
   <data name="Text_UI_RoamingStatus_LocalRoaming" xml:space="preserve">
     <value>Miranda's local database IS prepared for synchronization.</value>
@@ -516,9 +516,6 @@
   </data>
   <data name="Information_Caption_UnableToLoadMirandaBootIni" xml:space="preserve">
     <value>Unable to load configuration</value>
-  </data>
-  <data name="Text_UI_LogText_Formatable1_DownloadingDelta" xml:space="preserve">
-    <value>Downloading delta no. {0}...</value>
   </data>
   <data name="Icon_237" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon 237.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
