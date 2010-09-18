@@ -20,7 +20,7 @@ namespace Virtuoso.Roamie.Roaming.DeltaSync
         public static void CreatePatch(string oldFilePath, string newFilePath, string outputPatchFilePath)
         {
             // TODO To constant
-            bool result = CreatePatchFileW(oldFilePath, newFilePath, outputPatchFilePath, 0x00000003);
+            bool result = CreatePatchFileW(oldFilePath, newFilePath, outputPatchFilePath, 0x00000001);
 
             if (!result)
                 ThrowPatchApiException();

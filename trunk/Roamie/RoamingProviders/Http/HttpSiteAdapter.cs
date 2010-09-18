@@ -25,7 +25,7 @@ namespace Virtuoso.Roamie.RoamingProviders.Http
 
         public bool PullFile(RoamingProfile profile, string remotePath, Stream outputStream)
         {
-            HttpWebRequest request = HttpRequestFactory.CreateWebRequest(profile);
+            HttpWebRequest request = HttpRequestFactory.CreateWebRequest(profile, new Uri(remotePath));
 
             if (!String.IsNullOrEmpty(profile.UserName))
                 request.Credentials = new NetworkCredential(profile.UserName, profile.Password);
