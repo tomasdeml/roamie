@@ -192,11 +192,11 @@
             this.HelpToolTip.ReshowDelay = 100;
             this.HelpToolTip.ToolTipTitle = "Hint";
             // 
-            // PreferFullSync
+            // ForceFullSync
             // 
             resources.ApplyResources(this.PreferFullSync, "PreferFullSync");
             this.PreferFullSync.Name = "PreferFullSync";
-            this.HelpToolTip.SetToolTip(this.PreferFullSync, resources.GetString("PreferFullSync.ToolTip"));
+            this.HelpToolTip.SetToolTip(this.PreferFullSync, resources.GetString("ForceFullSync.ToolTip"));
             this.PreferFullSync.UseVisualStyleBackColor = true;
             // 
             // gradientPanel1

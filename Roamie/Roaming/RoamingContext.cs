@@ -144,7 +144,7 @@ namespace Virtuoso.Roamie.Roaming
                 ActiveProvider.OnSelected();
 
                 if (profile.PreferFullSync)
-                    State |= RoamingState.PreferFullSync;
+                    State |= RoamingState.ForceFullSync;
             }
             catch (Exception e)
             {
@@ -163,7 +163,7 @@ namespace Virtuoso.Roamie.Roaming
                 ActiveProvider = null;
 
                 State = RoamingState.Disabled;
-                State |= RoamingState.LocalDbInUse;
+                State |= RoamingState.LocalProfileLoaded;
                 State |= RoamingState.DiscardLocalChanges;
             }
         }

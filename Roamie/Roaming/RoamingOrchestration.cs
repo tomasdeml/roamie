@@ -81,18 +81,6 @@ namespace Virtuoso.Roamie.Roaming
         /// </summary>
         public static void SyncRemoteSite()
         {
-            // Workaround for Clist_modern, otherwise we get an Access Violation exception...
-            /*Thread syncThread = new Thread(RemoteSyncPerformer) {IsBackground = false};
-            syncThread.SetApartmentState(ApartmentState.STA);
-
-            syncThread.Start();
-            syncThread.Join();*/
-
-            RemoteSyncPerformer(null);
-        }
-
-        private static void RemoteSyncPerformer(object state)
-        {
             try
             {
                 SyncDialog.RunModal(DoSyncRemoteSite, SyncOptions.Repeatable);
@@ -108,7 +96,11 @@ namespace Virtuoso.Roamie.Roaming
 
         private static object DoSyncRemoteSite()
         {
-            Context.ActiveProvider.SyncRemoteSite(Context.ActiveProfile);
+            DatabaseProvider provider = Context.ActiveProvider;
+
+            provider.SyncRemoteSite(Context.ActiveProfile);
+            provider.RemoveLocalSiteData();
+
             return null;
         }
 

@@ -6,7 +6,8 @@ namespace Virtuoso.Roamie.Roaming.DeltaSync
     interface IDeltaSyncEngine : IDisposable
     {
         void Initialize(string databasePath);
-        Stream CreateDelta();
-        void ApplyDelta(Stream patchStream);
+        Stream ComputeDelta();
+        void ApplyDelta();
+        Stream CreateLocalDeltaFile();
     }
 }

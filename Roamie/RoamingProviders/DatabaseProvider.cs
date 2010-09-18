@@ -65,7 +65,7 @@ namespace Virtuoso.Roamie.RoamingProviders
             PerformLocalSiteSync(profile);
         }
 
-        protected virtual void PerformLocalSiteSync(RoamingProfile profile)
+        private void PerformLocalSiteSync(RoamingProfile profile)
         {
             using (Stream dbStream = File.Create(Context.ProfilePath))
             {
@@ -83,15 +83,13 @@ namespace Virtuoso.Roamie.RoamingProviders
                 //Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Sandbox mode is active, no synchronization required.", "");
                 NonSyncShutdown();
             }
-            else
+            else if (!Context.IsInState(RoamingState.UploadDeltaOnly) || Context.IsInState(RoamingState.ForceFullSync))
             {
                 PerformRemoteSiteSync(profile);
             }
-
-            RemoveLocalSiteData();
         }
 
-        protected virtual void PerformRemoteSiteSync(RoamingProfile profile)
+        private void PerformRemoteSiteSync(RoamingProfile profile)
         {
             using (Stream dbStream = File.OpenRead(Context.ProfilePath))
                 Adapter.PushFile(profile, dbStream, profile.RemoteHost, true);
@@ -101,7 +99,7 @@ namespace Virtuoso.Roamie.RoamingProviders
 
         public virtual void RemoveLocalSiteData()
         {
-            bool removeDb = Context.IsInState(RoamingState.WipeLocalDbOnExit);
+            bool removeDb = Context.IsInState(RoamingState.RemoveLocalCopyOnExit);
 
             if (!removeDb)
                 return;
@@ -160,6 +158,8 @@ namespace Virtuoso.Roamie.RoamingProviders
         protected void InitializeSafeProfilePath()
         {
             return;
+
+#warning TODO
 
             if (Path.GetFileName(Context.ProfilePath).ToLower().EndsWith(RoamingExtension)) 
                 return;

@@ -39,12 +39,12 @@ namespace Virtuoso.Roamie.Roaming
         /// <summary>
         /// Roaming is disabled, because the local DB is loaded.
         /// </summary>
-        LocalDbInUse = 4,
+        LocalProfileLoaded = 4,
         
         /// <summary>
         /// Roamed DB should be deleted on exit.
         /// </summary>
-        WipeLocalDbOnExit = 8,
+        RemoveLocalCopyOnExit = 8,
 
         /// <summary>
         /// The changes made to the local DB should be discarded on exit.
@@ -54,7 +54,7 @@ namespace Virtuoso.Roamie.Roaming
         /// <summary>
         /// New DB was created and loaded, roaming may be disabled.
         /// </summary>
-        CreateNewDb = 32,
+        NewProfileCreated = 32,
 
         /// <summary>
         /// An error occured during a synchronization.
@@ -64,26 +64,16 @@ namespace Virtuoso.Roamie.Roaming
         /// <summary>
         /// Active DB provider cannot mirror local changes.
         /// </summary>
-        MirroringNotSupported = 128,
-
-        /// <summary>
-        /// Delta engine is being utilized.
-        /// </summary>
-        DeltaSyncEngineLoaded = 256,
+        RemoteSyncNotSupported = 128,
         
         /// <summary>
         /// Deltas should be applied, if exist.
         /// </summary>
-        ApplyNeccessaryDeltas = 512,
-
-        /// <summary>
-        /// A change incompatible with the Delta engine occured.
-        /// </summary>
-        DeltaIncompatibleChangeOccured = 1024,
+        UploadDeltaOnly = 512,
 
         /// <summary>
         /// The full synchronization is preferred.
         /// </summary>
-        PreferFullSync = 2048,
+        ForceFullSync = 2048,
     }
 }

@@ -8,10 +8,12 @@ namespace Virtuoso.Roamie.Roaming.DeltaSync
         #region Fields
 
         private const string OriginalDatabaseExtension = ".tmp";
+        private const string PatchedDatabaseExtension = ".patched.tmp";
         private const string PatchExtension = ".patch.tmp";
 
         private string WorkingDatabasePath;
         private string OriginalDatabasePath;
+        private string PatchedDatabasePath;
         private string PatchPath;
 
         #endregion
@@ -20,12 +22,13 @@ namespace Virtuoso.Roamie.Roaming.DeltaSync
         {
             WorkingDatabasePath = databasePath;
             OriginalDatabasePath = databasePath + OriginalDatabaseExtension;
+            PatchedDatabasePath = databasePath + PatchedDatabaseExtension;
             PatchPath = databasePath + PatchExtension;
 
-            //File.Copy(WorkingDatabasePath, OriginalDatabasePath, true);
+            File.Copy(WorkingDatabasePath, OriginalDatabasePath, true);
         }
 
-        public Stream CreateDelta()
+        public Stream ComputeDelta()
         {
             try
             {
@@ -39,21 +42,28 @@ namespace Virtuoso.Roamie.Roaming.DeltaSync
             }
         }
 
-        public void ApplyDelta(Stream patchStream)
+        public Stream CreateLocalDeltaFile()
+        {
+            return File.Create(PatchPath);
+        }
+
+        public void ApplyDelta()
         {
             try
             {
-                using (Stream localPatchStream = File.Create(PatchPath))
-                    StreamUtility.CopyStream(patchStream, localPatchStream);
-
-                MicrosoftPatchApi.ApplyPatch(WorkingDatabasePath, PatchPath, OriginalDatabasePath);
+                MicrosoftPatchApi.ApplyPatch(WorkingDatabasePath, PatchPath, PatchedDatabasePath);
                 File.Delete(WorkingDatabasePath);
-                File.Move(OriginalDatabasePath, WorkingDatabasePath);
+                File.Move(PatchedDatabasePath, WorkingDatabasePath);
             }
             catch (Exception)
             {
                 // TODO
                 throw;
+            }
+            finally
+            {
+                if (File.Exists(PatchPath))
+                    File.Delete(PatchPath);
             }
         }
 
@@ -61,6 +71,9 @@ namespace Virtuoso.Roamie.Roaming.DeltaSync
         {
             if (File.Exists(PatchPath))
                 File.Delete(PatchPath);
+
+            if (File.Exists(PatchedDatabasePath))
+                File.Delete(PatchedDatabasePath);
             
             if (File.Exists(OriginalDatabasePath))
                 File.Delete(OriginalDatabasePath);
