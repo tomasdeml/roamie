@@ -94,6 +94,9 @@ namespace Virtuoso.Roamie.RoamingProviders
         {
             base.RemoveLocalSiteData();
 
+            if (Container == null)
+                return;
+
             foreach (Content file in Container.Contents)
                 if (File.Exists(file.Path))
                     File.Delete(file.Path);

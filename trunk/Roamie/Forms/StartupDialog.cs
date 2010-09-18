@@ -121,7 +121,7 @@ namespace Virtuoso.Roamie.Forms
                 
                 context.ActivateProfile(profile);
 
-                if (!context.IsInState(RoamingState.LocalDbInUse))
+                if (!context.IsInState(RoamingState.LocalProfileLoaded))
                 {
                     try
                     {
@@ -150,23 +150,23 @@ namespace Virtuoso.Roamie.Forms
                 selectedRoamingState = RoamingState.Active;
 
                 if (PublicComputerCHBOX.Checked)
-                    selectedRoamingState |= RoamingState.WipeLocalDbOnExit;
+                    selectedRoamingState |= RoamingState.RemoveLocalCopyOnExit;
 
                 if (SandboxModeCHBOX.Checked)
                     selectedRoamingState |= RoamingState.DiscardLocalChanges;
             }
             else if (UseLocalRBTN.Checked)
             {
-                selectedRoamingState = RoamingState.LocalDbInUse;
+                selectedRoamingState = RoamingState.LocalProfileLoaded;
 
                 if (RoamLocalOnExitCHBOX.Checked)
-                    selectedRoamingState |= RoamingState.Active | RoamingState.DeltaIncompatibleChangeOccured | RoamingState.PreferFullSync;
+                    selectedRoamingState |= RoamingState.Active | RoamingState.ForceFullSync;
                 else
                     selectedRoamingState |= RoamingState.DiscardLocalChanges;
             }
             else /*CreateNewRBTN.Checked*/
             {
-                selectedRoamingState = RoamingState.CreateNewDb | RoamingState.LocalDbInUse;
+                selectedRoamingState = RoamingState.NewProfileCreated | RoamingState.LocalProfileLoaded;
 
                 if (RoamNewOnExitCHBOX.Checked)
                     selectedRoamingState |= RoamingState.Active;

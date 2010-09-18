@@ -347,7 +347,7 @@ namespace Virtuoso.Roamie
 
             if ((error = ConfigureRoaming(profile, true)) == CallbackResult.Success)
             {
-                if ((RoamingContext.State & RoamingState.CreateNewDb) == RoamingState.CreateNewDb)
+                if ((RoamingContext.State & RoamingState.NewProfileCreated) == RoamingState.NewProfileCreated)
                 {
                     Trace.WriteLineIf(TraceSwitch.TraceInfo, "Creating a database...", TraceCategory);
                     retValue = DatabaseDriver.DatabaseLink.MakeDatabase(RoamingContext.ProfilePath, ref error);

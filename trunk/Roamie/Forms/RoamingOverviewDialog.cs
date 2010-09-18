@@ -127,18 +127,18 @@ namespace Virtuoso.Roamie.Forms
             RoamingProfileLBTN.Text = context.ActiveProfile.Name;
             RoamingProfileLBTN.LinkArea = new LinkArea(0, RoamingProfileLBTN.Text.Length);
 
-            PublicModeCHBOX.Enabled = (PrivateState & RoamingState.LocalDbInUse) != RoamingState.LocalDbInUse;
-            PublicModeCHBOX.Checked = (PrivateState & RoamingState.WipeLocalDbOnExit) == RoamingState.WipeLocalDbOnExit;
+            PublicModeCHBOX.Enabled = (PrivateState & RoamingState.LocalProfileLoaded) != RoamingState.LocalProfileLoaded;
+            PublicModeCHBOX.Checked = (PrivateState & RoamingState.RemoveLocalCopyOnExit) == RoamingState.RemoveLocalCopyOnExit;
             
-            SyncActionCHBOX.Enabled = (PrivateState & RoamingState.MirroringNotSupported) != RoamingState.MirroringNotSupported;
+            SyncActionCHBOX.Enabled = (PrivateState & RoamingState.RemoteSyncNotSupported) != RoamingState.RemoteSyncNotSupported;
             SyncActionCHBOX.Checked = (PrivateState & RoamingState.DiscardLocalChanges) != RoamingState.DiscardLocalChanges;
 
-            PreferFullSyncCHBOX.Checked = (PrivateState & RoamingState.PreferFullSync) == RoamingState.PreferFullSync;
+            PreferFullSyncCHBOX.Checked = (PrivateState & RoamingState.ForceFullSync) == RoamingState.ForceFullSync;
         }
 
         private void OnExitCHBOX_CheckedChanged(object sender, EventArgs e)
         {
-            PreferFullSyncCHBOX.Enabled = (SyncActionCHBOX.Enabled && SyncActionCHBOX.Checked && (PrivateState & RoamingState.DeltaIncompatibleChangeOccured) != RoamingState.DeltaIncompatibleChangeOccured);
+            PreferFullSyncCHBOX.Enabled = (SyncActionCHBOX.Enabled && SyncActionCHBOX.Checked);
 
             if (Initializing)
                 return;            
@@ -155,9 +155,9 @@ namespace Virtuoso.Roamie.Forms
                 return;
 
             if (PublicModeCHBOX.Checked)
-                PrivateState |= RoamingState.WipeLocalDbOnExit;
+                PrivateState |= RoamingState.RemoveLocalCopyOnExit;
             else
-                PrivateState &= ~RoamingState.WipeLocalDbOnExit;
+                PrivateState &= ~RoamingState.RemoveLocalCopyOnExit;
         }
 
         private void ForceFullSyncCHBOX_CheckedChanged(object sender, EventArgs e)
@@ -166,9 +166,9 @@ namespace Virtuoso.Roamie.Forms
                 return;
 
             if (PreferFullSyncCHBOX.Checked)
-                PrivateState |= RoamingState.PreferFullSync;
+                PrivateState |= RoamingState.ForceFullSync;
             else
-                PrivateState &= ~RoamingState.PreferFullSync;
+                PrivateState &= ~RoamingState.ForceFullSync;
         }
 
         private void RoamingProfileLBTN_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -196,27 +196,13 @@ namespace Virtuoso.Roamie.Forms
 
         private void IndicateDeltaSync()
         {
-            if ((PrivateState & RoamingState.DeltaSyncEngineLoaded) == RoamingState.DeltaSyncEngineLoaded)
-            {
-                if ((PrivateState & RoamingState.PreferFullSync) == RoamingState.PreferFullSync)
-                    StatusLVIEW.Items.Add(CreateHighlightedItem(Resources.Text_UI_RoamingStatus_ForceFullSync));
-
-                if ((PrivateState & RoamingState.DeltaIncompatibleChangeOccured) != RoamingState.DeltaIncompatibleChangeOccured)
-                {
-                    StatusLVIEW.Items.Add(CreateHighlightedItem(Resources.Text_UI_RoamingStatus_DeltaSync, TraceEventType.Information));
-                    /*Virtuoso.Miranda.Roamie.Roaming.DeltaSync.IDeltaSyncEngine engine = RoamiePlugin.Singleton.RoamingContext.DeltaEngine;
-
-                    if (engine.DeltaMergeRecommended)
-                        StatusLVIEW.Items.Add(CreateHighlightedItem(String.Format(Resources.Text_Formatable1_UI_RoamingStatus_DeltaMergeRecommended, engine.DeltaManifest.DeltaCount.ToString()), TraceEventType.Warning));*/
-                }
-                else
-                    StatusLVIEW.Items.Add(CreateHighlightedItem(Resources.Text_UI_RoamingStatus_DeltaIncompatibleChange, TraceEventType.Warning));
-            }
+            if ((PrivateState & RoamingState.ForceFullSync) == RoamingState.ForceFullSync)
+                StatusLVIEW.Items.Add(CreateHighlightedItem(Resources.Text_UI_RoamingStatus_ForceFullSync));
         }
 
         private void IndicateMirroringNotSupported()
         {
-            if ((PrivateState & RoamingState.MirroringNotSupported) == RoamingState.MirroringNotSupported)
+            if ((PrivateState & RoamingState.RemoteSyncNotSupported) == RoamingState.RemoteSyncNotSupported)
                 StatusLVIEW.Items.Add(CreateHighlightedItem(Resources.Text_UI_RoamingStatus_DownloadOnlySession, TraceEventType.Warning));
         }
 
@@ -230,7 +216,7 @@ namespace Virtuoso.Roamie.Forms
 
         private void IndicateWipeOnExit()
         {
-            if ((PrivateState & RoamingState.WipeLocalDbOnExit) == RoamingState.WipeLocalDbOnExit)
+            if ((PrivateState & RoamingState.RemoveLocalCopyOnExit) == RoamingState.RemoveLocalCopyOnExit)
                 StatusLVIEW.Items.Add(CreateHighlightedItem(Resources.Text_UI_RoamingStatus_PublicMode));
             else
                 StatusLVIEW.Items.Add(Resources.Text_UI_RoamingStatus_NonPublicMode);
@@ -238,7 +224,7 @@ namespace Virtuoso.Roamie.Forms
 
         private void IndicateLocalDbInUse()
         {
-            if ((PrivateState & RoamingState.LocalDbInUse) == RoamingState.LocalDbInUse)
+            if ((PrivateState & RoamingState.LocalProfileLoaded) == RoamingState.LocalProfileLoaded)
             {
                 StatusLVIEW.Items.Add(new ListViewItem(new string[] { Resources.Text_UI_RoamingStatus_Local, 
                     Resources.Text_UI_RoamingStatus_Local }));
