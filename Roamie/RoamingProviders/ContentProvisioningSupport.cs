@@ -23,7 +23,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using Virtuoso.Roamie.Properties;
-using Virtuoso.Roamie.Roaming;
 using Virtuoso.Roamie.Roaming.Profiles;
 using Virtuoso.Roamie.Roaming.Provisioning;
 
@@ -82,7 +81,7 @@ namespace Virtuoso.Roamie.RoamingProviders
             }
             catch (Exception e)
             {
-                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Attached files synchronization failed. " + e.ToString(), RoamiePlugin.TraceCategory);
+                Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Attached files synchronization failed. " + e, RoamiePlugin.TraceCategory);
             }
             finally
             {
