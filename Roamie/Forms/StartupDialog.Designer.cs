@@ -92,11 +92,11 @@
             // 
             // LocalPBOX
             // 
-            this.LocalPBOX.Image = ((System.Drawing.Image)(resources.GetObject("LocalPBOX.Image")));
+            this.LocalPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Image_24x24_Computer;
             this.LocalPBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.LocalPBOX.Location = new System.Drawing.Point(27, 209);
             this.LocalPBOX.Name = "LocalPBOX";
-            this.LocalPBOX.Size = new System.Drawing.Size(22, 22);
+            this.LocalPBOX.Size = new System.Drawing.Size(24, 24);
             this.LocalPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.LocalPBOX.TabIndex = 16;
             this.LocalPBOX.TabStop = false;

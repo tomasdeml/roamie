@@ -78,6 +78,23 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>RoamiePlugin.cs</DependentUpon>
     </Content>
+    <Content Include="Resources\1284196867_Butterfly.PNG" />
+    <Content Include="Resources\1284197730_001_52.gif" />
+    <Content Include="Resources\1284198427_Globe1.PNG" />
+    <Content Include="Resources\1284199993_001_01.PNG" />
+    <Content Include="Resources\1284200727_Butterfly.ico" />
+    <None Include="Resources\1284907239_Delete.png" />
+    <None Include="Resources\1284906112_adept_update.png" />
+    <None Include="Resources\1284904979_group.png" />
+    <None Include="Resources\1284904581_Remove.png" />
+    <None Include="Resources\1284900577_keyboard_layout.png" />
+    <None Include="Resources\1284900557_mycomputer.png" />
+    <None Include="Resources\1284199740_computer.PNG" />
+    <None Include="Resources\1284899947_mycomputer.png" />
+    <None Include="Resources\1284899959_mycomputer.png" />
+    <None Include="Resources\1284899847_history_clear.png" />
+    <None Include="Resources\1284899595_keyboard_layout.png" />
+    <None Include="Resources\1284899475_computer.png" />
     <None Include="Resources\1284314619_decrypted.png" />
     <None Include="Resources\StartupHeaderOK.png" />
     <None Include="Resources\1284281919_check.png" />
@@ -248,8 +265,10 @@
     <Compile Include="RoamingProviders\OneWaySynchronization.cs" />
     <Compile Include="Roaming\DeltaSync\DeltaSyncEngineFactory.cs" />
     <Compile Include="Roaming\DeltaSync\IDeltaSyncEngine.cs" />
-    <Compile Include="Roaming\DeltaSync\MicrosoftPatchDeltaSyncEngine.cs" />
+    <Compile Include="Roaming\DeltaSync\IDeltaUtility.cs" />
     <Compile Include="Roaming\DeltaSync\MicrosoftPatchApi.cs" />
+    <Compile Include="Roaming\DeltaSync\UtilityBasedDeltaEngine.cs" />
+    <Compile Include="Roaming\DeltaSync\XDeltaUtility.cs" />
     <Compile Include="Roaming\MasterKeyCache.cs" />
     <Compile Include="Roaming\MasterKeyEncryption.cs" />
     <Compile Include="Roaming\DeltaSync\DeltaSyncException.cs" />

@@ -12,7 +12,7 @@ namespace Virtuoso.Roamie.Roaming.DeltaSync
         [MethodImpl(MethodImplOptions.Synchronized)]
         public static IDeltaSyncEngine GetEngine()
         {
-            return Engine ?? (Engine = new MicrosoftPatchDeltaSyncEngine());
+            return Engine ?? (Engine = new UtilityBasedDeltaEngine(new XDeltaUtility()));
         }
     }
 }

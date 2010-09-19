@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.IO;
 
 namespace Virtuoso.Roamie.Roaming.DeltaSync
 {
-    class MicrosoftPatchDeltaSyncEngine : IDeltaSyncEngine
+    internal class UtilityBasedDeltaEngine : IDeltaSyncEngine
     {
         #region Fields
 
@@ -15,6 +17,24 @@ namespace Virtuoso.Roamie.Roaming.DeltaSync
         private string OriginalDatabasePath;
         private string PatchedDatabasePath;
         private string PatchPath;
+
+        #endregion
+
+        #region .ctors
+
+        public UtilityBasedDeltaEngine(IDeltaUtility deltaUtility)
+        {
+            DeltaUtility = deltaUtility;
+        }
+
+        #endregion
+
+        #region Properties
+
+        protected IDeltaUtility DeltaUtility
+        {
+            get; set;
+        }
 
         #endregion
 
@@ -32,7 +52,7 @@ namespace Virtuoso.Roamie.Roaming.DeltaSync
         {
             try
             {
-                MicrosoftPatchApi.CreatePatch(OriginalDatabasePath, WorkingDatabasePath, PatchPath);
+                DeltaUtility.CreatePatch(OriginalDatabasePath, WorkingDatabasePath, PatchPath);
                 return File.OpenRead(PatchPath);
             }
             catch (Exception e)
@@ -51,7 +71,7 @@ namespace Virtuoso.Roamie.Roaming.DeltaSync
         {
             try
             {
-                MicrosoftPatchApi.ApplyPatch(WorkingDatabasePath, PatchPath, PatchedDatabasePath);
+                DeltaUtility.ApplyPatch(WorkingDatabasePath, PatchPath, PatchedDatabasePath);
                 File.Delete(WorkingDatabasePath);
                 File.Move(PatchedDatabasePath, WorkingDatabasePath);
             }
@@ -74,7 +94,7 @@ namespace Virtuoso.Roamie.Roaming.DeltaSync
 
             if (File.Exists(PatchedDatabasePath))
                 File.Delete(PatchedDatabasePath);
-            
+
             if (File.Exists(OriginalDatabasePath))
                 File.Delete(OriginalDatabasePath);
         }
