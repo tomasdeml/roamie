@@ -67,13 +67,8 @@ namespace Virtuoso.Roamie.Roaming
         RemoteSyncNotSupported = 128,
         
         /// <summary>
-        /// Deltas should be applied, if exist.
-        /// </summary>
-        UploadDeltaOnly = 512,
-
-        /// <summary>
         /// The full synchronization is preferred.
         /// </summary>
-        ForceFullSync = 2048,
+        ForceFullSync = 512,
     }
 }
