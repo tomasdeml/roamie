@@ -638,9 +638,16 @@ namespace Virtuoso.Roamie.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap Image_32x32_SyncOn {
+        internal static System.Drawing.Bitmap Image_32x32_Sync {
             get {
-                object obj = ResourceManager.GetObject("Image_32x32_SyncOn", resourceCulture);
+                object obj = ResourceManager.GetObject("Image_32x32_Sync", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Image_32x32_SyncDelta {
+            get {
+                object obj = ResourceManager.GetObject("Image_32x32_SyncDelta", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
