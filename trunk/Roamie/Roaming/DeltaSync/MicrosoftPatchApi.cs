@@ -5,7 +5,7 @@ using System.Security;
 namespace Virtuoso.Roamie.Roaming.DeltaSync
 {
     [SuppressUnmanagedCodeSecurity]
-    internal static class MicrosoftPatchApi
+    internal class MicrosoftPatchApi : IDeltaUtility
     {
         #region Native methods
 
@@ -17,7 +17,7 @@ namespace Virtuoso.Roamie.Roaming.DeltaSync
 
         #endregion
 
-        public static void CreatePatch(string oldFilePath, string newFilePath, string outputPatchFilePath)
+        public void CreatePatch(string oldFilePath, string newFilePath, string outputPatchFilePath)
         {
             // TODO To constant
             bool result = CreatePatchFileW(oldFilePath, newFilePath, outputPatchFilePath, 0x00000001);
@@ -26,7 +26,7 @@ namespace Virtuoso.Roamie.Roaming.DeltaSync
                 ThrowPatchApiException();
         }
 
-        public static void ApplyPatch(string oldFilePath, string patchFilePath, string outputNewFilePath)
+        public void ApplyPatch(string oldFilePath, string patchFilePath, string outputNewFilePath)
         {
             bool result = ApplyPatchToFileW(patchFilePath, oldFilePath, outputNewFilePath, 0);
             Console.WriteLine(result);

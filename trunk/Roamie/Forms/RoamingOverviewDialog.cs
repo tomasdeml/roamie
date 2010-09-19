@@ -177,7 +177,7 @@ namespace Virtuoso.Roamie.Forms
 
         private void IndicateDeltaSync()
         {
-            if (RoamingContext.IsInState(RoamingState.Disabled))
+            if (RoamingContext.IsInState(RoamingState.Disabled) || RoamingContext.IsInState(RoamingState.DiscardLocalChanges))
                 SyncStatusPBOX.Image = Resources.Image_32x32_Disabled;
             else if (RoamingContext.IsInState(RoamingState.ForceFullSync))
                 SyncStatusPBOX.Image = Resources.Image_32x32_Sync;
@@ -202,7 +202,10 @@ namespace Virtuoso.Roamie.Forms
         private void IndicateWipeOnExit()
         {
             if (RoamingContext.IsInState(RoamingState.RemoveLocalCopyOnExit))
+            {
                 ThisComputerOverlayPBOX.Visible = true;
+                ThisComputerOverlayPBOX.Image = Resources.Image_16x16_Delete;
+            }
             else
                 ThisComputerOverlayPBOX.Visible = false;
         }
