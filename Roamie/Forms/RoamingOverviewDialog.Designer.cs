@@ -37,7 +37,7 @@
             this.gradientPanel1 = new Virtuoso.Miranda.Plugins.Forms.Controls.GradientPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.StatusPBOX = new System.Windows.Forms.PictureBox();
+            this.SyncStatusPBOX = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.categoryItemSection1 = new Virtuoso.Miranda.Plugins.Configuration.Forms.Controls.CategoryItemSection();
@@ -49,7 +49,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.StatusPBOX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SyncStatusPBOX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ThisComputerOverlayPBOX)).BeginInit();
             this.SuspendLayout();
@@ -64,7 +64,7 @@
             this.SyncActionCHBOX.TabIndex = 8;
             this.SyncActionCHBOX.Text = "Synchronize changes";
             this.SyncActionCHBOX.UseVisualStyleBackColor = true;
-            this.SyncActionCHBOX.CheckedChanged += new System.EventHandler(this.OnExitCHBOX_CheckedChanged);
+            this.SyncActionCHBOX.CheckedChanged += new System.EventHandler(this.SyncActionCHBOX_CheckedChanged);
             // 
             // PublicModeCHBOX
             // 
@@ -151,15 +151,15 @@
             this.pictureBox2.TabIndex = 14;
             this.pictureBox2.TabStop = false;
             // 
-            // StatusPBOX
+            // SyncStatusPBOX
             // 
-            this.StatusPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Image_32x32_SyncOn;
-            this.StatusPBOX.Location = new System.Drawing.Point(216, 68);
-            this.StatusPBOX.Name = "StatusPBOX";
-            this.StatusPBOX.Size = new System.Drawing.Size(32, 32);
-            this.StatusPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.StatusPBOX.TabIndex = 14;
-            this.StatusPBOX.TabStop = false;
+            this.SyncStatusPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Image_32x32_SyncDelta;
+            this.SyncStatusPBOX.Location = new System.Drawing.Point(216, 68);
+            this.SyncStatusPBOX.Name = "SyncStatusPBOX";
+            this.SyncStatusPBOX.Size = new System.Drawing.Size(32, 32);
+            this.SyncStatusPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.SyncStatusPBOX.TabIndex = 14;
+            this.SyncStatusPBOX.TabStop = false;
             // 
             // pictureBox5
             // 
@@ -246,6 +246,7 @@
             this.ThisComputerOverlayPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.ThisComputerOverlayPBOX.TabIndex = 19;
             this.ThisComputerOverlayPBOX.TabStop = false;
+            this.ThisComputerOverlayPBOX.Visible = false;
             // 
             // RoamingOverviewDialog
             // 
@@ -261,7 +262,7 @@
             this.Controls.Add(this.categoryItemSection1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.pictureBox5);
-            this.Controls.Add(this.StatusPBOX);
+            this.Controls.Add(this.SyncStatusPBOX);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.gradientPanel1);
             this.Controls.Add(this.RoamingProfileLBTN);
@@ -282,7 +283,7 @@
             this.gradientPanel1.ResumeLayout(false);
             this.gradientPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.StatusPBOX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SyncStatusPBOX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ThisComputerOverlayPBOX)).EndInit();
             this.ResumeLayout(false);
@@ -300,7 +301,7 @@
         private Virtuoso.Miranda.Plugins.Forms.Controls.GradientPanel gradientPanel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox StatusPBOX;
+        private System.Windows.Forms.PictureBox SyncStatusPBOX;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Label label3;
         private Virtuoso.Miranda.Plugins.Configuration.Forms.Controls.CategoryItemSection categoryItemSection1;

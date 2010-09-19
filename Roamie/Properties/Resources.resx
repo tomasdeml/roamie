@@ -580,11 +580,8 @@
   <data name="Image_32x32_Computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284899947_mycomputer.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Image_32x32_SyncOn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Image_32x32_SyncDelta" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284899847_history_clear.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Image_16x16_Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1284905240_delete_16x16.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Image_16x16_Users" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284904979_group.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -592,10 +589,16 @@
   <data name="Image_32x32_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284904581_Remove.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Image_32x32_Sync" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284906112_adept_update.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Image_48x48_Computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284900557_mycomputer.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Image_48x48_Web" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284900577_keyboard_layout.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_16x16_Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284905240_delete_16x16.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

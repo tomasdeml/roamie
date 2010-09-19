@@ -121,8 +121,8 @@
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAJUAAAC+CAYAAAA8yU26AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALCwAA
-        CwsBbQSEtwAAbVlJREFUeF7tnQV0FEn39neCuwS3uAd3d2chuIYkJCECcSE+F3cngeDusvjifgju7hYc
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALBQAA
+        CwUByY3ISQAAbVlJREFUeF7tnQV0FEn39neCuwS3uAd3d2chuIYkJCECcSE+F3cngeDusvjifgju7hYc
         dtll/f1/33NruiY9k8ACC6wQznlOdfco078899at6uqv/t//+39fvYu+yvz3r/oFTMtV1vxtX/hdgOLn
         ZP7L/AXe+RfIhOqdf6p/3RPDZt6qW6JmQM7P/sUzofrsP/ln+8CRC88MKt2QGuUu5syh8POFw0yoPts5
         /qwfNHPV0RJj5+0jxy6zY4vYtSlhZ2eX5bOBlQnVZz3Xn+XDHjxI1SSvTKk7ffUZconeSSWreniYFi3N
@@ -595,8 +595,8 @@
   <data name="gradientPanel1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAbYAAAAtCAYAAADC305EAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALCAAA
-        CwgBwL2l2gAAcKZJREFUeF6VvXd8XOWx/2/TS4AAIb2TkHZJL6RAyk1Ip5rei8EYjMH0jg02xmDTe01o
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALAgAA
+        CwIBm8luNgAAcKZJREFUeF6VvXd8XOWx/2/TS4AAIb2TkHZJL6RAyk1Ip5rei8EYjMH0jg02xmDTe01o
         ockQ8MoFKwWk3NxEBsOK4qWtwOwCX/kP6Q9pdfYl/d4zz8w5zzm7Ivd3X6/3neccOcKWjD7MzGfmmZy8
         du34+KTxSZP5/5MmT5qkYTJv9HFskr7k47yQ/ycPepzMO33yc/hA+LX6f9HZPvekcfl88hnDrxkfH5MD
         j/IP08+pnzr8E/m1+nuQ351/zvAu/dzp70N+a/E/057tn5f7veifJfw+Jumfr/D75mP2m8r+nPqb5L3/
