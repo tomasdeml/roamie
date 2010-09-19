@@ -508,9 +508,6 @@
   <data name="CbtnIcon_Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon 293.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Image_32x32_Stopped" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icon 176_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ExceptionMsg_UnableToInitDeltaEngine" xml:space="preserve">
     <value>Unable to initialize delta engine. Delta manifest may be corrupted or cannot be retrieved - </value>
   </data>
@@ -537,9 +534,6 @@
   </data>
   <data name="MsgBox_Title_InvalidMasterKey" xml:space="preserve">
     <value>Invalid master key</value>
-  </data>
-  <data name="Image_24x24_Computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1284199740_computer.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Image_24x24_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284199993_001_01.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -579,5 +573,29 @@
   </data>
   <data name="Image_48x48_Lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284314619_decrypted.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_24x24_Computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284199740_computer.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_32x32_Computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284899947_mycomputer.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_32x32_SyncOn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284899847_history_clear.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_16x16_Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284905240_delete_16x16.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_16x16_Users" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284904979_group.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_32x32_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284904581_Remove.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_48x48_Computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284900557_mycomputer.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_48x48_Web" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1284900577_keyboard_layout.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

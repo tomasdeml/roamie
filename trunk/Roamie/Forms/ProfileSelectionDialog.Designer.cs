@@ -39,7 +39,7 @@ namespace Virtuoso.Roamie.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.IconPBOX = new System.Windows.Forms.PictureBox();
             this.ManageProfilesLBTN = new System.Windows.Forms.LinkLabel();
-            this.ProfilesLVIEW = new ProfilesListView();
+            this.ProfilesLVIEW = new Virtuoso.Roamie.Forms.Controls.ProfilesListView();
             this.gradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IconPBOX)).BeginInit();
             this.SuspendLayout();
@@ -89,7 +89,6 @@ namespace Virtuoso.Roamie.Forms
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(108, 12);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(206, 24);
@@ -99,7 +98,6 @@ namespace Virtuoso.Roamie.Forms
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label1.Location = new System.Drawing.Point(108, 37);
             this.label1.Name = "label1";

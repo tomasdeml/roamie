@@ -166,10 +166,10 @@ namespace Virtuoso.Roamie.Forms
             }
             else /*CreateNewRBTN.Checked*/
             {
-                selectedRoamingState = RoamingState.NewProfileCreated | RoamingState.LocalProfileLoaded;
+                selectedRoamingState = RoamingState.NewProfileCreated | RoamingState.LocalProfileLoaded;                    
 
                 if (RoamNewOnExitCHBOX.Checked)
-                    selectedRoamingState |= RoamingState.Active;
+                    selectedRoamingState |= RoamingState.Active | RoamingState.ForceFullSync;
                 else
                     selectedRoamingState |= RoamingState.DiscardLocalChanges;
             }

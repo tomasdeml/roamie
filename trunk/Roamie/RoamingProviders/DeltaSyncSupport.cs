@@ -26,7 +26,7 @@ namespace Virtuoso.Roamie.RoamingProviders
 
         #region Properties
 
-        private bool CanDeltaSync
+        private bool UseDeltaSync
         {
             get
             {
@@ -39,11 +39,6 @@ namespace Virtuoso.Roamie.RoamingProviders
         public override void SyncLocalSite(RoamingProfile profile)
         {
             base.SyncLocalSite(profile);
-
-            if (!CanDeltaSync)
-                return;
-
-            Context.State |= RoamingState.UploadDeltaOnly;
 
             DeltaEngine.Initialize(Context.ProfilePath);
             string remoteDeltaPath = GetRemoteDeltaPath(profile);
@@ -61,9 +56,12 @@ namespace Virtuoso.Roamie.RoamingProviders
         {
             base.SyncRemoteSite(profile);
 
+            if (Context.IsInState(RoamingState.DiscardLocalChanges))
+                return;
+
             string remoteDeltaPath = GetRemoteDeltaPath(profile);
 
-            if (!CanDeltaSync)
+            if (!UseDeltaSync)
             {
                 Adapter.DeleteFile(profile, remoteDeltaPath);
                 return;

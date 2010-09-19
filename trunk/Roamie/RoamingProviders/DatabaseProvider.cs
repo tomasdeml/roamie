@@ -83,7 +83,7 @@ namespace Virtuoso.Roamie.RoamingProviders
                 //Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Sandbox mode is active, no synchronization required.", "");
                 NonSyncShutdown();
             }
-            else if (!Context.IsInState(RoamingState.UploadDeltaOnly) || Context.IsInState(RoamingState.ForceFullSync))
+            else if (Context.IsInState(RoamingState.ForceFullSync))
             {
                 PerformRemoteSiteSync(profile);
             }
