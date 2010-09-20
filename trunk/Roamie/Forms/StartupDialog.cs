@@ -36,7 +36,7 @@ namespace Virtuoso.Roamie.Forms
         #region Fields
 
         private readonly bool FirstTime;
-
+        
         #endregion
 
         #region .ctors
@@ -100,13 +100,22 @@ namespace Virtuoso.Roamie.Forms
 
         #endregion
 
+        #region Properties
+
+        private static RoamingContext RoamingContext
+        {
+            get { return RoamiePlugin.Singleton.RoamingContext; }
+        }
+
+        #endregion
+
         #region Helpers
 
         private bool ProcessSelection(RoamingProfile preselectedProfile)
         {
             RoamingState selectedRoamingState = GatherSelection();
 
-            RoamingContext context = RoamiePlugin.Singleton.RoamingContext;
+            RoamingContext context = RoamingContext;
             context.State = selectedRoamingState;
             
             if (context.IsInState(RoamingState.Active))
@@ -183,7 +192,7 @@ namespace Virtuoso.Roamie.Forms
 
         private void StartupDialog_Load(object sender, EventArgs e)
         {
-            string profilePath = RoamiePlugin.Singleton.RoamingContext.ProfilePath;
+            string profilePath = RoamingContext.ProfilePath;
 
             // Previously roamed db selected...
             if (profilePath.EndsWith(DatabaseProvider.RoamingExtension) && UseLocalRBTN.Enabled)
@@ -233,7 +242,7 @@ namespace Virtuoso.Roamie.Forms
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            RoamingContext context = RoamiePlugin.Singleton.RoamingContext;
+            RoamingContext context = RoamingContext;
 
             if (context.IsInState(RoamingState.Disabled) || context.IsInState(RoamingState.SyncErrorOccured))
             {

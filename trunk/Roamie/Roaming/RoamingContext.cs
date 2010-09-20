@@ -80,6 +80,11 @@ namespace Virtuoso.Roamie.Roaming
             }
         }
 
+        public bool LocalProfileIsMaster
+        {
+            get { return IsInState(RoamingState.LocalProfileLoaded, RoamingState.NewProfileCreated); }
+        }
+
         #endregion
 
         #region .ctors
@@ -176,6 +181,15 @@ namespace Virtuoso.Roamie.Roaming
         internal void RestoreProfilePath()
         {
             profilePath = InitialProfilePath;
+        }
+
+        public bool IsInState(params RoamingState[] statesInQuestion)
+        {
+            foreach (RoamingState state in statesInQuestion)
+                if (IsInState(state))
+                    return true;
+
+            return false;
         }
 
         public bool IsInState(RoamingState stateInQuestion)

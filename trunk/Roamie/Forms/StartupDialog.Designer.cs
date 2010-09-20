@@ -160,9 +160,9 @@
             this.SandboxModeCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.SandboxModeCHBOX.Location = new System.Drawing.Point(88, 178);
             this.SandboxModeCHBOX.Name = "SandboxModeCHBOX";
-            this.SandboxModeCHBOX.Size = new System.Drawing.Size(275, 17);
+            this.SandboxModeCHBOX.Size = new System.Drawing.Size(195, 17);
             this.SandboxModeCHBOX.TabIndex = 5;
-            this.SandboxModeCHBOX.Text = "Read only profile (changes will not be synchronized)";
+            this.SandboxModeCHBOX.Text = "Do not synchronize remote location";
             this.SandboxModeCHBOX.UseVisualStyleBackColor = false;
             // 
             // PublicComputerCHBOX
@@ -306,7 +306,7 @@
             this.MinimizeBox = false;
             this.Name = "StartupDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Miranda profile source - ";
+            this.Text = "Roamie for Miranda - ";
             this.Load += new System.EventHandler(this.StartupDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DownloadPBOX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LocalPBOX)).EndInit();

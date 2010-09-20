@@ -262,15 +262,7 @@ namespace Virtuoso.Roamie
 
         #region Menu item handlers
 
-        protected override void AfterMenuItemsPopulation(MenuItemDeclarationCollection items)
-        {
-            MenuItemDeclarationAttribute item = items.Find("RoamingSettings");
-
-            if (item.Text == "-")
-                item.Text = Resources.Text_UI_MenuItem_RoamingOverview;
-        }
-
-        [MenuItemDeclaration("-", typeof(LanguagePackStringResolver), Tag = "RoamingSettings", IsContactMenuItem = false, HasIcon = true, UseEmbeddedIcon = true, IconID = "Virtuoso.Miranda.Roamie.Resources.MenuItems.RoamingSettings.ico")]
+        [MenuItemDeclaration("Roaming status", typeof(LanguagePackStringResolver), Tag = "RoamingSettings", IsContactMenuItem = false, HasIcon = true, UseEmbeddedIcon = true, IconID = "Virtuoso.Roamie.Resources.MenuItem_RoamingSettings.ico")]
         private int MenuItem_RoamingSettings(UIntPtr wParam, IntPtr lParam)
         {
             SingletonDialog.GetSingleton<RoamingOverviewDialog>(true).ShowSingleton(false);

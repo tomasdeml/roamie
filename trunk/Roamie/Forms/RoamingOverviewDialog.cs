@@ -20,11 +20,9 @@
 \***********************************************************************************/
 
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 using Virtuoso.Miranda.Plugins.Forms;
 using Virtuoso.Miranda.Plugins.Configuration.Forms;
-using System.Diagnostics;
 using Virtuoso.Roamie.Roaming;
 using Virtuoso.Roamie.Properties;
 
@@ -50,7 +48,7 @@ namespace Virtuoso.Roamie.Forms
 
         #region Properties
 
-        private RoamingContext RoamingContext
+        private static RoamingContext RoamingContext
         {
             get
             {
@@ -64,46 +62,32 @@ namespace Virtuoso.Roamie.Forms
 
         private void RoamingStatusDialog_Load(object sender, EventArgs e)
         {
-            if (DisplayRoamingInfos())
+            DisplayRoamingInfos();
+            IndicateState();
+        }
+
+        private void DisplayRoamingInfos()
+        {
+            Initializing = true;
+            RoamingContext context = RoamingContext;
+
+            if (context.ActiveProfile == null || context.IsInState(RoamingState.Disabled))
             {
-                IndicateState();
+                RoamingProfileLBTN.Text = Resources.Label_UI_RoamingStatusDialog_NoProfile;
+                SyncActionCHBOX.Enabled = PublicModeCHBOX.Enabled = PreferFullSyncCHBOX.Enabled = false;
             }
+            else
+            {
+                InitializeCheckBoxes();
+            }
+
+            Initializing = false;
         }
 
         private void IndicateState()
         {
-            IndicateWipeOnExit();
-            IndicateMirroringDisabled();
-            IndicateMirroringNotSupported();
-            IndicateDeltaSync();
-        }
-
-        private bool DisplayRoamingInfos()
-        {
-            try
-            {
-                Initializing = true;
-                RoamingContext context = RoamingContext;
-
-                IndicateLocalDbInUse();
-
-                if (context.ActiveProfile == null || context.IsInState(RoamingState.Disabled))
-                {
-                    RoamingProfileLBTN.Text = Resources.Label_UI_RoamingStatusDialog_NoProfile;
-                    SyncActionCHBOX.Enabled = PublicModeCHBOX.Enabled = PreferFullSyncCHBOX.Enabled = false;
-
-                    return false;
-                }
-                else
-                {
-                    InitializeCheckBoxes();
-                    return true;
-                }
-            }
-            finally
-            {
-                Initializing = false;
-            }
+            IndicateThisComputerState();
+            IndicateSyncState();
         }
 
         private void InitializeCheckBoxes()
@@ -113,21 +97,25 @@ namespace Virtuoso.Roamie.Forms
             RoamingProfileLBTN.Text = context.ActiveProfile.Name;
             RoamingProfileLBTN.LinkArea = new LinkArea(0, RoamingProfileLBTN.Text.Length);
 
-            PublicModeCHBOX.Enabled = !context.IsInState(RoamingState.LocalProfileLoaded);
-            PublicModeCHBOX.Checked = context.IsInState(RoamingState.RemoveLocalCopyOnExit);
-            
             SyncActionCHBOX.Enabled = !context.IsInState(RoamingState.RemoteSyncNotSupported);
             SyncActionCHBOX.Checked = !context.IsInState(RoamingState.DiscardLocalChanges);
 
+            bool remoteProfileIsMaster = !context.LocalProfileIsMaster;
+
+            PublicModeCHBOX.Enabled = remoteProfileIsMaster;
+            PublicModeCHBOX.Checked = context.IsInState(RoamingState.RemoveLocalCopyOnExit);
+
+            PreferFullSyncCHBOX.Enabled = remoteProfileIsMaster;
             PreferFullSyncCHBOX.Checked = context.IsInState(RoamingState.ForceFullSync);
         }
 
         private void SyncActionCHBOX_CheckedChanged(object sender, EventArgs e)
         {
-            PreferFullSyncCHBOX.Enabled = (SyncActionCHBOX.Enabled && SyncActionCHBOX.Checked);
-
             if (Initializing)
-                return;            
+                return;
+
+            PreferFullSyncCHBOX.Enabled = (SyncActionCHBOX.Enabled && SyncActionCHBOX.Checked &&
+                                           !RoamingContext.IsInState(RoamingState.LocalProfileLoaded, RoamingState.NewProfileCreated));
 
             if (SyncActionCHBOX.Checked)
                 RoamingContext.State &= ~RoamingState.DiscardLocalChanges;
@@ -167,68 +155,41 @@ namespace Virtuoso.Roamie.Forms
         {
             ProfileViewingDialog.PresentModal(RoamiePlugin.Singleton.RoamingContext.ActiveProfile);
         }
-        
-        private void OptionsBTN_Click(object sender, EventArgs e)
-        {
-            ConfigurationDialog.Present(false, RoamiePlugin.Singleton);
-        }
-
-        #region Indicators
-
-        private void IndicateDeltaSync()
-        {
-            if (RoamingContext.IsInState(RoamingState.Disabled) || RoamingContext.IsInState(RoamingState.DiscardLocalChanges))
-                SyncStatusPBOX.Image = Resources.Image_32x32_Disabled;
-            else if (RoamingContext.IsInState(RoamingState.ForceFullSync))
-                SyncStatusPBOX.Image = Resources.Image_32x32_Sync;
-            else
-                SyncStatusPBOX.Image = Resources.Image_32x32_SyncDelta;
-       }
-
-        private void IndicateMirroringNotSupported()
-        {
-          /*  if ((PrivateState & RoamingState.RemoteSyncNotSupported) == RoamingState.RemoteSyncNotSupported)
-                StatusLVIEW.Items.Add(CreateHighlightedItem(Resources.Text_UI_RoamingStatus_DownloadOnlySession, TraceEventType.Warning));
-        */}
-
-        private void IndicateMirroringDisabled()
-        {
-            /*if (RoamingContext.IsInState(RoamingState.DiscardLocalChanges))
-                StatusLVIEW.Items.Add(CreateHighlightedItem(Resources.Text_UI_RoamingStatus_SandboxMode, TraceEventType.Warning));
-            else
-                StatusLVIEW.Items.Add(Resources.Text_UI_RoamingStatus_NonSandboxMode);
-       */ }
-
-        private void IndicateWipeOnExit()
-        {
-            if (RoamingContext.IsInState(RoamingState.RemoveLocalCopyOnExit))
-            {
-                ThisComputerOverlayPBOX.Visible = true;
-                ThisComputerOverlayPBOX.Image = Resources.Image_16x16_Delete;
-            }
-            else
-                ThisComputerOverlayPBOX.Visible = false;
-        }
-
-        private void IndicateLocalDbInUse()
-        {
-          /*  if ((PrivateState & RoamingState.LocalProfileLoaded) == RoamingState.LocalProfileLoaded)
-            {
-                StatusLVIEW.Items.Add(new ListViewItem(new string[] { Resources.Text_UI_RoamingStatus_Local, 
-                    Resources.Text_UI_RoamingStatus_Local }));
-
-                if ((PrivateState & RoamingState.Active) == RoamingState.Active)
-                    StatusLVIEW.Items.Add(Resources.Text_UI_RoamingStatus_LocalRoaming);
-            }
-            else if ((PrivateState & RoamingState.Active) == RoamingState.Active)
-                StatusLVIEW.Items.Add(Resources.Text_UI_RoamingStatus_Roaming);
-       */ }
-
-        #endregion
 
         private void MoreOptionsLINK_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ConfigurationDialog.Present(false, RoamiePlugin.Singleton);
+        }
+
+        #endregion
+
+        #region Indicators
+
+        private void IndicateSyncState()
+        {
+            bool localProfileIsMaster = RoamingContext.LocalProfileIsMaster;
+
+            if (RoamingContext.IsInState(RoamingState.Disabled))
+                SyncStatusPBOX.Image = Resources.Image_32x32_Block;
+            else if (RoamingContext.IsInState(RoamingState.DiscardLocalChanges))
+                SyncStatusPBOX.Image = localProfileIsMaster ? Resources.Image_32x32_Block : Resources.Image_32x32_Left;
+            else if (localProfileIsMaster)
+                SyncStatusPBOX.Image = Resources.Image_32x32_Right;
+            else if (RoamingContext.IsInState(RoamingState.ForceFullSync))
+                SyncStatusPBOX.Image = Resources.Image_32x32_Sync;
+            else
+                SyncStatusPBOX.Image = Resources.Image_32x32_SyncDelta;
+        }
+
+        private void IndicateThisComputerState()
+        {
+            if (RoamingContext.IsInState(RoamingState.RemoveLocalCopyOnExit))
+            {
+                ThisComputerOverlayPBOX.Visible = true;
+                ThisComputerOverlayPBOX.Image = Resources.Image_16x16_Delete2;
+            }
+            else
+                ThisComputerOverlayPBOX.Visible = false;
         }
 
         #endregion
