@@ -337,9 +337,6 @@
   <data name="Image_64x67_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon 304_64x67.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Text_Formatable1_UI_RoamingStatus_DeltaMergeRecommended" xml:space="preserve">
-    <value>{0} deltas applied, "Prefer full synchronization" option is recommended.</value>
-  </data>
   <data name="Text_UI_RoamingStatus_PublicMode" xml:space="preserve">
     <value>The downloaded database WILL be removed from this computer on exit.</value>
   </data>
@@ -600,5 +597,29 @@
   </data>
   <data name="Image_16x16_Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284907239_Delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SyncHeader_Golden" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\StartupHeader3OK.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_16x16_Delete2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1285002963_stop.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_32x32_Block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1285002812_Cancel.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_32x32_Disabled2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1285001501_stop.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_32x32_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1285003256_left1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_32x32_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1285003637_right1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Label_UI_ProfileSelection_BeCarefulLocal" xml:space="preserve">
+    <value>BEWARE - remote profile will overwrite the local one ({0})</value>
+  </data>
+  <data name="Label_UI_ProfileSelection_BeCarefulRemote" xml:space="preserve">
+    <value>Your local profile ({0}) will overwrite the remote one</value>
   </data>
 </root>

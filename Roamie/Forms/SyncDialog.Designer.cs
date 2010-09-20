@@ -92,7 +92,7 @@
             // 
             // gradientPanel1
             // 
-            this.gradientPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gradientPanel1.BackgroundImage")));
+            this.gradientPanel1.BackgroundImage = global::Virtuoso.Roamie.Properties.Resources.SyncHeader_Golden;
             this.gradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.gradientPanel1.Controls.Add(this.label3);
             this.gradientPanel1.Controls.Add(this.TryAgainBTN);

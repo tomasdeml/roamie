@@ -20,10 +20,12 @@
 \***********************************************************************************/
 
 using System;
+using System.IO;
 using System.Windows.Forms;
 using Virtuoso.Miranda.Plugins.Configuration.Forms;
 using Virtuoso.Roamie.Roaming.Profiles;
 using Virtuoso.Roamie.Properties;
+using Virtuoso.Roamie.Roaming;
 
 namespace Virtuoso.Roamie.Forms
 {
@@ -58,6 +60,13 @@ namespace Virtuoso.Roamie.Forms
         private void RoamingProfileSelectionDialog_Load(object sender, EventArgs e)
         {
             ProfilesLVIEW.ShowNewProfileItem(true);
+
+            bool downloadProfile = !RoamiePlugin.Singleton.RoamingContext.LocalProfileIsMaster;
+            lblProfileOverwriteWarning.Text =
+                String.Format(downloadProfile
+                        ? Resources.Label_UI_ProfileSelection_BeCarefulLocal
+                        : Resources.Label_UI_ProfileSelection_BeCarefulRemote,
+                    Path.GetFileName(RoamiePlugin.Singleton.RoamingContext.ProfilePath));
         }
 
         private void ManageProfilesLBTN_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

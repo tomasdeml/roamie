@@ -60,9 +60,9 @@
             this.SyncActionCHBOX.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.SyncActionCHBOX.Location = new System.Drawing.Point(23, 179);
             this.SyncActionCHBOX.Name = "SyncActionCHBOX";
-            this.SyncActionCHBOX.Size = new System.Drawing.Size(145, 17);
+            this.SyncActionCHBOX.Size = new System.Drawing.Size(134, 17);
             this.SyncActionCHBOX.TabIndex = 8;
-            this.SyncActionCHBOX.Text = "Synchronize changes";
+            this.SyncActionCHBOX.Text = "Synchronize profile";
             this.SyncActionCHBOX.UseVisualStyleBackColor = true;
             this.SyncActionCHBOX.CheckedChanged += new System.EventHandler(this.SyncActionCHBOX_CheckedChanged);
             // 
@@ -118,7 +118,7 @@
             // 
             // gradientPanel1
             // 
-            this.gradientPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gradientPanel1.BackgroundImage")));
+            this.gradientPanel1.BackgroundImage = global::Virtuoso.Roamie.Properties.Resources.SyncHeader_Golden;
             this.gradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.gradientPanel1.Controls.Add(this.label1);
             this.gradientPanel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -144,7 +144,7 @@
             // SyncStatusPBOX
             // 
             this.SyncStatusPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Image_32x32_SyncDelta;
-            this.SyncStatusPBOX.Location = new System.Drawing.Point(222, 68);
+            this.SyncStatusPBOX.Location = new System.Drawing.Point(224, 68);
             this.SyncStatusPBOX.Name = "SyncStatusPBOX";
             this.SyncStatusPBOX.Size = new System.Drawing.Size(32, 32);
             this.SyncStatusPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -189,9 +189,9 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Location = new System.Drawing.Point(39, 197);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(384, 13);
+            this.label4.Size = new System.Drawing.Size(366, 13);
             this.label4.TabIndex = 17;
-            this.label4.Text = "If checked, local changes will be synchronized with your remote profile on exit.";
+            this.label4.Text = "If checked, local data will be synchronized with your remote profile on exit.";
             // 
             // label2
             // 
@@ -210,10 +210,10 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Location = new System.Drawing.Point(39, 294);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(305, 26);
+            this.label5.Size = new System.Drawing.Size(280, 26);
             this.label5.TabIndex = 17;
-            this.label5.Text = "If checked, your entire profile file will be synchronized on exit.\r\nOtherwise onl" +
-                "y changes made will be synchronized.";
+            this.label5.Text = "If checked, entire profile file will be synchronized on exit.\r\nOtherwise only cha" +
+                "nges made will be synchronized.";
             // 
             // MoreOptionsLINK
             // 
@@ -277,7 +277,7 @@
             this.Name = "RoamingOverviewDialog";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Roaming overview";
+            this.Text = "Roaming status";
             this.Load += new System.EventHandler(this.RoamingStatusDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gradientPanel1.ResumeLayout(false);

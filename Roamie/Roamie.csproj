@@ -83,6 +83,13 @@
     <Content Include="Resources\1284198427_Globe1.PNG" />
     <Content Include="Resources\1284199993_001_01.PNG" />
     <Content Include="Resources\1284200727_Butterfly.ico" />
+    <None Include="Resources\1285003637_right1.png" />
+    <None Include="Resources\1285003256_left1.png" />
+    <None Include="Resources\1285002963_stop.png" />
+    <None Include="Resources\1285002812_Cancel.png" />
+    <EmbeddedResource Include="Resources\MenuItem_RoamingSettings.ico" />
+    <None Include="Resources\1285001501_stop.png" />
+    <None Include="Resources\StartupHeader3OK.png" />
     <None Include="Resources\1284907239_Delete.png" />
     <None Include="Resources\1284906112_adept_update.png" />
     <None Include="Resources\1284904979_group.png" />
@@ -118,10 +125,9 @@
     <None Include="Resources\Icon 304_64x67.png" />
     <None Include="Resources\Icon 244_48x48.png" />
     <None Include="Resources\Icon 244_256x256_Trans.png" />
-    <EmbeddedResource Include="Resources\MenuItems.About.ico" />
+    <EmbeddedResource Include="Resources\MenuItem_About.ico" />
     <None Include="Resources\Icon 161_32x32.png" />
     <None Include="Resources\Icon 180_32x32.png" />
-    <EmbeddedResource Include="Resources\MenuItems.RoamingSettings.ico" />
     <None Include="Resources\Icon 036_48x48.png" />
     <None Include="Resources\Icon 005_48x48.png" />
     <None Include="Resources\Icon 300_48x48.png" />

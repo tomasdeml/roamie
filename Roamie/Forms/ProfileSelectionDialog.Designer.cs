@@ -39,9 +39,12 @@ namespace Virtuoso.Roamie.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.IconPBOX = new System.Windows.Forms.PictureBox();
             this.ManageProfilesLBTN = new System.Windows.Forms.LinkLabel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblProfileOverwriteWarning = new System.Windows.Forms.Label();
             this.ProfilesLVIEW = new Virtuoso.Roamie.Forms.Controls.ProfilesListView();
             this.gradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IconPBOX)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // OkBTN
@@ -49,7 +52,7 @@ namespace Virtuoso.Roamie.Forms
             this.OkBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.OkBTN.Enabled = false;
             this.OkBTN.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.OkBTN.Location = new System.Drawing.Point(16, 302);
+            this.OkBTN.Location = new System.Drawing.Point(16, 305);
             this.OkBTN.Name = "OkBTN";
             this.OkBTN.Size = new System.Drawing.Size(75, 23);
             this.OkBTN.TabIndex = 0;
@@ -62,7 +65,7 @@ namespace Virtuoso.Roamie.Forms
             this.CancelBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.CancelBTN.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelBTN.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.CancelBTN.Location = new System.Drawing.Point(97, 302);
+            this.CancelBTN.Location = new System.Drawing.Point(97, 305);
             this.CancelBTN.Name = "CancelBTN";
             this.CancelBTN.Size = new System.Drawing.Size(75, 23);
             this.CancelBTN.TabIndex = 1;
@@ -119,27 +122,55 @@ namespace Virtuoso.Roamie.Forms
             // 
             // ManageProfilesLBTN
             // 
+            this.ManageProfilesLBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ManageProfilesLBTN.AutoSize = true;
             this.ManageProfilesLBTN.BackColor = System.Drawing.Color.Transparent;
             this.ManageProfilesLBTN.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ManageProfilesLBTN.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.ManageProfilesLBTN.Location = new System.Drawing.Point(311, 307);
+            this.ManageProfilesLBTN.Location = new System.Drawing.Point(323, 310);
             this.ManageProfilesLBTN.Name = "ManageProfilesLBTN";
-            this.ManageProfilesLBTN.Size = new System.Drawing.Size(95, 13);
+            this.ManageProfilesLBTN.Size = new System.Drawing.Size(83, 13);
             this.ManageProfilesLBTN.TabIndex = 1;
             this.ManageProfilesLBTN.TabStop = true;
-            this.ManageProfilesLBTN.Text = "Manage profiles...";
+            this.ManageProfilesLBTN.Text = "Manage profiles";
             this.ManageProfilesLBTN.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ManageProfilesLBTN_LinkClicked);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Gold;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.lblProfileOverwriteWarning);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 86);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(423, 25);
+            this.panel1.TabIndex = 4;
+            // 
+            // lblProfileOverwriteWarning
+            // 
+            this.lblProfileOverwriteWarning.AutoEllipsis = true;
+            this.lblProfileOverwriteWarning.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(136)))));
+            this.lblProfileOverwriteWarning.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblProfileOverwriteWarning.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            this.lblProfileOverwriteWarning.Location = new System.Drawing.Point(0, 0);
+            this.lblProfileOverwriteWarning.Name = "lblProfileOverwriteWarning";
+            this.lblProfileOverwriteWarning.Size = new System.Drawing.Size(421, 23);
+            this.lblProfileOverwriteWarning.TabIndex = 0;
+            this.lblProfileOverwriteWarning.Text = "Be careful";
+            this.lblProfileOverwriteWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ProfilesLVIEW
             // 
+            this.ProfilesLVIEW.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.ProfilesLVIEW.DoNotMaskNewProfileItem = true;
             this.ProfilesLVIEW.HideSelection = false;
-            this.ProfilesLVIEW.Location = new System.Drawing.Point(16, 92);
+            this.ProfilesLVIEW.Location = new System.Drawing.Point(16, 124);
             this.ProfilesLVIEW.MultiSelect = false;
             this.ProfilesLVIEW.Name = "ProfilesLVIEW";
             this.ProfilesLVIEW.ShowInfoTips = true;
-            this.ProfilesLVIEW.Size = new System.Drawing.Size(390, 200);
+            this.ProfilesLVIEW.Size = new System.Drawing.Size(390, 171);
             this.ProfilesLVIEW.TabIndex = 3;
             this.ProfilesLVIEW.TileSize = new System.Drawing.Size(300, 40);
             this.ProfilesLVIEW.UseCompatibleStateImageBehavior = false;
@@ -154,7 +185,8 @@ namespace Virtuoso.Roamie.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBTN;
-            this.ClientSize = new System.Drawing.Size(423, 336);
+            this.ClientSize = new System.Drawing.Size(423, 339);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.ManageProfilesLBTN);
             this.Controls.Add(this.ProfilesLVIEW);
             this.Controls.Add(this.CancelBTN);
@@ -172,6 +204,7 @@ namespace Virtuoso.Roamie.Forms
             this.gradientPanel1.ResumeLayout(false);
             this.gradientPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IconPBOX)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -187,5 +220,7 @@ namespace Virtuoso.Roamie.Forms
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox IconPBOX;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblProfileOverwriteWarning;
     }
 }
