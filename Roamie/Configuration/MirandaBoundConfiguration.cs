@@ -8,7 +8,8 @@ using Virtuoso.Miranda.Plugins.Configuration;
 namespace Virtuoso.Roamie.Configuration
 {
     [Serializable]
-    [ConfigurationOptions(RoamingConfiguration.Version, Encrypt = true, ProfileBound = false, Encryption = typeof(MasterPasswordEncryption), Storage = typeof(PortableStorage))]
+    [ConfigurationOptions(RoamingConfiguration.Version, Encrypt = true, ProfileBound = false, Encryption = typeof(MasterPasswordEncryption), Storage = typeof(DeletablePortableStorage))]
+    [StorageOptions(FileName = "RoamingConfiguration.dat")]
     public class MirandaBoundConfiguration : RoamingConfiguration
     {
         internal static RoamingConfiguration Load()
@@ -18,8 +19,7 @@ namespace Virtuoso.Roamie.Configuration
 
         internal static void Delete()
         {
-            var config = PluginConfiguration.GetDefaultConfiguration<MirandaBoundConfiguration>();
-            config.Save();
+            DeletablePortableStorage.Delete(typeof(MirandaBoundConfiguration));
         }
     }
 }

@@ -236,8 +236,11 @@
   <ItemGroup>
     <Compile Include="ConfigurationValuesDictionary.cs" />
     <Compile Include="Configuration\ConfigurationManager.cs" />
+    <Compile Include="Configuration\DeletablePortableStorage.cs" />
+    <Compile Include="Configuration\ObservableMemoryStream.cs" />
     <Compile Include="Configuration\MemoryStorage.cs" />
     <Compile Include="Configuration\MirandaBoundConfiguration.cs" />
+    <Compile Include="Configuration\StorageOptionsAttribute.cs" />
     <Compile Include="Configuration\TransientConfiguration.cs" />
     <Compile Include="Configuration\WindowsAccountBoundConfiguration.cs" />
     <Compile Include="Configuration\WindowsAccountSettings.cs" />
@@ -291,7 +294,6 @@
     <Compile Include="Roaming\DeltaSync\MicrosoftPatchApi.cs" />
     <Compile Include="Roaming\DeltaSync\UtilityBasedDeltaEngine.cs" />
     <Compile Include="Roaming\DeltaSync\XDeltaUtility.cs" />
-    <Compile Include="Configuration\MasterPasswordCache.cs" />
     <Compile Include="Configuration\MasterPasswordEncryption.cs" />
     <Compile Include="Roaming\DeltaSync\DeltaSyncException.cs" />
     <Compile Include="Roaming\Provisioning\ProvisioningContainer.cs" />
