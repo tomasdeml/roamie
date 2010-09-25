@@ -37,7 +37,7 @@ namespace Virtuoso.Roamie.Configuration
 
         internal const string Version = "1.0.0.0";
 
-        internal readonly Dictionary<string, ConfigurationValuesDictionary> ConfigurationValues;        
+        internal Dictionary<string, ConfigurationValuesDictionary> ConfigurationValues;        
 
         #endregion
 
@@ -52,16 +52,6 @@ namespace Virtuoso.Roamie.Configuration
         #endregion
 
         #region Properties
-
-        [NonSerialized]
-        private bool isEmpty;
-        public bool IsEmpty
-        {
-            get
-            {
-                return isEmpty;
-            }
-        }
 
         public ProfileManager ProfileManager
         {
@@ -120,9 +110,16 @@ namespace Virtuoso.Roamie.Configuration
             return retValue;
         }
 
-        protected override void InitializeDefaultConfiguration()
+        public void CopyTo(RoamingConfiguration newConfig)
         {
-            isEmpty = true;
+            newConfig.AuthenticateToProxy = AuthenticateToProxy;
+            newConfig.ConfigurationValues = ConfigurationValues;
+            newConfig.FullSyncAfterThreshold = FullSyncAfterThreshold;
+            newConfig.IsDirty = IsDirty;
+            newConfig.ProfileManager = ProfileManager;
+            newConfig.Proxy = Proxy;
+            newConfig.SilentMode = SilentMode;
+            newConfig.UseProxy = UseProxy;
         }
 
         #endregion        

@@ -28,7 +28,7 @@ namespace Virtuoso.Roamie.Configuration
             WindowsAccountSettings.Load();
 
             PersistencyMode = WindowsAccountSettings.Singleton.ConfigurationPersistencyMode;
-            CreateDefaultConfiguration();
+            LoadOrCreateConfiguration();
         }        
 
         #endregion
@@ -71,30 +71,25 @@ namespace Virtuoso.Roamie.Configuration
 
         public void SetPersistencyMode(ConfigurationPersistencyMode mode)
         {
+            if (PersistencyMode == mode)
+                return;            
+
+            RoamingConfiguration prevConfig = Configuration;
+            PersistencyMode = mode;            
+
+            LoadOrCreateConfiguration();
+
+            if (prevConfig != null)
+                prevConfig.CopyTo(Configuration);
+
+            Configuration.Save();
+            DeletePreviousConfiguration();
+
             WindowsAccountSettings.Singleton.ConfigurationPersistencyMode = mode;
             WindowsAccountSettings.Singleton.Save();
+        }        
 
-            PersistencyMode = mode;
-
-            switch (mode)
-            {
-                case ConfigurationPersistencyMode.Transient:
-                    WindowsAccountBoundConfiguration.Delete();
-                    MirandaBoundConfiguration.Delete();
-                    break;
-                case ConfigurationPersistencyMode.MirandaInstallation:
-                    WindowsAccountBoundConfiguration.Delete();
-                    break;
-                case ConfigurationPersistencyMode.WindowsAccount:
-                    MirandaBoundConfiguration.Delete();
-                    break;
-            }
-
-            CreateDefaultConfiguration();
-            Configuration.Save();
-        }
-
-        private void CreateDefaultConfiguration()
+        private void LoadOrCreateConfiguration()
         {
             switch (PersistencyMode)
             {
@@ -106,6 +101,23 @@ namespace Virtuoso.Roamie.Configuration
                     break;
                 case ConfigurationPersistencyMode.MirandaInstallation:
                     Configuration = MirandaBoundConfiguration.Load();
+                    break;
+            }
+        }
+
+        private void DeletePreviousConfiguration()
+        {
+            switch (PersistencyMode)
+            {
+                case ConfigurationPersistencyMode.Transient:
+                    WindowsAccountBoundConfiguration.Delete();
+                    MirandaBoundConfiguration.Delete();
+                    break;
+                case ConfigurationPersistencyMode.MirandaInstallation:
+                    WindowsAccountBoundConfiguration.Delete();
+                    break;
+                case ConfigurationPersistencyMode.WindowsAccount:
+                    MirandaBoundConfiguration.Delete();
                     break;
             }
         }
