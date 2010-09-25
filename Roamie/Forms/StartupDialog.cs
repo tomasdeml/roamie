@@ -35,23 +35,23 @@ namespace Virtuoso.Roamie.Forms
     {
         #region Fields
 
-        private readonly bool FirstTime;
+        private readonly bool CreatingProfile;
         
         #endregion
 
         #region .ctors
 
-        private StartupDialog(bool firstTime)
+        private StartupDialog(bool creatingProfile)
         {
             InitializeComponent();
 
-            FirstTime = firstTime;
+            CreatingProfile = creatingProfile;
 
-            UseLocalRBTN.Enabled = LocalPBOX.Enabled = !firstTime;
-            CreateNewRBTN.Enabled = NewPBOX.Enabled = firstTime;
+            UseLocalRBTN.Enabled = LocalPBOX.Enabled = !creatingProfile;
+            CreateNewRBTN.Enabled = NewPBOX.Enabled = creatingProfile;
 
-            CreateNewRBTN.Checked = firstTime;
-            UseLocalRBTN.Checked = !firstTime;
+            CreateNewRBTN.Checked = creatingProfile;
+            UseLocalRBTN.Checked = !creatingProfile;
         }
 
         public static void PresentModal(bool firstTime)
@@ -134,7 +134,7 @@ namespace Virtuoso.Roamie.Forms
                 {
                     try
                     {
-                        if (context.Configuration.SilentStartup)
+                        if (context.Configuration.SilentMode)
                             Opacity = 0;
 
                         RoamingOrchestration.SyncLocalSite();
@@ -194,12 +194,12 @@ namespace Virtuoso.Roamie.Forms
         {
             string profilePath = RoamingContext.ProfilePath;
 
-            // Previously roamed db selected...
-            if (profilePath.EndsWith(DatabaseProvider.RoamingExtension) && UseLocalRBTN.Enabled)
-            {
-                UseLocalRBTN.Checked = true;
-                RoamLocalOnExitCHBOX.Checked = true;
-            }
+            //// Previously roamed db selected...
+            //if (profilePath.EndsWith(DatabaseProvider.RoamingExtension) && UseLocalRBTN.Enabled)
+            //{
+            //    UseLocalRBTN.Checked = true;
+            //    RoamLocalOnExitCHBOX.Checked = true;
+            //}
 
             Text += Path.GetFileNameWithoutExtension(profilePath);
             Activate();
@@ -249,7 +249,7 @@ namespace Virtuoso.Roamie.Forms
                 context.DeactivateProfile();
                 context.RestoreProfilePath();
 
-                if (FirstTime)
+                if (CreatingProfile)
                 {
                     CreateNewRBTN.Checked = true;
                     RoamNewOnExitCHBOX.Checked = false;
@@ -263,7 +263,6 @@ namespace Virtuoso.Roamie.Forms
                 ProcessSelection(null);
             }
 
-            Settings.Default.Save();
             base.OnFormClosing(e);
         }
 

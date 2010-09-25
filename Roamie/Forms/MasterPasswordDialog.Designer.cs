@@ -1,6 +1,6 @@
 ﻿namespace Virtuoso.Roamie.Forms
 {
-    partial class MasterKeyDialog
+    partial class MasterPasswordDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -53,7 +53,7 @@
             // 
             this.PasswordTBOX.Location = new System.Drawing.Point(21, 90);
             this.PasswordTBOX.Name = "PasswordTBOX";
-            this.PasswordTBOX.Size = new System.Drawing.Size(233, 21);
+            this.PasswordTBOX.Size = new System.Drawing.Size(233, 20);
             this.PasswordTBOX.TabIndex = 3;
             this.PasswordTBOX.UseSystemPasswordChar = true;
             this.PasswordTBOX.TextChanged += new System.EventHandler(this.PasswordTBOX_TextChanged);
@@ -117,7 +117,6 @@
             this.Controls.Add(this.gradientPanel1);
             this.Controls.Add(this.PasswordTBOX);
             this.Controls.Add(this.OkBTN);
-            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

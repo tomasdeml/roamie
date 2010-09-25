@@ -32,7 +32,7 @@ namespace Virtuoso.Roamie.Forms
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfileEditorDialog));
             this.categoryItemHeader1 = new Virtuoso.Miranda.Plugins.Configuration.Forms.Controls.CategoryItemHeader();
-            this.ProfileEditor = new ProfileEditor();
+            this.ProfileEditor = new Virtuoso.Roamie.Forms.Controls.ProfileEditor();
             this.SuspendLayout();
             // 
             // categoryItemHeader1
@@ -60,7 +60,7 @@ namespace Virtuoso.Roamie.Forms
             this.ProfileEditor.Font = new System.Drawing.Font("Tahoma", 8F);
             this.ProfileEditor.Location = new System.Drawing.Point(0, 46);
             this.ProfileEditor.MinimumSize = new System.Drawing.Size(402, 305);
-            this.ProfileEditor.Mode = ProfileEditor.EditingMode.EditProfile;
+            this.ProfileEditor.Mode = Virtuoso.Roamie.Forms.Controls.ProfileEditor.EditingMode.EditProfile;
             this.ProfileEditor.Name = "ProfileEditor";
             this.ProfileEditor.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
             this.ProfileEditor.Size = new System.Drawing.Size(405, 305);
@@ -74,7 +74,6 @@ namespace Virtuoso.Roamie.Forms
             this.ClientSize = new System.Drawing.Size(400, 351);
             this.Controls.Add(this.categoryItemHeader1);
             this.Controls.Add(this.ProfileEditor);
-            this.Font = new System.Drawing.Font("Tahoma", 8F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

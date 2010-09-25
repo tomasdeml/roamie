@@ -4,6 +4,7 @@ using Virtuoso.Miranda.Plugins.Configuration.Forms.Controls;
 using System.Net;
 using Virtuoso.Roamie.Roaming;
 using Virtuoso.Roamie.Properties;
+using Virtuoso.Roamie.Configuration;
 
 namespace Virtuoso.Roamie.Forms.Controls.Configuration
 {

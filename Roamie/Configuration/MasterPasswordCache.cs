@@ -6,7 +6,7 @@ namespace Virtuoso.Roamie.Roaming
 {
     [Serializable]
     [ConfigurationOptions("1.0.0.0", Encrypt = true, ProfileBound = false, Encryption = typeof(WindowsEncryption), Storage = typeof(IsolatedStorage))]
-    internal sealed class MasterKeyCache : PluginConfiguration
+    internal sealed class MasterPasswordCache : PluginConfiguration
     {
         private string key;
         public string Key

@@ -25,6 +25,7 @@ using Virtuoso.Roamie.Forms.Controls;
 using Virtuoso.Roamie.Roaming;
 using Virtuoso.Roamie.Roaming.Profiles;
 using Virtuoso.Roamie.Properties;
+using Virtuoso.Roamie.Configuration;
 
 namespace Virtuoso.Roamie.Forms
 {
@@ -58,7 +59,7 @@ namespace Virtuoso.Roamie.Forms
 
         protected override Image GetDialogImage()
         {
-            return Resources.Image_32x32_Add;
+            return Resources.Image_32x32_Add2;
         }
 
         private void ProfileEditor_Save(object sender, ProfileEditor.SaveEventArgs e)

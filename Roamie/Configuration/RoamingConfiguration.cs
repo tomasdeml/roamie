@@ -26,30 +26,77 @@ using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Miranda.Plugins.Configuration;
 using Virtuoso.Roamie.Roaming.Profiles;
 using Virtuoso.Roamie.RoamingProviders;
+using Virtuoso.Roamie.Roaming;
 
-namespace Virtuoso.Roamie.Roaming
+namespace Virtuoso.Roamie.Configuration
 {
-    [Serializable, ConfigurationOptions("0.2.0.0", Encrypt = true, ProfileBound = false, Encryption = typeof(MasterKeyEncryption), Storage = typeof(PortableStorage))]
-    public class RoamingConfiguration : PluginConfiguration
+    [Serializable]
+    public abstract class RoamingConfiguration : PluginConfiguration
     {
         #region Fields
 
-        internal readonly Dictionary<string, ConfigurationValuesDictionary> ConfigurationValues;
+        internal const string Version = "1.0.0.0";
 
-        private readonly ProfileManager profileManager;
-        public ProfileManager ProfileManager
-        {
-            get { return profileManager; }
-        }
+        internal readonly Dictionary<string, ConfigurationValuesDictionary> ConfigurationValues;        
 
         #endregion
 
         #region .ctors
 
-        public RoamingConfiguration()
+        protected RoamingConfiguration()
         {
             ConfigurationValues = new Dictionary<string, ConfigurationValuesDictionary>(1);
-            profileManager = new ProfileManager();
+            ProfileManager = new ProfileManager();
+        }
+
+        #endregion
+
+        #region Properties
+
+        [NonSerialized]
+        private bool isEmpty;
+        public bool IsEmpty
+        {
+            get
+            {
+                return isEmpty;
+            }
+        }
+
+        public ProfileManager ProfileManager
+        {
+            get;
+            private set;
+        }
+
+        public bool SilentMode
+        {
+            get;
+            set;
+        }
+
+        public bool UseProxy
+        {
+            get;
+            set;
+        }
+
+        public bool AuthenticateToProxy
+        {
+            get;
+            set;
+        }
+
+        public WebProxy Proxy
+        {
+            get;
+            set;
+        }
+
+        public bool FullSyncAfterThreshold
+        {
+            get;
+            set;
         }
 
         #endregion
@@ -61,60 +108,23 @@ namespace Virtuoso.Roamie.Roaming
             if (provider == null) 
                 throw new ArgumentNullException("provider");
 
-            string hash = provider.GetType().FullName;
-
             ConfigurationValuesDictionary retValue = null;
-
-            if (ConfigurationValues.ContainsKey(hash))
-                retValue = ConfigurationValues[hash];
-            else
+            string key = provider.GetType().FullName;
+            
+            if (!ConfigurationValues.TryGetValue(key, out retValue))
             {
                 retValue = new ConfigurationValuesDictionary();
-                ConfigurationValues[hash] = retValue;
+                ConfigurationValues[key] = retValue;
             }
 
             return retValue;
         }
 
-        #endregion
-
-        #region Properties
-
-        private bool silentStartup;
-        public bool SilentStartup
+        protected override void InitializeDefaultConfiguration()
         {
-            get { return silentStartup; }
-            set { silentStartup = value; }
+            isEmpty = true;
         }
 
-        private bool useProxy;
-        public bool UseProxy
-        {
-            get { return useProxy; }
-            set { useProxy = value; }
-        }
-
-        private bool authenticateToProxy;
-        public bool AuthenticateToProxy
-        {
-            get { return authenticateToProxy; }
-            set { authenticateToProxy = value; }
-        }
-
-        private WebProxy proxy;
-        public WebProxy Proxy
-        {
-            get { return proxy; }
-            set { proxy = value; }
-        }
-
-        private bool fullSyncAfterThreshold;
-        public bool FullSyncAfterThreshold
-        {
-            get { return fullSyncAfterThreshold; }
-            set { fullSyncAfterThreshold = value; }
-        }
-
-        #endregion
+        #endregion        
     }
 }

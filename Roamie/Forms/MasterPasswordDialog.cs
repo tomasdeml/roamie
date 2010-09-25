@@ -3,32 +3,32 @@ using System.Windows.Forms;
 
 namespace Virtuoso.Roamie.Forms
 {
-    public partial class MasterKeyDialog : Form
+    internal partial class MasterPasswordDialog : Form
     {
-        protected MasterKeyDialog()
+        protected MasterPasswordDialog()
         {
             InitializeComponent();
         }
 
-        public static string Prompt(bool decrypting)
+        public static string Prompt(bool settingPassword)
         {
-            using (MasterKeyDialog dlg = new MasterKeyDialog())
+            using (MasterPasswordDialog dlg = new MasterPasswordDialog())
             {
-                dlg.PasswordTBOX.UseSystemPasswordChar = decrypting;
+                dlg.PasswordTBOX.UseSystemPasswordChar = !settingPassword;
                 dlg.ShowDialog();
 
                 return dlg.PasswordTBOX.Text;
             }
         }
 
-        private void OkBTN_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void PasswordTBOX_TextChanged(object sender, EventArgs e)
         {
             OkBTN.Enabled = PasswordTBOX.Text.Length > 0;
         }
+
+        private void OkBTN_Click(object sender, EventArgs e)
+        {
+            Close();
+        }        
     }
 }

@@ -23,6 +23,7 @@ using System;
 using Virtuoso.Roamie.Forms.Controls;
 using Virtuoso.Roamie.Roaming;
 using Virtuoso.Roamie.Roaming.Profiles;
+using Virtuoso.Roamie.Configuration;
 
 namespace Virtuoso.Roamie.Forms
 {

@@ -104,7 +104,7 @@ namespace Virtuoso.Roamie.Forms
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label1.Location = new System.Drawing.Point(108, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(312, 34);
+            this.label1.Size = new System.Drawing.Size(312, 46);
             this.label1.TabIndex = 0;
             this.label1.Text = "Roamie will synchronize this computer with the selected roaming profile.";
             // 
@@ -129,7 +129,7 @@ namespace Virtuoso.Roamie.Forms
             this.ManageProfilesLBTN.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.ManageProfilesLBTN.Location = new System.Drawing.Point(323, 310);
             this.ManageProfilesLBTN.Name = "ManageProfilesLBTN";
-            this.ManageProfilesLBTN.Size = new System.Drawing.Size(83, 13);
+            this.ManageProfilesLBTN.Size = new System.Drawing.Size(82, 13);
             this.ManageProfilesLBTN.TabIndex = 1;
             this.ManageProfilesLBTN.TabStop = true;
             this.ManageProfilesLBTN.Text = "Manage profiles";
@@ -151,7 +151,7 @@ namespace Virtuoso.Roamie.Forms
             this.lblProfileOverwriteWarning.AutoEllipsis = true;
             this.lblProfileOverwriteWarning.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(136)))));
             this.lblProfileOverwriteWarning.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProfileOverwriteWarning.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            this.lblProfileOverwriteWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lblProfileOverwriteWarning.Location = new System.Drawing.Point(0, 0);
             this.lblProfileOverwriteWarning.Name = "lblProfileOverwriteWarning";
             this.lblProfileOverwriteWarning.Size = new System.Drawing.Size(421, 23);
@@ -192,7 +192,6 @@ namespace Virtuoso.Roamie.Forms
             this.Controls.Add(this.CancelBTN);
             this.Controls.Add(this.OkBTN);
             this.Controls.Add(this.gradientPanel1);
-            this.Font = new System.Drawing.Font("Tahoma", 8F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

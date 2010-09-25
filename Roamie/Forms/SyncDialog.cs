@@ -74,7 +74,7 @@ namespace Virtuoso.Roamie.Forms
                 throw new ArgumentNullException("syncOperator");
 
             if ((options & SyncOptions.Silenceable) == SyncOptions.Silenceable && 
-                !RoamiePlugin.Singleton.RoamingContext.Configuration.SilentStartup)
+                !RoamiePlugin.Singleton.RoamingContext.Configuration.SilentMode)
                 options &= ~SyncOptions.Silenceable;
 
             SyncOperator = syncOperator;

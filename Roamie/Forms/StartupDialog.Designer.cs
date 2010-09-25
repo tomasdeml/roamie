@@ -81,33 +81,33 @@
             // 
             // DownloadPBOX
             // 
-            this.DownloadPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Image_24x24_Web;
+            this.DownloadPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Image_32x32_Web;
             this.DownloadPBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.DownloadPBOX.Location = new System.Drawing.Point(28, 123);
+            this.DownloadPBOX.Location = new System.Drawing.Point(25, 119);
             this.DownloadPBOX.Name = "DownloadPBOX";
-            this.DownloadPBOX.Size = new System.Drawing.Size(24, 24);
+            this.DownloadPBOX.Size = new System.Drawing.Size(29, 32);
             this.DownloadPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.DownloadPBOX.TabIndex = 16;
             this.DownloadPBOX.TabStop = false;
             // 
             // LocalPBOX
             // 
-            this.LocalPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Image_24x24_Computer;
+            this.LocalPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Image_32x32_ComputerScreen;
             this.LocalPBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LocalPBOX.Location = new System.Drawing.Point(27, 209);
+            this.LocalPBOX.Location = new System.Drawing.Point(24, 206);
             this.LocalPBOX.Name = "LocalPBOX";
-            this.LocalPBOX.Size = new System.Drawing.Size(24, 24);
+            this.LocalPBOX.Size = new System.Drawing.Size(32, 32);
             this.LocalPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.LocalPBOX.TabIndex = 16;
             this.LocalPBOX.TabStop = false;
             // 
             // NewPBOX
             // 
-            this.NewPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Image_24x24_Add;
+            this.NewPBOX.Image = global::Virtuoso.Roamie.Properties.Resources.Image_32x32_Add;
             this.NewPBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.NewPBOX.Location = new System.Drawing.Point(27, 277);
+            this.NewPBOX.Location = new System.Drawing.Point(24, 272);
             this.NewPBOX.Name = "NewPBOX";
-            this.NewPBOX.Size = new System.Drawing.Size(24, 24);
+            this.NewPBOX.Size = new System.Drawing.Size(32, 32);
             this.NewPBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.NewPBOX.TabIndex = 16;
             this.NewPBOX.TabStop = false;
@@ -127,54 +127,46 @@
             // 
             // RoamNewOnExitCHBOX
             // 
-            this.RoamNewOnExitCHBOX.AutoSize = true;
-            this.RoamNewOnExitCHBOX.Checked = global::Virtuoso.Roamie.Properties.Settings.Default.CreateNewDb_RoamOnExit_Checked;
-            this.RoamNewOnExitCHBOX.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.RoamNewOnExitCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Roamie.Properties.Settings.Default, "CreateNewDb_RoamOnExit_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.RoamNewOnExitCHBOX.AutoSize = true;            
+            this.RoamNewOnExitCHBOX.CheckState = System.Windows.Forms.CheckState.Checked;            
             this.RoamNewOnExitCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.RoamNewOnExitCHBOX.Location = new System.Drawing.Point(88, 305);
             this.RoamNewOnExitCHBOX.Name = "RoamNewOnExitCHBOX";
-            this.RoamNewOnExitCHBOX.Size = new System.Drawing.Size(120, 17);
+            this.RoamNewOnExitCHBOX.Size = new System.Drawing.Size(118, 17);
             this.RoamNewOnExitCHBOX.TabIndex = 9;
             this.RoamNewOnExitCHBOX.Text = "Synchronize on exit";
             this.RoamNewOnExitCHBOX.UseVisualStyleBackColor = true;
             // 
             // RoamLocalOnExitCHBOX
             // 
-            this.RoamLocalOnExitCHBOX.AutoSize = true;
-            this.RoamLocalOnExitCHBOX.Checked = global::Virtuoso.Roamie.Properties.Settings.Default.UseLocalDb_RoamOnExit_Checked;
-            this.RoamLocalOnExitCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Roamie.Properties.Settings.Default, "UseLocalDb_RoamOnExit_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.RoamLocalOnExitCHBOX.AutoSize = true;    
             this.RoamLocalOnExitCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.RoamLocalOnExitCHBOX.Location = new System.Drawing.Point(88, 238);
             this.RoamLocalOnExitCHBOX.Name = "RoamLocalOnExitCHBOX";
-            this.RoamLocalOnExitCHBOX.Size = new System.Drawing.Size(120, 17);
+            this.RoamLocalOnExitCHBOX.Size = new System.Drawing.Size(118, 17);
             this.RoamLocalOnExitCHBOX.TabIndex = 7;
             this.RoamLocalOnExitCHBOX.Text = "Synchronize on exit";
             this.RoamLocalOnExitCHBOX.UseVisualStyleBackColor = true;
             // 
             // SandboxModeCHBOX
             // 
-            this.SandboxModeCHBOX.AutoSize = true;
-            this.SandboxModeCHBOX.Checked = global::Virtuoso.Roamie.Properties.Settings.Default.DownloadDb_Sandbox_Checked;
-            this.SandboxModeCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Roamie.Properties.Settings.Default, "DownloadDb_Sandbox_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.SandboxModeCHBOX.AutoSize = true; 
             this.SandboxModeCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.SandboxModeCHBOX.Location = new System.Drawing.Point(88, 178);
             this.SandboxModeCHBOX.Name = "SandboxModeCHBOX";
-            this.SandboxModeCHBOX.Size = new System.Drawing.Size(195, 17);
+            this.SandboxModeCHBOX.Size = new System.Drawing.Size(192, 17);
             this.SandboxModeCHBOX.TabIndex = 5;
             this.SandboxModeCHBOX.Text = "Do not synchronize remote location";
             this.SandboxModeCHBOX.UseVisualStyleBackColor = false;
             // 
             // PublicComputerCHBOX
             // 
-            this.PublicComputerCHBOX.AutoSize = true;
-            this.PublicComputerCHBOX.Checked = global::Virtuoso.Roamie.Properties.Settings.Default.DownloadDb_PublicPc_Checked;
-            this.PublicComputerCHBOX.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.PublicComputerCHBOX.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Virtuoso.Roamie.Properties.Settings.Default, "DownloadDb_PublicPc_Checked", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.PublicComputerCHBOX.AutoSize = true;            
+            this.PublicComputerCHBOX.CheckState = System.Windows.Forms.CheckState.Checked;            
             this.PublicComputerCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.PublicComputerCHBOX.Location = new System.Drawing.Point(88, 152);
             this.PublicComputerCHBOX.Name = "PublicComputerCHBOX";
-            this.PublicComputerCHBOX.Size = new System.Drawing.Size(142, 17);
+            this.PublicComputerCHBOX.Size = new System.Drawing.Size(143, 17);
             this.PublicComputerCHBOX.TabIndex = 4;
             this.PublicComputerCHBOX.Text = "This is a public computer";
             this.PublicComputerCHBOX.UseVisualStyleBackColor = true;
@@ -223,7 +215,7 @@
             this.OptionsLINK.BackColor = System.Drawing.Color.Transparent;
             this.OptionsLINK.Location = new System.Drawing.Point(384, 98);
             this.OptionsLINK.Name = "OptionsLINK";
-            this.OptionsLINK.Size = new System.Drawing.Size(44, 13);
+            this.OptionsLINK.Size = new System.Drawing.Size(43, 13);
             this.OptionsLINK.TabIndex = 22;
             this.OptionsLINK.TabStop = true;
             this.OptionsLINK.Text = "Options";
@@ -235,10 +227,10 @@
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label1.Location = new System.Drawing.Point(108, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(288, 35);
+            this.label1.Size = new System.Drawing.Size(319, 38);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Begin your session by selecting a Miranda profile source.\r\nRoamie will retrieve a" +
-                "nd load the profile for you.";
+            this.label1.Text = "Begin your session by selecting a Miranda profile source. \r\nRoamie will retrieve " +
+                "and load the profile for you.";
             // 
             // pictureBox2
             // 
@@ -299,7 +291,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.gradientPanel1);
-            this.Font = new System.Drawing.Font("Tahoma", 8F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;

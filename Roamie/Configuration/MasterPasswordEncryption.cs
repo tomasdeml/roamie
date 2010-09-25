@@ -30,7 +30,7 @@ using Virtuoso.Roamie.Properties;
 
 namespace Virtuoso.Roamie.Roaming
 {
-    internal sealed class MasterKeyEncryption : PortableEncryption
+    internal sealed class MasterPasswordEncryption : PortableEncryption
     {
         #region Fields
 
@@ -45,7 +45,7 @@ namespace Virtuoso.Roamie.Roaming
             if (!String.IsNullOrEmpty(Key) || TryLoadKey())
                 return Key;
 
-            Key = Forms.MasterKeyDialog.Prompt(decrypting);
+            Key = Forms.MasterPasswordDialog.Prompt(decrypting);
 
             if (!decrypting)
                 CacheKey();
@@ -75,13 +75,13 @@ namespace Virtuoso.Roamie.Roaming
 
         private bool TryLoadKey()
         {
-            Key = PluginConfiguration.Load<MasterKeyCache>().Key;
+            Key = PluginConfiguration.Load<MasterPasswordCache>().Key;
             return !String.IsNullOrEmpty(Key);
         }
 
         private void CacheKey()
         {
-            MasterKeyCache cache = new MasterKeyCache();
+            MasterPasswordCache cache = new MasterPasswordCache();
             cache.Key = Key;
 
             cache.Save();

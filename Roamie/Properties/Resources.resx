@@ -553,13 +553,13 @@
   <data name="Image_32x32_Active" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284281919_check.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Image_32x32_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Image_32x32_Add2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284281564_plus_32.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Image_32x32_Profile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284281010_user_info.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Image_48x48_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Image_48x48_Add2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284281579_plus_48.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Image_48x48_Profile" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -571,7 +571,7 @@
   <data name="Image_48x48_Lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284314619_decrypted.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Image_24x24_Computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Image_24x24_ComputerScreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284199740_computer.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Image_32x32_Computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -621,5 +621,20 @@
   </data>
   <data name="Label_UI_ProfileSelection_BeCarefulRemote" xml:space="preserve">
     <value>Your local profile ({0}) will overwrite the remote one</value>
+  </data>
+  <data name="Image_32x32_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1285407889_1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_32x32_ComputerScreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1285407771_computer.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_32x32_FlashDrive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1285408363_Flash Disk.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_32x32_Home" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1285408257_folder_home.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Image_32x32_Users" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1285407638_group.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
