@@ -25,7 +25,9 @@ namespace Virtuoso.Roamie.Configuration
 
         private ConfigurationManager()
         {
-            PersistencyMode = WindowsAccountSettings.Default.ConfigurationPersitencyMode;
+            WindowsAccountSettings.Load();
+
+            PersistencyMode = WindowsAccountSettings.Singleton.ConfigurationPersistencyMode;
             CreateDefaultConfiguration();
         }        
 
@@ -69,8 +71,8 @@ namespace Virtuoso.Roamie.Configuration
 
         public void SetPersistencyMode(ConfigurationPersistencyMode mode)
         {
-            WindowsAccountSettings.Default.ConfigurationPersitencyMode = mode;
-            WindowsAccountSettings.Default.Save();
+            WindowsAccountSettings.Singleton.ConfigurationPersistencyMode = mode;
+            WindowsAccountSettings.Singleton.Save();
 
             PersistencyMode = mode;
 
@@ -89,6 +91,7 @@ namespace Virtuoso.Roamie.Configuration
             }
 
             CreateDefaultConfiguration();
+            Configuration.Save();
         }
 
         private void CreateDefaultConfiguration()
