@@ -231,11 +231,11 @@
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
-            this.label7.Location = new System.Drawing.Point(157, 347);
+            this.label7.Location = new System.Drawing.Point(146, 347);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(263, 13);
+            this.label7.Size = new System.Drawing.Size(274, 13);
             this.label7.TabIndex = 9;
-            this.label7.Text = "You can change the settings later in Roamie\'s options.";
+            this.label7.Text = "You can change these settings later in Roamie\'s options.";
             // 
             // FirstRunDialog
             // 

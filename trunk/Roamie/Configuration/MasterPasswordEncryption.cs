@@ -26,8 +26,6 @@ using Virtuoso.Miranda.Plugins.Configuration;
 using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Roamie.Properties;
 
-// TODO Get rid of and generate password
-
 namespace Virtuoso.Roamie.Roaming
 {
     internal sealed class MasterPasswordEncryption : PortableEncryption
@@ -42,14 +40,10 @@ namespace Virtuoso.Roamie.Roaming
 
         protected override string PromptForKey(bool decrypting)
         {
-            if (!String.IsNullOrEmpty(Key) || TryLoadKey())
+            if (!String.IsNullOrEmpty(Key))
                 return Key;
 
             Key = Forms.MasterPasswordDialog.Prompt(decrypting);
-
-            if (!decrypting)
-                CacheKey();
-
             return Key;
         }
 
@@ -58,35 +52,17 @@ namespace Virtuoso.Roamie.Roaming
             try
             {
                 byte[] decryptedData = base.Decrypt(data);
-                CacheKey();
-
                 return decryptedData;
             }
             catch (CryptographicException e)
             {
+                Key = null;
+
                 MessageBox.Show(Resources.MsgBox_Text_InvalidMasterKey, Resources.MsgBox_Title_InvalidMasterKey, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw new OperationCanceledException(Resources.MsgBox_Text_InvalidMasterKey, e);
             }
         }
 
-        #endregion			
-        
-        #region MasterKey Cache
-
-        private bool TryLoadKey()
-        {
-            Key = PluginConfiguration.Load<MasterPasswordCache>().Key;
-            return !String.IsNullOrEmpty(Key);
-        }
-
-        private void CacheKey()
-        {
-            MasterPasswordCache cache = new MasterPasswordCache();
-            cache.Key = Key;
-
-            cache.Save();
-        }        
-
-        #endregion			
+        #endregion
     }
 }

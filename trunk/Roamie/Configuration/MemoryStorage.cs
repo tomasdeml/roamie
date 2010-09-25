@@ -7,26 +7,49 @@ using System.IO;
 
 namespace Virtuoso.Roamie.Configuration
 {
+    // TODO Move to Hyphen
+
     public class MemoryStorage : IStorage
     {
+        #region Fields
+
+        private static readonly Dictionary<Type, byte[]> Storage = new Dictionary<Type, byte[]>();
+
+        #endregion
+
+        #region Methods
+
         public bool Exists(Type configType, ConfigurationOptionsAttribute options)
         {
-            throw new NotImplementedException();
+            return Storage.ContainsKey(configType);
         }
 
         public Stream OpenRead(Type configType, ConfigurationOptionsAttribute options)
         {
-            throw new NotImplementedException();
+            if (!Exists(configType, options))
+                throw new FileNotFoundException();
+
+            return new MemoryStream(Storage[configType]);
         }
 
         public Stream OpenWrite(Type configType, ConfigurationOptionsAttribute options)
         {
-            throw new NotImplementedException();
+            ObservableMemoryStream stream = new ObservableMemoryStream(configType);
+            stream.Disposed += WriteStream_Disposed;
+
+            return stream;
+        }
+
+        private void WriteStream_Disposed(object sender, ObservableMemoryStream.DisposedEventArgs e)
+        {
+            Storage[(Type)e.Token] = e.Buffer;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
-        }
+            Storage.Clear();
+        } 
+
+        #endregion
     }
 }

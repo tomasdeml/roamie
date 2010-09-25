@@ -28,6 +28,7 @@ using Virtuoso.Roamie.Roaming;
 using Virtuoso.Roamie.Roaming.Profiles;
 using Virtuoso.Roamie.RoamingProviders;
 using Virtuoso.Roamie.Properties;
+using Virtuoso.Roamie.Configuration;
 
 namespace Virtuoso.Roamie.Forms
 {
@@ -50,8 +51,14 @@ namespace Virtuoso.Roamie.Forms
             UseLocalRBTN.Enabled = LocalPBOX.Enabled = !creatingProfile;
             CreateNewRBTN.Enabled = NewPBOX.Enabled = creatingProfile;
 
-            CreateNewRBTN.Checked = creatingProfile;
-            UseLocalRBTN.Checked = !creatingProfile;
+            if (creatingProfile)
+                CreateNewRBTN.Checked = creatingProfile;
+            else            
+            {
+                DownloadExistingRBTN.Checked = true;
+                PublicComputerCHBOX.Checked = 
+                    (ConfigurationManager.Singleton.PersistencyMode != ConfigurationPersistencyMode.WindowsAccount);
+            }
         }
 
         public static void PresentModal(bool firstTime)
