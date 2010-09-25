@@ -81,7 +81,7 @@ namespace Virtuoso.Roamie.Forms.Controls
             ImageList.ColorDepth = ColorDepth.Depth32Bit;
             ImageList.ImageSize = new Size(32, 32);
             ImageList.Images.Add(ProfileIconName, Resources.Image_32x32_Profile);
-            ImageList.Images.Add(NewProfileIconName, Resources.Image_32x32_Add);
+            ImageList.Images.Add(NewProfileIconName, Resources.Image_32x32_Add2);
             ImageList.Images.Add(ActiveProfileIconName, Resources.Image_32x32_Active);
             LargeImageList = ImageList;
         }

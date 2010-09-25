@@ -84,9 +84,9 @@
             this.RoamingProfileLBTN.AutoSize = true;
             this.RoamingProfileLBTN.BackColor = System.Drawing.Color.Transparent;
             this.RoamingProfileLBTN.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
-            this.RoamingProfileLBTN.Location = new System.Drawing.Point(283, 110);
+            this.RoamingProfileLBTN.Location = new System.Drawing.Point(285, 110);
             this.RoamingProfileLBTN.Name = "RoamingProfileLBTN";
-            this.RoamingProfileLBTN.Size = new System.Drawing.Size(74, 13);
+            this.RoamingProfileLBTN.Size = new System.Drawing.Size(70, 13);
             this.RoamingProfileLBTN.TabIndex = 6;
             this.RoamingProfileLBTN.Text = "(Profile detail)";
             this.RoamingProfileLBTN.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.RoamingProfileLBTN_LinkClicked);
@@ -189,7 +189,7 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Location = new System.Drawing.Point(39, 197);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(366, 13);
+            this.label4.Size = new System.Drawing.Size(355, 13);
             this.label4.TabIndex = 17;
             this.label4.Text = "If checked, local data will be synchronized with your remote profile on exit.";
             // 
@@ -199,7 +199,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Location = new System.Drawing.Point(39, 240);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(297, 26);
+            this.label2.Size = new System.Drawing.Size(292, 26);
             this.label2.TabIndex = 17;
             this.label2.Text = "If checked, local copy of your Miranda profile will be deleted \r\nfrom this comput" +
                 "er on exit.";
@@ -210,7 +210,7 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Location = new System.Drawing.Point(39, 294);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(280, 26);
+            this.label5.Size = new System.Drawing.Size(271, 26);
             this.label5.TabIndex = 17;
             this.label5.Text = "If checked, entire profile file will be synchronized on exit.\r\nOtherwise only cha" +
                 "nges made will be synchronized.";
@@ -220,7 +220,7 @@
             this.MoreOptionsLINK.AutoSize = true;
             this.MoreOptionsLINK.Location = new System.Drawing.Point(20, 341);
             this.MoreOptionsLINK.Name = "MoreOptionsLINK";
-            this.MoreOptionsLINK.Size = new System.Drawing.Size(69, 13);
+            this.MoreOptionsLINK.Size = new System.Drawing.Size(68, 13);
             this.MoreOptionsLINK.TabIndex = 18;
             this.MoreOptionsLINK.TabStop = true;
             this.MoreOptionsLINK.Text = "More options";
@@ -270,14 +270,13 @@
             this.Controls.Add(this.PublicModeCHBOX);
             this.Controls.Add(this.SyncActionCHBOX);
             this.Controls.Add(this.pictureBox1);
-            this.Font = new System.Drawing.Font("Tahoma", 8F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "RoamingOverviewDialog";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Roaming status";
+            this.Text = "Miranda roaming status";
             this.Load += new System.EventHandler(this.RoamingStatusDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gradientPanel1.ResumeLayout(false);

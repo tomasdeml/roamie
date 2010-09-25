@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\C++\Miranda\BINARIES\LatestStable\plugins\</OutputPath>
+    <OutputPath>..\..\Miranda\Plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -83,6 +83,12 @@
     <Content Include="Resources\1284198427_Globe1.PNG" />
     <Content Include="Resources\1284199993_001_01.PNG" />
     <Content Include="Resources\1284200727_Butterfly.ico" />
+    <None Include="app.config" />
+    <None Include="Resources\1285408363_Flash Disk.png" />
+    <None Include="Resources\1285408257_folder_home.png" />
+    <None Include="Resources\1285407889_1.png" />
+    <None Include="Resources\1285407771_computer.png" />
+    <None Include="Resources\1285407638_group.png" />
     <None Include="Resources\1285003637_right1.png" />
     <None Include="Resources\1285003256_left1.png" />
     <None Include="Resources\1285002963_stop.png" />
@@ -133,9 +139,9 @@
     <None Include="Resources\Icon 300_48x48.png" />
     <None Include="Resources\Icon 232_128x128_Trans.png" />
     <None Include="Resources\Icon 036_32x32.png" />
-    <None Include="Properties\Settings.settings">
+    <None Include="Properties\WindowsAccountSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <LastGenOutput>WindowsAccountSettings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Resources\Icon 001.png" />
     <None Include="Resources\Icon 008.png" />
@@ -176,8 +182,11 @@
       <SubType>Designer</SubType>
       <DependentUpon>ProxyOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MasterKeyDialog.resx">
-      <DependentUpon>MasterKeyDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MasterPasswordDialog.resx">
+      <DependentUpon>MasterPasswordDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FirstRunDialog.resx">
+      <DependentUpon>FirstRunDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProfileEditingDialog.resx">
       <SubType>Designer</SubType>
@@ -231,6 +240,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationValuesDictionary.cs" />
+    <Compile Include="Configuration\ConfigurationManager.cs" />
+    <Compile Include="Configuration\MemoryStorage.cs" />
+    <Compile Include="Configuration\MirandaBoundConfiguration.cs" />
+    <Compile Include="Configuration\TransientConfiguration.cs" />
+    <Compile Include="Configuration\WindowsAccountBoundConfiguration.cs" />
     <Compile Include="Forms\Controls\AboutInformation.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -255,11 +269,17 @@
     <Compile Include="Forms\Controls\Configuration\ProxyOptions.Designer.cs">
       <DependentUpon>ProxyOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MasterKeyDialog.cs">
+    <Compile Include="Forms\MasterPasswordDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MasterKeyDialog.Designer.cs">
-      <DependentUpon>MasterKeyDialog.cs</DependentUpon>
+    <Compile Include="Forms\MasterPasswordDialog.Designer.cs">
+      <DependentUpon>MasterPasswordDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FirstRunDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FirstRunDialog.Designer.cs">
+      <DependentUpon>FirstRunDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="ProgressMediator.cs" />
     <Compile Include="RoamingProviders\DeltaSyncSupport.cs" />
@@ -275,8 +295,8 @@
     <Compile Include="Roaming\DeltaSync\MicrosoftPatchApi.cs" />
     <Compile Include="Roaming\DeltaSync\UtilityBasedDeltaEngine.cs" />
     <Compile Include="Roaming\DeltaSync\XDeltaUtility.cs" />
-    <Compile Include="Roaming\MasterKeyCache.cs" />
-    <Compile Include="Roaming\MasterKeyEncryption.cs" />
+    <Compile Include="Configuration\MasterPasswordCache.cs" />
+    <Compile Include="Configuration\MasterPasswordEncryption.cs" />
     <Compile Include="Roaming\DeltaSync\DeltaSyncException.cs" />
     <Compile Include="Roaming\Provisioning\ProvisioningContainer.cs" />
     <Compile Include="Roaming\Provisioning\Content.cs" />
@@ -358,10 +378,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
+    <Compile Include="Properties\WindowsAccountSettings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
+      <DependentUpon>WindowsAccountSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="RoamingProviders\ISiteAdapter.cs" />
     <Compile Include="Roaming\DeltaSync\DeltaManifest.cs" />
@@ -370,7 +390,7 @@
     <Compile Include="Roaming\Profiles\RoamingProfile.cs" />
     <Compile Include="StreamUtility.cs" />
     <Compile Include="UndisposableStream.cs" />
-    <Compile Include="Roaming\RoamingConfiguration.cs" />
+    <Compile Include="Configuration\RoamingConfiguration.cs" />
     <Compile Include="StringUtility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -63,7 +63,6 @@
             this.LogTBOX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.LogTBOX.BackColor = System.Drawing.Color.White;
             this.LogTBOX.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.LogTBOX.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.LogTBOX.Location = new System.Drawing.Point(12, 52);
             this.LogTBOX.Multiline = true;
             this.LogTBOX.Name = "LogTBOX";
@@ -127,7 +126,6 @@
             this.Controls.Add(this.gradientPanel1);
             this.Controls.Add(this.LogTBOX);
             this.Controls.Add(this.ProgressPBAR);
-            this.Font = new System.Drawing.Font("Tahoma", 8F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;

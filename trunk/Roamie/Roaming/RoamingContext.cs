@@ -28,6 +28,7 @@ using Virtuoso.Roamie.Roaming.Profiles;
 using Virtuoso.Roamie.RoamingProviders;
 using Virtuoso.Roamie.RoamingProviders.Ftp;
 using Virtuoso.Roamie.RoamingProviders.Http;
+using Virtuoso.Roamie.Configuration;
 
 namespace Virtuoso.Roamie.Roaming
 {
@@ -47,15 +48,11 @@ namespace Virtuoso.Roamie.Roaming
 
         public RoamingProfile ActiveProfile { get; private set; }
 
-        private RoamingConfiguration configuration;
         public RoamingConfiguration Configuration
         {
-            get { return configuration; }
-
-            internal set
+            get
             {
-                if (value == null)
-                    throw new ArgumentNullException("value"); configuration = value;
+                return ConfigurationManager.Singleton.Configuration;
             }
         }
 
@@ -105,7 +102,6 @@ namespace Virtuoso.Roamie.Roaming
 
             InitialProfilePath = this.profilePath = profilePath;
             State = RoamingState.Disabled;
-            configuration = PluginConfiguration.Load<RoamingConfiguration>();
             DatabaseProviders = new Dictionary<string, DatabaseProvider>(1);
         }
 
@@ -171,11 +167,6 @@ namespace Virtuoso.Roamie.Roaming
                 State |= RoamingState.LocalProfileLoaded;
                 State |= RoamingState.DiscardLocalChanges;
             }
-        }
-
-        internal void RestoreConfiguration()
-        {
-            configuration = PluginConfiguration.Load<RoamingConfiguration>();
         }
 
         internal void RestoreProfilePath()

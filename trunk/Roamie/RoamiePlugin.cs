@@ -38,6 +38,7 @@ using Virtuoso.Roamie.Forms.Controls.Configuration;
 using Virtuoso.Roamie.Native;
 using Virtuoso.Roamie.Roaming;
 using Virtuoso.Roamie.Properties;
+using Virtuoso.Roamie.Configuration;
 
 [assembly: ExposingPlugin(typeof(RoamiePlugin))]
 
@@ -250,12 +251,15 @@ namespace Virtuoso.Roamie
 
         public void ReloadConfiguration()
         {
-            RoamingContext.Configuration = PluginConfiguration.Load<RoamingConfiguration>();
+           //RoamingContext.Configuration = PluginConfiguration.Load<RoamingConfiguration>();
+            throw new NotImplementedException("TODO");
         }
 
         public void ResetConfiguration()
         {
-            RoamingContext.Configuration = PluginConfiguration.GetDefaultConfiguration<RoamingConfiguration>();
+            //RoamingContext.Configuration = PluginConfiguration.GetDefaultConfiguration<RoamingConfiguration>();
+            throw new NotImplementedException("TODO");
+
         }
 
         #endregion
@@ -414,19 +418,22 @@ namespace Virtuoso.Roamie
 
         #region Roaming configuration
 
-        private int ConfigureRoaming(string profile, bool firstTime)
+        private int ConfigureRoaming(string profile, bool creatingProfile)
         {
             try
             {
-                Trace.WriteLineIf(TraceSwitch.TraceVerbose, String.Format("'Intialize' method invoked: profile = '{0}', firstTime = '{1}'.", profile, firstTime.ToString()), TraceCategory);
+                Trace.WriteLineIf(TraceSwitch.TraceVerbose, String.Format("'Intialize' method invoked: profile = '{0}', firstTime = '{1}'.", profile, creatingProfile.ToString()), TraceCategory);
 
                 if (RoamingContext == null)
                 {
+                    if (!ConfigurationManager.Singleton.WasPersistencyModeDefined)
+                        FirstRunDialog.PresentModal();
+
                     Trace.WriteLineIf(TraceSwitch.TraceVerbose, "Initializing context...", TraceCategory);
                     RoamingContext = new RoamingContext(profile);
 
                     Trace.WriteLineIf(TraceSwitch.TraceVerbose, "Presenting startup dialog...", TraceCategory);
-                    StartupDialog.PresentModal(firstTime);
+                    StartupDialog.PresentModal(creatingProfile);
 
                     if (RoamingContext.State == RoamingState.Disabled)
                     {
