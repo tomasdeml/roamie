@@ -83,7 +83,6 @@
     <Content Include="Resources\1284198427_Globe1.PNG" />
     <Content Include="Resources\1284199993_001_01.PNG" />
     <Content Include="Resources\1284200727_Butterfly.ico" />
-    <None Include="app.config" />
     <None Include="Resources\1285408363_Flash Disk.png" />
     <None Include="Resources\1285408257_folder_home.png" />
     <None Include="Resources\1285407889_1.png" />
@@ -139,10 +138,6 @@
     <None Include="Resources\Icon 300_48x48.png" />
     <None Include="Resources\Icon 232_128x128_Trans.png" />
     <None Include="Resources\Icon 036_32x32.png" />
-    <None Include="Properties\WindowsAccountSettings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>WindowsAccountSettings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="Resources\Icon 001.png" />
     <None Include="Resources\Icon 008.png" />
     <None Include="Resources\Icon 026.png" />
@@ -245,6 +240,7 @@
     <Compile Include="Configuration\MirandaBoundConfiguration.cs" />
     <Compile Include="Configuration\TransientConfiguration.cs" />
     <Compile Include="Configuration\WindowsAccountBoundConfiguration.cs" />
+    <Compile Include="Configuration\WindowsAccountSettings.cs" />
     <Compile Include="Forms\Controls\AboutInformation.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -377,11 +373,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\WindowsAccountSettings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>WindowsAccountSettings.settings</DependentUpon>
     </Compile>
     <Compile Include="RoamingProviders\ISiteAdapter.cs" />
     <Compile Include="Roaming\DeltaSync\DeltaManifest.cs" />
