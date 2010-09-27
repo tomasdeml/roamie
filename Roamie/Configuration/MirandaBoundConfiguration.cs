@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Roamie.Roaming;
-using Virtuoso.Miranda.Plugins.Configuration;
 
 namespace Virtuoso.Roamie.Configuration
 {
@@ -19,7 +16,12 @@ namespace Virtuoso.Roamie.Configuration
 
         internal static void Delete()
         {
-            DeletablePortableStorage.Delete(typeof(MirandaBoundConfiguration));
+            DeletablePortableStorage.Delete(typeof (MirandaBoundConfiguration));
+        }
+
+        internal static bool Exists()
+        {
+            return DeletablePortableStorage.Exists(typeof (MirandaBoundConfiguration));
         }
     }
 }
