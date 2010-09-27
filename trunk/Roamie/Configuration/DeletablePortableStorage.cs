@@ -31,11 +31,21 @@ namespace Virtuoso.Roamie.Configuration
 
         public static void Delete(Type configType)
         {
-            string configDirectory = Path.Combine(MirandaEnvironment.MirandaFolderPath, "Configuration");
-            string path = Path.Combine(configDirectory, GetFileName(configType));
+            string path = CreatePath(configType);
 
             if (File.Exists(path))
                 File.Delete(path);
+        }
+
+        private static string CreatePath(Type configType)
+        {
+            string configDirectory = Path.Combine(MirandaEnvironment.MirandaFolderPath, "Configuration");
+            return Path.Combine(configDirectory, GetFileName(configType));
+        }
+
+        public static bool Exists(Type configType)
+        {
+            return File.Exists(CreatePath(configType));
         }
     }
 }

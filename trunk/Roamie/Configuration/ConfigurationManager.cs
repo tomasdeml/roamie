@@ -27,7 +27,11 @@ namespace Virtuoso.Roamie.Configuration
         {
             WindowsAccountSettings.Load();
 
-            PersistencyMode = WindowsAccountSettings.Singleton.ConfigurationPersistencyMode;
+            if (!MirandaBoundConfiguration.Exists())
+                PersistencyMode = WindowsAccountSettings.Singleton.ConfigurationPersistencyMode;
+            else
+                PersistencyMode = ConfigurationPersistencyMode.MirandaInstallation;
+
             LoadOrCreateConfiguration();
         }        
 
