@@ -151,7 +151,7 @@ namespace Virtuoso.Roamie.Forms
             this.lblProfileOverwriteWarning.AutoEllipsis = true;
             this.lblProfileOverwriteWarning.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(136)))));
             this.lblProfileOverwriteWarning.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProfileOverwriteWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblProfileOverwriteWarning.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lblProfileOverwriteWarning.Location = new System.Drawing.Point(0, 0);
             this.lblProfileOverwriteWarning.Name = "lblProfileOverwriteWarning";
             this.lblProfileOverwriteWarning.Size = new System.Drawing.Size(421, 23);

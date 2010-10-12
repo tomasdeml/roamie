@@ -62,11 +62,11 @@ namespace Virtuoso.Roamie.Forms
 
         private void RoamingStatusDialog_Load(object sender, EventArgs e)
         {
-            DisplayRoamingInfos();
+            DisplayRoamingInfo();
             IndicateState();
         }
 
-        private void DisplayRoamingInfos()
+        private void DisplayRoamingInfo()
         {
             Initializing = true;
             RoamingContext context = RoamingContext;
@@ -74,7 +74,8 @@ namespace Virtuoso.Roamie.Forms
             if (context.ActiveProfile == null || context.IsInState(RoamingState.Disabled))
             {
                 RoamingProfileLBTN.Text = Resources.Label_UI_RoamingStatusDialog_NoProfile;
-                SyncActionCHBOX.Enabled = PublicModeCHBOX.Enabled = PreferFullSyncCHBOX.Enabled = false;
+                SyncActionCHBOX.Enabled =
+                    PublicModeCHBOX.Enabled = PreferFullSyncCHBOX.Enabled = RoamingProfileLBTN.Enabled = false;
             }
             else
             {
@@ -94,9 +95,6 @@ namespace Virtuoso.Roamie.Forms
         {
             RoamingContext context = RoamingContext;
 
-            RoamingProfileLBTN.Text = context.ActiveProfile.Name;
-            RoamingProfileLBTN.LinkArea = new LinkArea(0, RoamingProfileLBTN.Text.Length);
-
             SyncActionCHBOX.Enabled = !context.IsInState(RoamingState.RemoteSyncNotSupported);
             SyncActionCHBOX.Checked = !context.IsInState(RoamingState.DiscardLocalChanges);
 
@@ -105,7 +103,7 @@ namespace Virtuoso.Roamie.Forms
             PublicModeCHBOX.Enabled = remoteProfileIsMaster;
             PublicModeCHBOX.Checked = context.IsInState(RoamingState.RemoveLocalCopyOnExit);
 
-            PreferFullSyncCHBOX.Enabled = remoteProfileIsMaster;
+            PreferFullSyncCHBOX.Enabled = remoteProfileIsMaster && SyncActionCHBOX.Checked;
             PreferFullSyncCHBOX.Checked = context.IsInState(RoamingState.ForceFullSync);
         }
 

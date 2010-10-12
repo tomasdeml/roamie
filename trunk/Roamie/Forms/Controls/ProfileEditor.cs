@@ -44,7 +44,7 @@ namespace Virtuoso.Roamie.Forms.Controls
 
         #region Fields & Enums
 
-        public enum EditingMode : int
+        public enum EditingMode
         {
             ViewProfile,
             CreateProfile,

@@ -1,23 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Miranda.Plugins.Configuration;
 
 namespace Virtuoso.Roamie.Configuration
 {
     [Serializable]
-    [ConfigurationOptions(RoamingConfiguration.Version, Encrypt = true, ProfileBound = false, Encryption = typeof(WindowsEncryption), Storage = typeof(IsolatedStorage))]
+    [ConfigurationOptions(Version, Encrypt = true, ProfileBound = false, Encryption = typeof(WindowsEncryption), Storage = typeof(IsolatedStorage))]
     public class WindowsAccountBoundConfiguration : RoamingConfiguration
     {
         internal static RoamingConfiguration Load()
         {
-            return PluginConfiguration.Load<WindowsAccountBoundConfiguration>();
+            return Load<WindowsAccountBoundConfiguration>();
         }
 
         internal static void Delete()
         {
-            var config = PluginConfiguration.GetDefaultConfiguration<WindowsAccountBoundConfiguration>();
+            var config = GetDefaultConfiguration<WindowsAccountBoundConfiguration>();
             config.Save();
         }
     }

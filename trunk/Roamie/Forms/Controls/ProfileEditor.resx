@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="TestBTN.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="TestBTN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -147,6 +150,9 @@
   <data name="&gt;&gt;TestBTN.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="label8.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -180,6 +186,9 @@
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>16</value>
   </data>
+  <metadata name="RemoteAddressTBOX.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="RemoteAddressTBOX.Location" type="System.Drawing.Point, System.Drawing">
     <value>16, 128</value>
   </data>
@@ -201,6 +210,9 @@
   <data name="&gt;&gt;RemoteAddressTBOX.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="DescriptionTBOX.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DescriptionTBOX.Location" type="System.Drawing.Point, System.Drawing">
     <value>16, 75</value>
   </data>
@@ -222,6 +234,9 @@
   <data name="&gt;&gt;DescriptionTBOX.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <metadata name="DatabasePasswordTBOX.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DatabasePasswordTBOX.Location" type="System.Drawing.Point, System.Drawing">
     <value>243, 234</value>
   </data>
@@ -243,6 +258,9 @@
   <data name="&gt;&gt;DatabasePasswordTBOX.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <metadata name="LoginPasswordTBOX.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="LoginPasswordTBOX.Location" type="System.Drawing.Point, System.Drawing">
     <value>16, 234</value>
   </data>
@@ -264,6 +282,9 @@
   <data name="&gt;&gt;LoginPasswordTBOX.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <metadata name="LoginNameTBOX.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="LoginNameTBOX.Location" type="System.Drawing.Point, System.Drawing">
     <value>16, 181</value>
   </data>
@@ -285,6 +306,9 @@
   <data name="&gt;&gt;LoginNameTBOX.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <metadata name="ProfileNameTBOX.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ProfileNameTBOX.Location" type="System.Drawing.Point, System.Drawing">
     <value>16, 24</value>
   </data>
@@ -306,6 +330,9 @@
   <data name="&gt;&gt;ProfileNameTBOX.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <metadata name="label7.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -339,6 +366,9 @@
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
+  <metadata name="label9.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -372,6 +402,9 @@
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
+  <metadata name="label6.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -405,6 +438,9 @@
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
+  <metadata name="label4.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -438,6 +474,9 @@
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
+  <metadata name="label3.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -474,6 +513,9 @@
   <metadata name="ErrorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -483,6 +525,9 @@
   <data name="$this.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <metadata name="PreferFullSync.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="PreferFullSync.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -510,6 +555,12 @@
   <data name="&gt;&gt;PreferFullSync.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="gradientPanel1.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="CancelBTN.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CancelBTN.Location" type="System.Drawing.Point, System.Drawing">
     <value>94, 10</value>
   </data>
@@ -534,6 +585,9 @@
   <data name="&gt;&gt;CancelBTN.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="ActionBTN.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ActionBTN.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 10</value>
   </data>
@@ -582,6 +636,9 @@
   <data name="&gt;&gt;gradientPanel1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="DatabaseProviderLBOX.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="DatabaseProviderLBOX.ItemHeight" type="System.Int32, mscorlib">
     <value>13</value>
   </data>
@@ -606,6 +663,9 @@
   <data name="&gt;&gt;DatabaseProviderLBOX.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="label1.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -639,20 +699,23 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
+  <metadata name="UploadPathExamplesLink.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="UploadPathExamplesLink.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="UploadPathExamplesLink.Location" type="System.Drawing.Point, System.Drawing">
-    <value>301, 109</value>
+    <value>326, 109</value>
   </data>
   <data name="UploadPathExamplesLink.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 13</value>
+    <value>52, 13</value>
   </data>
   <data name="UploadPathExamplesLink.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
   </data>
   <data name="UploadPathExamplesLink.Text" xml:space="preserve">
-    <value>Path examples</value>
+    <value>Examples</value>
   </data>
   <data name="&gt;&gt;UploadPathExamplesLink.Name" xml:space="preserve">
     <value>UploadPathExamplesLink</value>

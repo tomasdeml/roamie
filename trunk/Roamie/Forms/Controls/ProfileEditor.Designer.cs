@@ -190,7 +190,7 @@
             this.HelpToolTip.AutoPopDelay = 5000;
             this.HelpToolTip.InitialDelay = 300;
             this.HelpToolTip.ReshowDelay = 100;
-            this.HelpToolTip.ToolTipTitle = "Hint";
+            this.HelpToolTip.ToolTipTitle = "Examples";
             // 
             // PreferFullSync
             // 

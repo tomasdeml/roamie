@@ -23,10 +23,9 @@ using System;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 using Virtuoso.Miranda.Plugins.Configuration;
-using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Roamie.Properties;
 
-namespace Virtuoso.Roamie.Roaming
+namespace Virtuoso.Roamie.Configuration
 {
     internal sealed class MasterPasswordEncryption : PortableEncryption
     {
