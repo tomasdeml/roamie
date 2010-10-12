@@ -392,6 +392,15 @@ namespace Virtuoso.Roamie.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Roamie found old roaming data in the selected remote profile. Perform full synchronization with previous version of Roamie (v0.8) first before migrating to v1.0. New delta sync engine cannot process these legacy data..
+        /// </summary>
+        internal static string ExceptionMsg_LegacyManifestFound {
+            get {
+                return ResourceManager.GetString("ExceptionMsg_LegacyManifestFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The remote file is empty..
         /// </summary>
         internal static string ExceptionMsg_RemoteFileIsEmpty {
@@ -1321,6 +1330,15 @@ namespace Virtuoso.Roamie.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publishing content....
+        /// </summary>
+        internal static string Text_UI_LogText_PublishingContent {
+            get {
+                return ResourceManager.GetString("Text_UI_LogText_PublishingContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Publishing delta....
         /// </summary>
         internal static string Text_UI_LogText_PublishingDelta {
@@ -1330,7 +1348,7 @@ namespace Virtuoso.Roamie.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing delta manifest....
+        ///   Looks up a localized string similar to Publishing roaming manifest....
         /// </summary>
         internal static string Text_UI_LogText_PublishingManifest {
             get {
@@ -1357,7 +1375,7 @@ namespace Virtuoso.Roamie.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to === Error ===.
+        ///   Looks up a localized string similar to === Synchronization failed ===.
         /// </summary>
         internal static string Text_UI_LogText_SyncFailed {
             get {

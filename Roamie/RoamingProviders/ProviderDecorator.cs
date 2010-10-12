@@ -2,17 +2,17 @@
 
 namespace Virtuoso.Roamie.RoamingProviders
 {
-    internal abstract class ProviderDecorator : DatabaseProvider
+    internal abstract class ProviderDecorator : Provider
     {
         #region Fields
 
-        protected DatabaseProvider Provider { get; private set; }
+        protected Provider Provider { get; private set; }
 
         #endregion
 
         #region .ctors
 
-        protected ProviderDecorator(DatabaseProvider provider)
+        protected ProviderDecorator(Provider provider)
         {
             Provider = provider;
         }

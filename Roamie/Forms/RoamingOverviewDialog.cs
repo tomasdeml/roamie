@@ -48,7 +48,7 @@ namespace Virtuoso.Roamie.Forms
 
         #region Properties
 
-        private static RoamingContext RoamingContext
+        private static Context RoamingContext
         {
             get
             {
@@ -69,7 +69,7 @@ namespace Virtuoso.Roamie.Forms
         private void DisplayRoamingInfo()
         {
             Initializing = true;
-            RoamingContext context = RoamingContext;
+            Context context = RoamingContext;
 
             if (context.ActiveProfile == null || context.IsInState(RoamingState.Disabled))
             {
@@ -93,7 +93,7 @@ namespace Virtuoso.Roamie.Forms
 
         private void InitializeCheckBoxes()
         {
-            RoamingContext context = RoamingContext;
+            Context context = RoamingContext;
 
             SyncActionCHBOX.Enabled = !context.IsInState(RoamingState.RemoteSyncNotSupported);
             SyncActionCHBOX.Checked = !context.IsInState(RoamingState.DiscardLocalChanges);

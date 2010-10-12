@@ -128,9 +128,9 @@ namespace Virtuoso.Roamie.Roaming.Profiles
             }
         }
 
-        public DatabaseProvider GetProvider()
+        public Provider GetProvider()
         {
-            DatabaseProvider provider = null;
+            Provider provider = null;
             RoamiePlugin.Singleton.RoamingContext.DatabaseProviders.TryGetValue(roamingProvider, out provider);
 
             return provider;

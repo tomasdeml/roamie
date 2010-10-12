@@ -91,7 +91,7 @@ namespace Virtuoso.Roamie.Configuration
 
         #region Methods
 
-        public ConfigurationValuesDictionary GetProviderConfiguration(DatabaseProvider provider)
+        public ConfigurationValuesDictionary GetProviderConfiguration(Provider provider)
         {
             if (provider == null) 
                 throw new ArgumentNullException("provider");

@@ -109,7 +109,7 @@ namespace Virtuoso.Roamie.Forms
 
         #region Properties
 
-        private static RoamingContext RoamingContext
+        private static Context RoamingContext
         {
             get { return RoamiePlugin.Singleton.RoamingContext; }
         }
@@ -122,7 +122,7 @@ namespace Virtuoso.Roamie.Forms
         {
             RoamingState selectedRoamingState = GatherSelection();
 
-            RoamingContext context = RoamingContext;
+            Context context = RoamingContext;
             context.State = selectedRoamingState;
             
             if (context.IsInState(RoamingState.Active))
@@ -144,7 +144,7 @@ namespace Virtuoso.Roamie.Forms
                         if (context.Configuration.SilentMode)
                             Opacity = 0;
 
-                        RoamingOrchestration.SyncLocalSite();
+                        Orchestration.SyncLocalSite();
                     }
                     catch
                     {
@@ -202,7 +202,7 @@ namespace Virtuoso.Roamie.Forms
             string profilePath = RoamingContext.ProfilePath;
 
             //// Previously roamed db selected...
-            //if (profilePath.EndsWith(DatabaseProvider.RoamingExtension) && UseLocalRBTN.Enabled)
+            //if (profilePath.EndsWith(Provider.RoamingExtension) && UseLocalRBTN.Enabled)
             //{
             //    UseLocalRBTN.Checked = true;
             //    RoamLocalOnExitCHBOX.Checked = true;
@@ -249,7 +249,7 @@ namespace Virtuoso.Roamie.Forms
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            RoamingContext context = RoamingContext;
+            Context context = RoamingContext;
 
             if (context.IsInState(RoamingState.Disabled) || context.IsInState(RoamingState.SyncErrorOccured))
             {

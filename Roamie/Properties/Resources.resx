@@ -152,7 +152,7 @@
     <value>..\Resources\Icon 193.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Text_UI_LogText_PublishingManifest" xml:space="preserve">
-    <value>Publishing delta manifest...</value>
+    <value>Publishing roaming manifest...</value>
   </data>
   <data name="Config_General_Behaviour" xml:space="preserve">
     <value>Behaviour</value>
@@ -287,7 +287,7 @@
     <value>Create a new roaming profile.</value>
   </data>
   <data name="Text_UI_LogText_SyncFailed" xml:space="preserve">
-    <value>=== Error ===</value>
+    <value>=== Synchronization failed ===</value>
   </data>
   <data name="ExceptionMsg_DeltaMergeFailed" xml:space="preserve">
     <value>An error occured while merging a delta with the database.</value>
@@ -612,5 +612,11 @@
   </data>
   <data name="MsgBox_Title_TestSuccessful" xml:space="preserve">
     <value>Test successful</value>
+  </data>
+  <data name="Text_UI_LogText_PublishingContent" xml:space="preserve">
+    <value>Publishing content...</value>
+  </data>
+  <data name="ExceptionMsg_LegacyManifestFound" xml:space="preserve">
+    <value>Roamie found old roaming data in the selected remote profile. Perform full synchronization with previous version of Roamie (v0.8) first before migrating to v1.0. New delta sync engine cannot process these legacy data.</value>
   </data>
 </root>

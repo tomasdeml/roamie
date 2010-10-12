@@ -7,7 +7,7 @@ namespace Virtuoso.Roamie.RoamingProviders
 {
     internal class OneWaySynchronization : ProviderDecorator
     {
-        public OneWaySynchronization(DatabaseProvider provider) : base(provider)
+        public OneWaySynchronization(Provider provider) : base(provider)
         {
         }
 

@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Virtuoso.Miranda.Plugins.Infrastructure;
 using System.Diagnostics;
 using System.Net;
 using Virtuoso.Roamie.Roaming.Profiles;
@@ -32,7 +31,7 @@ using Virtuoso.Roamie.Configuration;
 
 namespace Virtuoso.Roamie.Roaming
 {
-    public sealed class RoamingContext
+    public sealed class Context
     {
         #region Fields
 
@@ -44,7 +43,7 @@ namespace Virtuoso.Roamie.Roaming
 
         public object SyncObject { get; private set; }
 
-        public Dictionary<string, DatabaseProvider> DatabaseProviders { get; private set; }
+        public Dictionary<string, Provider> DatabaseProviders { get; private set; }
 
         public RoamingProfile ActiveProfile { get; private set; }
 
@@ -56,37 +55,24 @@ namespace Virtuoso.Roamie.Roaming
             }
         }
 
-        public DatabaseProvider ActiveProvider { get; private set; }
+        public Provider ActiveProvider { get; private set; }
 
         public RoamingState State { get; set; }
 
-        private string profilePath;
-
-        public string ProfilePath
-        {
-            get { return profilePath; }
-            internal set
-            {
-                lock (SyncObject)
-                {
-                    if (String.IsNullOrEmpty(value))
-                        throw new ArgumentNullException("ProfilePath");
-
-                    profilePath = value;
-                }
-            }
-        }
+        public string ProfilePath { get; internal set; }
 
         public bool LocalProfileIsMaster
         {
             get { return IsInState(RoamingState.LocalProfileLoaded, RoamingState.NewProfileCreated); }
         }
 
+        public Manifest Manifest { get; set; }
+
         #endregion
 
         #region .ctors
 
-        internal RoamingContext(string profilePath)
+        internal Context(string profilePath)
         {
             SyncObject = new object();
 
@@ -100,9 +86,9 @@ namespace Virtuoso.Roamie.Roaming
             if (String.IsNullOrEmpty(profilePath))
                 throw new ArgumentNullException("profilePath");
 
-            InitialProfilePath = this.profilePath = profilePath;
+            InitialProfilePath = ProfilePath = profilePath;
             State = RoamingState.Disabled;
-            DatabaseProviders = new Dictionary<string, DatabaseProvider>(1);
+            DatabaseProviders = new Dictionary<string, Provider>(1);
         }
 
         internal void InitializeProxySettings()
@@ -113,18 +99,24 @@ namespace Virtuoso.Roamie.Roaming
 
         private void InitializeProviders()
         {
-            DatabaseProvider provider = new FtpProvider();
-            provider = new DeltaSyncSupport(provider);
-            provider = new ContentProvisioningSupport(provider);
-
+            Provider provider = new FtpProvider();
+            provider = AddCommonDecorators(provider);
             DatabaseProviders[provider.Name] = provider;
 
             provider = new HttpProvider();
+            provider = AddCommonDecorators(provider);
+            provider = new OneWaySynchronization(provider);
+            DatabaseProviders[provider.Name] = provider;
+        }
+
+        private Provider AddCommonDecorators(Provider provider)
+        {
+            provider = new LegacyDeltaManifestCheck(provider);
+            provider = new RoamingManifestProcessor(provider);
             provider = new DeltaSyncSupport(provider);
             provider = new ContentProvisioningSupport(provider);
-            provider = new OneWaySynchronization(provider);
 
-            DatabaseProviders[provider.Name] = provider;
+            return provider;
         }
 
         #endregion
@@ -171,7 +163,7 @@ namespace Virtuoso.Roamie.Roaming
 
         internal void RestoreProfilePath()
         {
-            profilePath = InitialProfilePath;
+            ProfilePath = InitialProfilePath;
         }
 
         public bool IsInState(params RoamingState[] statesInQuestion)
