@@ -25,12 +25,18 @@ namespace Virtuoso.Roamie.Configuration
 
         private ConfigurationManager()
         {
-            WindowsAccountSettings.Load();
+            PersistencyConfiguration.Load();
 
-            if (!MirandaBoundConfiguration.Exists())
-                PersistencyMode = WindowsAccountSettings.Singleton.ConfigurationPersistencyMode;
-            else
+            if (MirandaBoundConfiguration.Exists())
                 PersistencyMode = ConfigurationPersistencyMode.MirandaInstallation;
+            else
+            {
+                PersistencyMode = PersistencyConfiguration.Singleton.ConfigurationPersistencyMode;
+
+                // Portable configuration does not exist, reset settings
+                if (PersistencyMode == ConfigurationPersistencyMode.MirandaInstallation)
+                    PersistencyMode = ConfigurationPersistencyMode.Undefined;
+            }
 
             LoadOrCreateConfiguration();
         }        
@@ -89,8 +95,8 @@ namespace Virtuoso.Roamie.Configuration
             Configuration.Save();
             DeletePreviousConfiguration();
 
-            WindowsAccountSettings.Singleton.ConfigurationPersistencyMode = mode;
-            WindowsAccountSettings.Singleton.Save();
+            PersistencyConfiguration.Singleton.ConfigurationPersistencyMode = mode;
+            PersistencyConfiguration.Singleton.Save();
         }        
 
         private void LoadOrCreateConfiguration()

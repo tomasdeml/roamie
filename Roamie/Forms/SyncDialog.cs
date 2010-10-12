@@ -118,7 +118,7 @@ namespace Virtuoso.Roamie.Forms
                     return null;
                 });
 
-                MessageBox.Show(Resources.Text_UI_LogText_Completed, Resources.Text_UI_LogText_Completed, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Resources.MsgBox_Text_TestSuccessful, Resources.MsgBox_Title_TestSuccessful, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception)
             { }

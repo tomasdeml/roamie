@@ -23,10 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using Virtuoso.Miranda.Plugins.Infrastructure;
-using Virtuoso.Miranda.Plugins.Configuration;
 using Virtuoso.Roamie.Roaming.Profiles;
 using Virtuoso.Roamie.RoamingProviders;
-using Virtuoso.Roamie.Roaming;
 
 namespace Virtuoso.Roamie.Configuration
 {
@@ -98,7 +96,7 @@ namespace Virtuoso.Roamie.Configuration
             if (provider == null) 
                 throw new ArgumentNullException("provider");
 
-            ConfigurationValuesDictionary retValue = null;
+            ConfigurationValuesDictionary retValue;
             string key = provider.GetType().FullName;
             
             if (!ConfigurationValues.TryGetValue(key, out retValue))

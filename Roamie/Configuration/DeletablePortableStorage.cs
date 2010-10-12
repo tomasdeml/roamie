@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Virtuoso.Miranda.Plugins.Configuration;
 using System.IO;
 using Virtuoso.Miranda.Plugins.Infrastructure;

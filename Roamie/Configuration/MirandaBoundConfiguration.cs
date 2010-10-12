@@ -11,7 +11,7 @@ namespace Virtuoso.Roamie.Configuration
     {
         internal static RoamingConfiguration Load()
         {
-            return PluginConfiguration.Load<MirandaBoundConfiguration>();
+            return Load<MirandaBoundConfiguration>();
         }
 
         internal static void Delete()

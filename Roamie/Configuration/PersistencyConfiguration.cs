@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Miranda.Plugins.Configuration;
 
@@ -8,9 +6,9 @@ namespace Virtuoso.Roamie.Configuration
 {
     [Serializable]
     [ConfigurationOptions("1.0.0.0", Encrypt = false, ProfileBound = false, Storage = typeof(IsolatedStorage))]
-    public class WindowsAccountSettings : PluginConfiguration
+    public class PersistencyConfiguration : PluginConfiguration
     {
-        public static WindowsAccountSettings Singleton
+        public static PersistencyConfiguration Singleton
         {
             get;
             private set;
@@ -22,11 +20,11 @@ namespace Virtuoso.Roamie.Configuration
             set;
         }
 
-        private WindowsAccountSettings() {}
+        private PersistencyConfiguration() {}
 
         public static void Load()
         {
-            Singleton = PluginConfiguration.Load<WindowsAccountSettings>();
+            Singleton = Load<PersistencyConfiguration>();
         }
     }
 }

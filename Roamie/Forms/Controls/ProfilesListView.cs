@@ -268,9 +268,6 @@ namespace Virtuoso.Roamie.Forms.Controls
 
                     string tooltip = String.Format(Resources.Balloon_Text_ProfileToolTip_NL1, Environment.NewLine, String.IsNullOrEmpty(profile.UserName) ? Resources.Text_UI_Anonymous : profile.UserName, profile.RoamingProvider, profile.RemoteHost);
 
-                    if (profile.PreferFullSync)
-                        tooltip = String.Format("{0}{1}{1}{2}", tooltip, Environment.NewLine, Resources.Text_UI_RoamingStatus_ForceFullSync);
-
                     InfoToolTip.ToolTipTitle = profile.Name;
                     InfoToolTip.Show(String.Intern(tooltip), this, e.X + 20, e.Y);
                 }

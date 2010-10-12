@@ -83,12 +83,12 @@
             // 
             this.RoamingProfileLBTN.AutoSize = true;
             this.RoamingProfileLBTN.BackColor = System.Drawing.Color.Transparent;
-            this.RoamingProfileLBTN.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
-            this.RoamingProfileLBTN.Location = new System.Drawing.Point(285, 110);
+            this.RoamingProfileLBTN.Location = new System.Drawing.Point(278, 110);
             this.RoamingProfileLBTN.Name = "RoamingProfileLBTN";
-            this.RoamingProfileLBTN.Size = new System.Drawing.Size(70, 13);
+            this.RoamingProfileLBTN.Size = new System.Drawing.Size(61, 13);
             this.RoamingProfileLBTN.TabIndex = 6;
-            this.RoamingProfileLBTN.Text = "(Profile detail)";
+            this.RoamingProfileLBTN.TabStop = true;
+            this.RoamingProfileLBTN.Text = "View profile";
             this.RoamingProfileLBTN.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.RoamingProfileLBTN_LinkClicked);
             // 
             // pictureBox1

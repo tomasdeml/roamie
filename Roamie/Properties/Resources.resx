@@ -164,13 +164,10 @@
     <value>Starting synchronization...</value>
   </data>
   <data name="Label_UI_RoamingStatusDialog_NoProfile" xml:space="preserve">
-    <value>(none)</value>
+    <value>(No profile)</value>
   </data>
   <data name="Image_48x48_Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon 300_48x48.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Text_UI_RoamingStatus_DeltaIncompatibleChange" xml:space="preserve">
-    <value>A change incompatible with the delta synchronization occured. Full sync is required.</value>
   </data>
   <data name="Label_UI_ProfileListView_NewProfile" xml:space="preserve">
     <value>New profile...</value>
@@ -210,9 +207,6 @@
   </data>
   <data name="Balloon_Text_SandboxActivated" xml:space="preserve">
     <value>The changes will not be propagated to your roaming database.</value>
-  </data>
-  <data name="Text_UI_RoamingStatus_NonPublicMode" xml:space="preserve">
-    <value>The downloaded database WILL remain saved on this computer.</value>
   </data>
   <data name="MsgBox_Formatable2Text_ErrorWhileApplyingDeltas" xml:space="preserve">
     <value>An error occured while applying deltas. Some database changes may not be present.{0}{0}{1}</value>
@@ -292,9 +286,6 @@
   <data name="Label_UI_ProfileListView_NewProfile_Description" xml:space="preserve">
     <value>Create a new roaming profile.</value>
   </data>
-  <data name="Text_UI_RoamingStatus_NonSandboxMode" xml:space="preserve">
-    <value>Changes made to the local database WILL be mirrored on the exit.</value>
-  </data>
   <data name="Text_UI_LogText_SyncFailed" xml:space="preserve">
     <value>=== Error ===</value>
   </data>
@@ -319,9 +310,6 @@
   <data name="ExceptionMsg_ConfigurationSaveFailure" xml:space="preserve">
     <value>Unable to save the roaming configuration. Your settings may not be lost.</value>
   </data>
-  <data name="Text_UI_RoamingStatus_ForceFullSync" xml:space="preserve">
-    <value>Full synchronization WILL be preferred on exit.</value>
-  </data>
   <data name="MsgBox_Title_Completed" xml:space="preserve">
     <value>Completed</value>
   </data>
@@ -336,9 +324,6 @@
   </data>
   <data name="Image_64x67_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon 304_64x67.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Text_UI_RoamingStatus_PublicMode" xml:space="preserve">
-    <value>The downloaded database WILL be removed from this computer on exit.</value>
   </data>
   <data name="Information_Caption_ProxyNotSupported" xml:space="preserve">
     <value>Proxy not supported</value>
@@ -356,7 +341,7 @@
     <value>Profile created successfully.</value>
   </data>
   <data name="Balloon_Text_Examples_NL1" xml:space="preserve">
-    <value>Ftp provider: ftp://my.com/dir/myDatabase.dat {0}Http provider: http://my.com/dir/myDatabase.dat</value>
+    <value>FTP: ftp://example.com/dir/myDatabase.dat {0}HTTP: http://www.example.com/dir/myDatabase.dat</value>
   </data>
   <data name="Config_General_Description" xml:space="preserve">
     <value>Configure general settings of Roamie.</value>
@@ -376,20 +361,8 @@
   <data name="Config_RoamingProfiles_Description" xml:space="preserve">
     <value>Add, remove or modify existing roaming profiles.</value>
   </data>
-  <data name="Text_UI_LogText_TokenizingDb" xml:space="preserve">
-    <value>Tokenizing database...</value>
-  </data>
   <data name="Text_UI_LogText_CompressingEncrypting" xml:space="preserve">
     <value>Compressing &amp; encrypting data...</value>
-  </data>
-  <data name="Text_UI_RoamingStatus_LocalRoaming" xml:space="preserve">
-    <value>Miranda's local database IS prepared for synchronization.</value>
-  </data>
-  <data name="Text_UI_RoamingStatus_SandboxMode" xml:space="preserve">
-    <value>Changes made to the local database WILL NOT be mirrored to the remote one.</value>
-  </data>
-  <data name="Text_UI_LogText_DeltaSyncRequired" xml:space="preserve">
-    <value>Changes found, beginning delta synchronization...</value>
   </data>
   <data name="ExceptionMsg_Formatable2_UploadError" xml:space="preserve">
     <value>A network error occured while uploading the database to {0}. {1}</value>
@@ -397,14 +370,8 @@
   <data name="ExceptionMsg_ContactWithoutTokenFound" xml:space="preserve">
     <value>A contact without the sync token was detected. Contact Roamie's author.</value>
   </data>
-  <data name="Text_UI_RoamingStatus_DeltaSync" xml:space="preserve">
-    <value>The delta synchronization WILL BE utilized to synchronize the database.</value>
-  </data>
   <data name="Config_RoamingProfiles_DefaultProfile_Description" xml:space="preserve">
     <value>Configure a profile to be automatically used on the startup.</value>
-  </data>
-  <data name="Text_UI_RoamingStatus_Local" xml:space="preserve">
-    <value>Miranda's local database IS being used.</value>
   </data>
   <data name="Text_UI_LogText_Completed" xml:space="preserve">
     <value>Completed</value>
@@ -454,20 +421,11 @@
   <data name="ExceptionMsg_Formatable2_DownloadError" xml:space="preserve">
     <value>A network error occured while downloading the database from {0}. {1}</value>
   </data>
-  <data name="Text_UI_RoamingStatus_Roaming" xml:space="preserve">
-    <value>A remote database IS being used.</value>
-  </data>
-  <data name="Text_UI_RoamingStatus_DownloadOnlySession" xml:space="preserve">
-    <value>Current database provider DOES NOT support database mirroring.</value>
-  </data>
   <data name="ExceptionMsg_DeltaSyncFailed" xml:space="preserve">
     <value>An error occured while performing the delta synchronization.</value>
   </data>
   <data name="Text_UI_LogText_Finishing" xml:space="preserve">
     <value>Almost done...</value>
-  </data>
-  <data name="ExceptionMsg_DbTokenMismatch" xml:space="preserve">
-    <value>The Delta manifest token differs from the one of the currently loaded database.</value>
   </data>
   <data name="Text_UI_LogText_CannotGetAttachedContainer" xml:space="preserve">
     <value>Files attached to the remote database could not be retrieved.</value>
@@ -527,10 +485,10 @@
     <value>Your changes will be lost</value>
   </data>
   <data name="MsgBox_Text_InvalidMasterKey" xml:space="preserve">
-    <value>The password you have entered is invalid, Roamie cannot be started.</value>
+    <value>The passphrase you have entered is invalid. Roamie cannot decrypt settings.</value>
   </data>
   <data name="MsgBox_Title_InvalidMasterKey" xml:space="preserve">
-    <value>Invalid master key</value>
+    <value>Wrong passphrase</value>
   </data>
   <data name="Image_24x24_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1284199993_001_01.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -636,5 +594,23 @@
   </data>
   <data name="Image_32x32_Users" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1285407638_group.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Text_UI_MasterPasswordDecrypting" xml:space="preserve">
+    <value>Roamie needs to decrypt your settings.</value>
+  </data>
+  <data name="Text_UI_MasterPasswordEncrypting" xml:space="preserve">
+    <value>Roamie will encrypt your settings and passwords for enhanced privacy.</value>
+  </data>
+  <data name="MsgBox_Text_PassphrasesDoNotMatch" xml:space="preserve">
+    <value>The passphrases do not match.</value>
+  </data>
+  <data name="MsgBox_Title_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MsgBox_Text_TestSuccessful" xml:space="preserve">
+    <value>The roaming profile is configured properly.</value>
+  </data>
+  <data name="MsgBox_Title_TestSuccessful" xml:space="preserve">
+    <value>Test successful</value>
   </data>
 </root>
