@@ -27,7 +27,7 @@ using Virtuoso.Roamie.Roaming.Profiles;
 
 namespace Virtuoso.Roamie.RoamingProviders
 {
-    public abstract class DatabaseProvider
+    public abstract class Provider
     {
         #region Fields
 
@@ -37,7 +37,7 @@ namespace Virtuoso.Roamie.RoamingProviders
 
         #region Properties
 
-        protected RoamingContext Context
+        protected Context Context
         {
             get { return RoamiePlugin.Singleton.RoamingContext; }
         }        
@@ -49,6 +49,11 @@ namespace Virtuoso.Roamie.RoamingProviders
         public abstract ISiteAdapter Adapter
         {
             get;
+        }
+
+        protected bool CanSyncRemoteSite
+        {
+            get { return !Context.IsInState(RoamingState.DiscardLocalChanges); }
         }
 
         #endregion
@@ -77,7 +82,7 @@ namespace Virtuoso.Roamie.RoamingProviders
 
         public virtual void SyncRemoteSite(RoamingProfile profile)
         {
-            if (Context.IsInState(RoamingState.DiscardLocalChanges))
+            if (!CanSyncRemoteSite)
             {
                 // TODO Log
                 //Trace.WriteLineIf(RoamiePlugin.TraceSwitch.TraceInfo, "Sandbox mode is active, no synchronization required.", "");
@@ -147,7 +152,7 @@ namespace Virtuoso.Roamie.RoamingProviders
             if (obj == null) 
                 return false;
 
-            DatabaseProvider other = obj as DatabaseProvider;
+            Provider other = obj as Provider;
 
             if (ReferenceEquals(other, null)) 
                 return false;

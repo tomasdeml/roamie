@@ -78,9 +78,9 @@ namespace Virtuoso.Roamie.Forms.Controls
 
             if (RoamiePlugin.Singleton != null)
             {                                
-                List<DatabaseProvider> providers = new List<DatabaseProvider>(2);
+                List<Provider> providers = new List<Provider>(2);
 
-                foreach (DatabaseProvider provider in RoamiePlugin.Singleton.RoamingContext.DatabaseProviders.Values)
+                foreach (Provider provider in RoamiePlugin.Singleton.RoamingContext.DatabaseProviders.Values)
                     providers.Add(provider);
 
                 DatabaseProviderLBOX.DisplayMember = "Name";
@@ -122,7 +122,7 @@ namespace Virtuoso.Roamie.Forms.Controls
                 }
             }
 
-            DatabaseProvider provider = (DatabaseProvider)DatabaseProviderLBOX.SelectedItem;
+            Provider provider = (Provider)DatabaseProviderLBOX.SelectedItem;
 
             if (DatabaseProviderLBOX.SelectedItem == null)
             {
@@ -182,7 +182,7 @@ namespace Virtuoso.Roamie.Forms.Controls
         {
             if (CheckValues())
             {
-                profile = new RoamingProfile(ProfileNameTBOX.Text, DescriptionTBOX.Text, RemoteAddressTBOX.Text, LoginNameTBOX.Text, LoginPasswordTBOX.Text, DatabasePasswordTBOX.Text, ((DatabaseProvider)DatabaseProviderLBOX.SelectedItem).Name);
+                profile = new RoamingProfile(ProfileNameTBOX.Text, DescriptionTBOX.Text, RemoteAddressTBOX.Text, LoginNameTBOX.Text, LoginPasswordTBOX.Text, DatabasePasswordTBOX.Text, ((Provider)DatabaseProviderLBOX.SelectedItem).Name);
                 profile.PreferFullSync = PreferFullSync.Checked;
             }
         }        

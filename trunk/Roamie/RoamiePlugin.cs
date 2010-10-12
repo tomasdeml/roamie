@@ -120,7 +120,7 @@ namespace Virtuoso.Roamie
 
         #region Properties
 
-        public RoamingContext RoamingContext { get; private set; }
+        public Context RoamingContext { get; private set; }
 
         public static RoamiePlugin Singleton { get; private set; }
 
@@ -383,7 +383,7 @@ namespace Virtuoso.Roamie
                         if (CanSync)
                         {
                             Trace.WriteLineIf(TraceSwitch.TraceInfo, "Active roaming profile detected, no Sync Error detected, roaming state is defined => checking Sandbox mode...", TraceCategory);
-                            RoamingOrchestration.SyncRemoteSite();
+                            Orchestration.SyncRemoteSite();
                         }
                         else
                             Trace.WriteLineIf(TraceSwitch.TraceWarning, "No active roaming profile detected or undefined roaming state or sync error occured => no synchronization can be performed.", TraceCategory);
@@ -430,7 +430,7 @@ namespace Virtuoso.Roamie
                         FirstRunDialog.PresentModal();
 
                     Trace.WriteLineIf(TraceSwitch.TraceVerbose, "Initializing context...", TraceCategory);
-                    RoamingContext = new RoamingContext(profile);
+                    RoamingContext = new Context(profile);
 
                     Trace.WriteLineIf(TraceSwitch.TraceVerbose, "Presenting startup dialog...", TraceCategory);
                     StartupDialog.PresentModal(creatingProfile);

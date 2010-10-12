@@ -56,7 +56,7 @@ namespace Virtuoso.Roamie.Roaming.Profiles
         public void VerifyProfiles()
         {
             List<RoamingProfile> invalidProfiles = new List<RoamingProfile>(1);
-            Dictionary<string, DatabaseProvider> providers = RoamiePlugin.Singleton.RoamingContext.DatabaseProviders;
+            Dictionary<string, Provider> providers = RoamiePlugin.Singleton.RoamingContext.DatabaseProviders;
 
             foreach (RoamingProfile profile in profiles)
                 if (!providers.ContainsKey(profile.RoamingProvider))

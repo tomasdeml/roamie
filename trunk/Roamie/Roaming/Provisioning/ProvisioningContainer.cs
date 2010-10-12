@@ -34,7 +34,7 @@ namespace Virtuoso.Roamie.Roaming.Provisioning
     {
         #region Fields
 
-        private const string ContainerSuffix = "dbpc.bin";
+        private const string ContainerSuffix = "-cnt.bin";
 
         #endregion
 
@@ -140,8 +140,7 @@ namespace Virtuoso.Roamie.Roaming.Provisioning
                 formatter.Serialize(containerStream, this);
                 containerStream.Seek(0, SeekOrigin.Begin);
 
-                // TODO Fix text
-                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_PublishingDelta, SignificantProgress.Running);
+                ProgressMediator.ChangeProgress(Resources.Text_UI_LogText_PublishingContent, SignificantProgress.Running);
                 adapter.PushFile(profile, containerStream, GetContainerPath(profile), true);
             }
         }

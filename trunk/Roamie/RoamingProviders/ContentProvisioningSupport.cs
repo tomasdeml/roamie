@@ -23,6 +23,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using Virtuoso.Roamie.Properties;
+using Virtuoso.Roamie.Roaming;
 using Virtuoso.Roamie.Roaming.Profiles;
 using Virtuoso.Roamie.Roaming.Provisioning;
 
@@ -38,7 +39,7 @@ namespace Virtuoso.Roamie.RoamingProviders
 
         #region .ctors
 
-        public ContentProvisioningSupport(DatabaseProvider provider) : base(provider)
+        public ContentProvisioningSupport(Provider provider) : base(provider)
         {
         }
 
@@ -46,7 +47,7 @@ namespace Virtuoso.Roamie.RoamingProviders
 
         #region Methods
 
-        public override void  SyncLocalSite(RoamingProfile profile)
+        public override void SyncLocalSite(RoamingProfile profile)
         {
             base.SyncLocalSite(profile);
 
@@ -70,6 +71,9 @@ namespace Virtuoso.Roamie.RoamingProviders
         public override void SyncRemoteSite(RoamingProfile profile)
         {
             base.SyncRemoteSite(profile);
+
+            if (!CanSyncRemoteSite)
+                return;
 
             if (Container == null || Container.Contents.Count == 0)
                 return;

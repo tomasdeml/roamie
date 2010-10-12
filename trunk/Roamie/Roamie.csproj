@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Native\ExternalDatabaseDriver.cs" />
-    <Compile Include="RoamingProviders\DatabaseProvider.cs" />
+    <Compile Include="RoamingProviders\Provider.cs" />
     <Compile Include="Forms\SyncDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,7 +70,7 @@
     <Compile Include="Native\NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoamiePlugin.cs" />
-    <Compile Include="Roaming\RoamingContext.cs" />
+    <Compile Include="Roaming\Context.cs" />
     <Compile Include="SyncException.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -282,12 +282,14 @@
     </Compile>
     <Compile Include="ProgressMediator.cs" />
     <Compile Include="RoamingProviders\DeltaSyncSupport.cs" />
+    <Compile Include="RoamingProviders\LegacyDeltaManifestCheck.cs" />
     <Compile Include="RoamingProviders\ProviderDecorator.cs" />
     <Compile Include="RoamingProviders\Ftp\FtpRequestFactory.cs" />
     <Compile Include="RoamingProviders\Ftp\FtpSiteAdapter.cs" />
     <Compile Include="RoamingProviders\Http\HttpSiteAdapter.cs" />
     <Compile Include="RoamingProviders\Http\HttpRequestFactory.cs" />
     <Compile Include="RoamingProviders\OneWaySynchronization.cs" />
+    <Compile Include="RoamingProviders\RoamingManifestProcessor.cs" />
     <Compile Include="Roaming\DeltaSync\DeltaSyncEngineFactory.cs" />
     <Compile Include="Roaming\DeltaSync\IDeltaSyncEngine.cs" />
     <Compile Include="Roaming\DeltaSync\IDeltaUtility.cs" />
@@ -296,12 +298,13 @@
     <Compile Include="Roaming\DeltaSync\XDeltaUtility.cs" />
     <Compile Include="Configuration\MasterPasswordEncryption.cs" />
     <Compile Include="Roaming\DeltaSync\DeltaSyncException.cs" />
+    <Compile Include="Roaming\Manifest.cs" />
     <Compile Include="Roaming\Provisioning\ProvisioningContainer.cs" />
     <Compile Include="Roaming\Provisioning\Content.cs" />
     <Compile Include="Roaming\Provisioning\ContentCollection.cs" />
     <Compile Include="RoamingProviders\Ftp\FtpProvider.cs" />
     <Compile Include="RoamingProviders\ContentProvisioningSupport.cs" />
-    <Compile Include="Roaming\RoamingOrchestration.cs" />
+    <Compile Include="Roaming\Orchestration.cs" />
     <Compile Include="Forms\WarningDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -377,7 +380,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RoamingProviders\ISiteAdapter.cs" />
-    <Compile Include="Roaming\DeltaSync\DeltaManifest.cs" />
     <Compile Include="Roaming\Profiles\ProfileCollection.cs" />
     <Compile Include="Roaming\Profiles\ProfileManager.cs" />
     <Compile Include="Roaming\Profiles\RoamingProfile.cs" />

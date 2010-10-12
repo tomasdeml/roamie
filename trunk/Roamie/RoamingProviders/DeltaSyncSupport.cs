@@ -9,7 +9,7 @@ namespace Virtuoso.Roamie.RoamingProviders
     {
         #region Fields
 
-        private const string DeltaExtension = ".delta.bin";
+        private const string DeltaExtension = "-d.bin";
 
         private readonly IDeltaSyncEngine DeltaEngine; 
 
@@ -17,7 +17,7 @@ namespace Virtuoso.Roamie.RoamingProviders
 
         #region .ctors
 
-        public DeltaSyncSupport(DatabaseProvider provider) : base(provider)
+        public DeltaSyncSupport(Provider provider) : base(provider)
         {
             DeltaEngine = DeltaSyncEngineFactory.GetEngine();
         }
@@ -56,7 +56,7 @@ namespace Virtuoso.Roamie.RoamingProviders
         {
             base.SyncRemoteSite(profile);
 
-            if (Context.IsInState(RoamingState.DiscardLocalChanges))
+            if (!CanSyncRemoteSite)
                 return;
 
             string remoteDeltaPath = GetRemoteDeltaPath(profile);

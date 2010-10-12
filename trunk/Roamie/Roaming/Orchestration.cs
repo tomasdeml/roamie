@@ -20,21 +20,18 @@
 \***********************************************************************************/
 
 using System;
-using System.Windows.Forms;
 using System.Diagnostics;
-using System.Threading;
 using Virtuoso.Roamie.Forms;
-using Virtuoso.Roamie.Roaming.DeltaSync;
+using Virtuoso.Roamie.Roaming.Profiles;
 using Virtuoso.Roamie.RoamingProviders;
-using Virtuoso.Roamie.Properties;
 
 namespace Virtuoso.Roamie.Roaming
 {
-    internal static class RoamingOrchestration
+    internal static class Orchestration
     {
         #region Fields
 
-        private static RoamingContext Context
+        private static Context Context
         {
             get { return RoamiePlugin.Singleton.RoamingContext; }
         }
@@ -96,7 +93,7 @@ namespace Virtuoso.Roamie.Roaming
 
         private static object DoSyncRemoteSite()
         {
-            DatabaseProvider provider = Context.ActiveProvider;
+            Provider provider = Context.ActiveProvider;
 
             provider.SyncRemoteSite(Context.ActiveProfile);
             provider.RemoveLocalSiteData();

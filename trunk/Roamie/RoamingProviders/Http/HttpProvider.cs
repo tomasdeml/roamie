@@ -26,7 +26,7 @@ using Virtuoso.Roamie.Roaming.Profiles;
 
 namespace Virtuoso.Roamie.RoamingProviders.Http
 {
-    internal class HttpProvider : DatabaseProvider
+    internal class HttpProvider : Provider
     {
         #region .ctors
 
