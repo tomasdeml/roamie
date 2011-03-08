@@ -137,9 +137,9 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(8, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(310, 24);
+            this.label1.Size = new System.Drawing.Size(388, 24);
             this.label1.TabIndex = 0;
-            this.label1.Text = "View your roaming status and details";
+            this.label1.Text = "View roaming status and details of your profile";
             // 
             // SyncStatusPBOX
             // 
@@ -276,7 +276,7 @@
             this.Name = "RoamingOverviewDialog";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Miranda roaming status";
+            this.Text = "Roaming center";
             this.Load += new System.EventHandler(this.RoamingStatusDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gradientPanel1.ResumeLayout(false);

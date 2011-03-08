@@ -1,12 +1,11 @@
 ﻿using System;
 using Virtuoso.Miranda.Plugins.Infrastructure;
-using Virtuoso.Roamie.Roaming;
 
 namespace Virtuoso.Roamie.Configuration
 {
     [Serializable]
-    [ConfigurationOptions(RoamingConfiguration.Version, Encrypt = true, ProfileBound = false, Encryption = typeof(MasterPasswordEncryption), Storage = typeof(DeletablePortableStorage))]
-    [StorageOptions(FileName = "RoamingConfiguration.dat")]
+    [ConfigurationOptions(Version, Encrypt = true, ProfileBound = false, Encryption = typeof(MasterPasswordEncryption), Storage = typeof(DeletablePortableStorage))]
+    [StorageOptions(FileName = "Roamie-Configuration.dat")]
     public class MirandaBoundConfiguration : RoamingConfiguration
     {
         internal static RoamingConfiguration Load()

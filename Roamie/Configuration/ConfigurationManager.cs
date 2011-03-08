@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.CompilerServices;
-using Virtuoso.Miranda.Plugins.Infrastructure;
-using Virtuoso.Roamie.Properties;
+﻿using System.Runtime.CompilerServices;
 
 namespace Virtuoso.Roamie.Configuration
 {
+    public enum ConfigurationStatus
+    {
+        NewTransient,
+        Persistent,
+        Deleted
+    }
+
     public enum ConfigurationPersistencyMode
     {
         Undefined,
@@ -25,21 +27,17 @@ namespace Virtuoso.Roamie.Configuration
 
         private ConfigurationManager()
         {
-            PersistencyConfiguration.Load();
-
             if (MirandaBoundConfiguration.Exists())
                 PersistencyMode = ConfigurationPersistencyMode.MirandaInstallation;
+            else if (WindowsAccountBoundConfiguration.Load().Status == ConfigurationStatus.Persistent)
+                PersistencyMode = ConfigurationPersistencyMode.WindowsAccount;
+            else if (TransientConfigurationMarker.Load().Status == ConfigurationStatus.Persistent)
+                PersistencyMode = ConfigurationPersistencyMode.Transient;
             else
-            {
-                PersistencyMode = PersistencyConfiguration.Singleton.ConfigurationPersistencyMode;
-
-                // Portable configuration does not exist, reset settings
-                if (PersistencyMode == ConfigurationPersistencyMode.MirandaInstallation)
-                    PersistencyMode = ConfigurationPersistencyMode.Undefined;
-            }
+                PersistencyMode = ConfigurationPersistencyMode.Undefined;
 
             LoadOrCreateConfiguration();
-        }        
+        }
 
         #endregion
 
@@ -92,11 +90,10 @@ namespace Virtuoso.Roamie.Configuration
             if (prevConfig != null)
                 prevConfig.CopyTo(Configuration);
 
+            Configuration.Status = ConfigurationStatus.Persistent;
             Configuration.Save();
-            DeletePreviousConfiguration();
 
-            PersistencyConfiguration.Singleton.ConfigurationPersistencyMode = mode;
-            PersistencyConfiguration.Singleton.Save();
+            DeletePreviousConfiguration();
         }        
 
         private void LoadOrCreateConfiguration()
@@ -105,6 +102,7 @@ namespace Virtuoso.Roamie.Configuration
             {
                 case ConfigurationPersistencyMode.Transient:
                     Configuration = new TransientConfiguration();
+                    new TransientConfigurationMarker().Save();
                     break;
                 case ConfigurationPersistencyMode.WindowsAccount:
                     Configuration = WindowsAccountBoundConfiguration.Load();
@@ -125,9 +123,11 @@ namespace Virtuoso.Roamie.Configuration
                     break;
                 case ConfigurationPersistencyMode.MirandaInstallation:
                     WindowsAccountBoundConfiguration.Delete();
+                    TransientConfigurationMarker.Delete();
                     break;
                 case ConfigurationPersistencyMode.WindowsAccount:
                     MirandaBoundConfiguration.Delete();
+                    TransientConfigurationMarker.Delete();
                     break;
             }
         }

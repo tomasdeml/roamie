@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using Virtuoso.Roamie.Properties;
 using Virtuoso.Roamie.Configuration;
 
 namespace Virtuoso.Roamie.Forms
