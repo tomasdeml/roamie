@@ -22,14 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using Virtuoso.Miranda.Plugins.Infrastructure;
 using Virtuoso.Roamie.Roaming.Profiles;
 using Virtuoso.Roamie.RoamingProviders;
 
 namespace Virtuoso.Roamie.Configuration
 {
     [Serializable]
-    public abstract class RoamingConfiguration : PluginConfiguration
+    public abstract class RoamingConfiguration : ExtendedConfiguration
     {
         #region Fields
 

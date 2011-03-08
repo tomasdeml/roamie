@@ -140,10 +140,10 @@
             this.MyFlashDriveRBTN.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.MyFlashDriveRBTN.Location = new System.Drawing.Point(68, 263);
             this.MyFlashDriveRBTN.Name = "MyFlashDriveRBTN";
-            this.MyFlashDriveRBTN.Size = new System.Drawing.Size(239, 17);
+            this.MyFlashDriveRBTN.Size = new System.Drawing.Size(308, 17);
             this.MyFlashDriveRBTN.TabIndex = 6;
             this.MyFlashDriveRBTN.Tag = "MirandaInstallation";
-            this.MyFlashDriveRBTN.Text = "I run Miranda from my USB flash drive";
+            this.MyFlashDriveRBTN.Text = "I don\'t care, Miranda runs from my USB flash drive";
             this.MyFlashDriveRBTN.UseVisualStyleBackColor = true;
             this.MyFlashDriveRBTN.CheckedChanged += new System.EventHandler(this.Radio_CheckedChanged);
             // 

@@ -40,7 +40,7 @@ namespace Virtuoso.Roamie.Configuration
             return stream;
         }
 
-        private void WriteStream_Disposed(object sender, ObservableMemoryStream.DisposedEventArgs e)
+        private static void WriteStream_Disposed(object sender, ObservableMemoryStream.DisposedEventArgs e)
         {
             Storage[(Type)e.Token] = e.Buffer;
         }

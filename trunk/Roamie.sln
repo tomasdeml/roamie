@@ -5,10 +5,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roamie", "Roamie\Roamie.csp
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Custom|Any CPU = Custom|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C3F99EC9-12E4-461F-A82E-E038E51339C2}.Custom|Any CPU.ActiveCfg = Custom|Any CPU
+		{C3F99EC9-12E4-461F-A82E-E038E51339C2}.Custom|Any CPU.Build.0 = Custom|Any CPU
 		{C3F99EC9-12E4-461F-A82E-E038E51339C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C3F99EC9-12E4-461F-A82E-E038E51339C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3F99EC9-12E4-461F-A82E-E038E51339C2}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -16,6 +16,7 @@ namespace Virtuoso.Roamie.Configuration
         internal static void Delete()
         {
             var config = GetDefaultConfiguration<WindowsAccountBoundConfiguration>();
+            config.Status = ConfigurationStatus.Deleted;
             config.Save();
         }
     }

@@ -23,6 +23,7 @@ using System;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 using Virtuoso.Miranda.Plugins.Configuration;
+using Virtuoso.Roamie.Forms;
 using Virtuoso.Roamie.Properties;
 
 namespace Virtuoso.Roamie.Configuration
@@ -42,7 +43,7 @@ namespace Virtuoso.Roamie.Configuration
             if (!String.IsNullOrEmpty(Key))
                 return Key;
 
-            Key = Forms.MasterPasswordDialog.Prompt(decrypting);
+            Key = MasterPasswordDialog.Prompt(decrypting);
             return Key;
         }
 

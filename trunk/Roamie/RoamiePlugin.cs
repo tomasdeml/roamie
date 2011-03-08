@@ -28,7 +28,6 @@ using System.IO;
 using System.Diagnostics;
 using System.Windows.Forms;
 using Virtuoso.Miranda.Plugins.Infrastructure;
-using Virtuoso.Miranda.Plugins.Collections;
 using Virtuoso.Miranda.Plugins.ThirdParty.Updater;
 using Virtuoso.Miranda.Plugins.Configuration;
 using Virtuoso.Roamie;
@@ -266,7 +265,7 @@ namespace Virtuoso.Roamie
 
         #region Menu item handlers
 
-        [MenuItemDeclaration("Roaming status", typeof(LanguagePackStringResolver), Tag = "RoamingSettings", IsContactMenuItem = false, HasIcon = true, UseEmbeddedIcon = true, IconID = "Virtuoso.Roamie.Resources.MenuItem_RoamingSettings.ico")]
+        [MenuItemDeclaration("Roaming center", typeof(LanguagePackStringResolver), Tag = "RoamingSettings", IsContactMenuItem = false, HasIcon = true, UseEmbeddedIcon = true, IconID = "Virtuoso.Roamie.Resources.MenuItem_RoamingSettings.ico")]
         private int MenuItem_RoamingSettings(UIntPtr wParam, IntPtr lParam)
         {
             SingletonDialog.GetSingleton<RoamingOverviewDialog>(true).ShowSingleton(false);
