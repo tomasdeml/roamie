@@ -172,7 +172,6 @@
             this.MinimizeBox = false;
             this.Name = "MasterPasswordDialog";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Roamie settings passphrase";
             this.gradientPanel1.ResumeLayout(false);

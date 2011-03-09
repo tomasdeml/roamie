@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Virtuoso.Miranda.Plugins.Configuration;
 using Virtuoso.Miranda.Plugins.Infrastructure;
 using System.IO;
@@ -22,6 +21,11 @@ namespace Virtuoso.Roamie.Configuration
         public bool Exists(Type configType, ConfigurationOptionsAttribute options)
         {
             return Storage.ContainsKey(configType);
+        }
+
+        public void Delete(Type configType, ConfigurationOptionsAttribute options)
+        {
+            Storage.Remove(configType);
         }
 
         public Stream OpenRead(Type configType, ConfigurationOptionsAttribute options)
@@ -47,7 +51,6 @@ namespace Virtuoso.Roamie.Configuration
 
         public void Dispose()
         {
-            Storage.Clear();
         } 
 
         #endregion

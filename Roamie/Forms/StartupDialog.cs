@@ -88,7 +88,7 @@ namespace Virtuoso.Roamie.Forms
                     case StartupOption.DownloadDatabase:
                         dlg.DownloadExistingRBTN.Checked = true;
                         dlg.PublicComputerCHBOX.Checked = bootConfig.PublicPc;
-                        dlg.SandboxModeCHBOX.Checked = bootConfig.SandboxMode;
+                        dlg.RoamRemoteOnExitCHBOX.Checked = !bootConfig.SandboxMode;
                         break;
                     case StartupOption.UseLocalDatabase:
                         dlg.UseLocalRBTN.Checked = true;
@@ -168,7 +168,7 @@ namespace Virtuoso.Roamie.Forms
                 if (PublicComputerCHBOX.Checked)
                     selectedRoamingState |= RoamingState.RemoveLocalCopyOnExit;
 
-                if (SandboxModeCHBOX.Checked)
+                if (!RoamRemoteOnExitCHBOX.Checked)
                     selectedRoamingState |= RoamingState.DiscardLocalChanges;
             }
             else if (UseLocalRBTN.Checked)
@@ -238,7 +238,7 @@ namespace Virtuoso.Roamie.Forms
                 thirdGroup = true;
 
             PublicComputerCHBOX.Enabled = firstGroup;
-            SandboxModeCHBOX.Enabled = firstGroup;
+            RoamRemoteOnExitCHBOX.Enabled = firstGroup;
 
             RoamLocalOnExitCHBOX.Enabled = secondGroup;
             RoamNewOnExitCHBOX.Enabled = thirdGroup;
