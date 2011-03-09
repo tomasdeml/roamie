@@ -37,7 +37,7 @@
             this.UseLocalRBTN = new System.Windows.Forms.RadioButton();
             this.RoamNewOnExitCHBOX = new System.Windows.Forms.CheckBox();
             this.RoamLocalOnExitCHBOX = new System.Windows.Forms.CheckBox();
-            this.SandboxModeCHBOX = new System.Windows.Forms.CheckBox();
+            this.RoamRemoteOnExitCHBOX = new System.Windows.Forms.CheckBox();
             this.PublicComputerCHBOX = new System.Windows.Forms.CheckBox();
             this.CreateNewRBTN = new System.Windows.Forms.RadioButton();
             this.DownloadExistingRBTN = new System.Windows.Forms.RadioButton();
@@ -127,8 +127,9 @@
             // 
             // RoamNewOnExitCHBOX
             // 
-            this.RoamNewOnExitCHBOX.AutoSize = true;            
-            this.RoamNewOnExitCHBOX.CheckState = System.Windows.Forms.CheckState.Checked;            
+            this.RoamNewOnExitCHBOX.AutoSize = true;
+            this.RoamNewOnExitCHBOX.Checked = true;
+            this.RoamNewOnExitCHBOX.CheckState = System.Windows.Forms.CheckState.Checked;
             this.RoamNewOnExitCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.RoamNewOnExitCHBOX.Location = new System.Drawing.Point(88, 305);
             this.RoamNewOnExitCHBOX.Name = "RoamNewOnExitCHBOX";
@@ -139,7 +140,7 @@
             // 
             // RoamLocalOnExitCHBOX
             // 
-            this.RoamLocalOnExitCHBOX.AutoSize = true;    
+            this.RoamLocalOnExitCHBOX.AutoSize = true;
             this.RoamLocalOnExitCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.RoamLocalOnExitCHBOX.Location = new System.Drawing.Point(88, 238);
             this.RoamLocalOnExitCHBOX.Name = "RoamLocalOnExitCHBOX";
@@ -148,21 +149,24 @@
             this.RoamLocalOnExitCHBOX.Text = "Synchronize on exit";
             this.RoamLocalOnExitCHBOX.UseVisualStyleBackColor = true;
             // 
-            // SandboxModeCHBOX
+            // RoamRemoteOnExitCHBOX
             // 
-            this.SandboxModeCHBOX.AutoSize = true; 
-            this.SandboxModeCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SandboxModeCHBOX.Location = new System.Drawing.Point(88, 178);
-            this.SandboxModeCHBOX.Name = "SandboxModeCHBOX";
-            this.SandboxModeCHBOX.Size = new System.Drawing.Size(192, 17);
-            this.SandboxModeCHBOX.TabIndex = 5;
-            this.SandboxModeCHBOX.Text = "Do not synchronize remote location";
-            this.SandboxModeCHBOX.UseVisualStyleBackColor = false;
+            this.RoamRemoteOnExitCHBOX.AutoSize = true;
+            this.RoamRemoteOnExitCHBOX.Checked = true;
+            this.RoamRemoteOnExitCHBOX.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.RoamRemoteOnExitCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.RoamRemoteOnExitCHBOX.Location = new System.Drawing.Point(88, 178);
+            this.RoamRemoteOnExitCHBOX.Name = "RoamRemoteOnExitCHBOX";
+            this.RoamRemoteOnExitCHBOX.Size = new System.Drawing.Size(118, 17);
+            this.RoamRemoteOnExitCHBOX.TabIndex = 5;
+            this.RoamRemoteOnExitCHBOX.Text = "Synchronize on exit";
+            this.RoamRemoteOnExitCHBOX.UseVisualStyleBackColor = false;
             // 
             // PublicComputerCHBOX
             // 
-            this.PublicComputerCHBOX.AutoSize = true;            
-            this.PublicComputerCHBOX.CheckState = System.Windows.Forms.CheckState.Checked;            
+            this.PublicComputerCHBOX.AutoSize = true;
+            this.PublicComputerCHBOX.Checked = true;
+            this.PublicComputerCHBOX.CheckState = System.Windows.Forms.CheckState.Checked;
             this.PublicComputerCHBOX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.PublicComputerCHBOX.Location = new System.Drawing.Point(88, 152);
             this.PublicComputerCHBOX.Name = "PublicComputerCHBOX";
@@ -277,7 +281,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(432, 377);
             this.Controls.Add(this.OptionsLINK);
-            this.Controls.Add(this.SandboxModeCHBOX);
+            this.Controls.Add(this.RoamRemoteOnExitCHBOX);
             this.Controls.Add(this.NewPBOX);
             this.Controls.Add(this.LocalPBOX);
             this.Controls.Add(this.DownloadPBOX);
@@ -319,7 +323,7 @@
         private System.Windows.Forms.RadioButton CreateNewRBTN;
         private System.Windows.Forms.Button OkBTN;
         private System.Windows.Forms.CheckBox PublicComputerCHBOX;
-        private System.Windows.Forms.CheckBox SandboxModeCHBOX;
+        private System.Windows.Forms.CheckBox RoamRemoteOnExitCHBOX;
         private System.Windows.Forms.CheckBox RoamLocalOnExitCHBOX;
         private System.Windows.Forms.CheckBox RoamNewOnExitCHBOX;
         private System.Windows.Forms.PictureBox DownloadPBOX;

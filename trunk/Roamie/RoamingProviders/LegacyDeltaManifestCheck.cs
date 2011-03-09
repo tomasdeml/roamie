@@ -25,17 +25,12 @@ namespace Virtuoso.Roamie.RoamingProviders
 
         public override void SyncLocalSite(RoamingProfile profile)
         {
-            string remoteLegacyManifestPath = GetRemoteLegacyManifestPath(profile);
+            string remoteLegacyManifestPath = profile.RemoteHost + LegacyManifestExtension;
 
             if (Adapter.FileExists(profile, remoteLegacyManifestPath))
                 throw new DeltaSyncException(Resources.ExceptionMsg_LegacyManifestFound);
 
             base.SyncLocalSite(profile);
-        }
-
-        private static string GetRemoteLegacyManifestPath(RoamingProfile profile)
-        {
-            return profile.RemoteHost + LegacyManifestExtension;
         }
 
         #endregion

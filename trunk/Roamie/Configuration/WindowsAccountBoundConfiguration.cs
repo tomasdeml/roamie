@@ -8,16 +8,5 @@ namespace Virtuoso.Roamie.Configuration
     [ConfigurationOptions(Version, Encrypt = true, ProfileBound = false, Encryption = typeof(WindowsEncryption), Storage = typeof(IsolatedStorage))]
     public class WindowsAccountBoundConfiguration : RoamingConfiguration
     {
-        internal static RoamingConfiguration Load()
-        {
-            return Load<WindowsAccountBoundConfiguration>();
-        }
-
-        internal static void Delete()
-        {
-            var config = GetDefaultConfiguration<WindowsAccountBoundConfiguration>();
-            config.Status = ConfigurationStatus.Deleted;
-            config.Save();
-        }
     }
 }

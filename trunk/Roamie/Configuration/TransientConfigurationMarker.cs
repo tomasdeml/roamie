@@ -6,18 +6,11 @@ namespace Virtuoso.Roamie.Configuration
 {
     [Serializable]
     [ConfigurationOptions("1.0.0.0", Encrypt = false, ProfileBound = false, Storage = typeof(IsolatedStorage))]
-    public class TransientConfigurationMarker : ExtendedConfiguration
+    public class TransientConfigurationMarker : RoamingConfiguration
     {
-        internal static TransientConfigurationMarker Load()
+        internal static void Create()
         {
-            return Load<TransientConfigurationMarker>();
-        }
-
-        internal static void Delete()
-        {
-            var config = GetDefaultConfiguration<TransientConfigurationMarker>();
-            config.Status = ConfigurationStatus.Deleted;
-            config.Save();
+            new TransientConfigurationMarker().Save();
         }
     }
 }

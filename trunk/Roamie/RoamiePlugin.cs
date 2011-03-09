@@ -43,7 +43,7 @@ using Virtuoso.Roamie.Configuration;
 
 namespace Virtuoso.Roamie
 {
-    [LoaderOptions("0.8.3000.909")]
+    [LoaderOptions("0.8.3000.10309")]
     internal sealed class RoamiePlugin : DatabaseDriver, IConfigurablePlugin
     {
         #region Plugin infos

@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using Virtuoso.Miranda.Plugins.Infrastructure;
 
 namespace Virtuoso.Roamie.Configuration
 {
@@ -27,11 +28,11 @@ namespace Virtuoso.Roamie.Configuration
 
         private ConfigurationManager()
         {
-            if (MirandaBoundConfiguration.Exists())
+            if (PluginConfiguration.Exists(typeof(MirandaBoundConfiguration)))
                 PersistencyMode = ConfigurationPersistencyMode.MirandaInstallation;
-            else if (WindowsAccountBoundConfiguration.Load().Status == ConfigurationStatus.Persistent)
+            else if (PluginConfiguration.Exists(typeof(WindowsAccountBoundConfiguration)))
                 PersistencyMode = ConfigurationPersistencyMode.WindowsAccount;
-            else if (TransientConfigurationMarker.Load().Status == ConfigurationStatus.Persistent)
+            else if (PluginConfiguration.Exists(typeof(TransientConfigurationMarker)))
                 PersistencyMode = ConfigurationPersistencyMode.Transient;
             else
                 PersistencyMode = ConfigurationPersistencyMode.Undefined;
@@ -90,9 +91,7 @@ namespace Virtuoso.Roamie.Configuration
             if (prevConfig != null)
                 prevConfig.CopyTo(Configuration);
 
-            Configuration.Status = ConfigurationStatus.Persistent;
             Configuration.Save();
-
             DeletePreviousConfiguration();
         }        
 
@@ -102,13 +101,13 @@ namespace Virtuoso.Roamie.Configuration
             {
                 case ConfigurationPersistencyMode.Transient:
                     Configuration = new TransientConfiguration();
-                    new TransientConfigurationMarker().Save();
+                    TransientConfigurationMarker.Create();
                     break;
                 case ConfigurationPersistencyMode.WindowsAccount:
-                    Configuration = WindowsAccountBoundConfiguration.Load();
+                    Configuration = PluginConfiguration.Load<WindowsAccountBoundConfiguration>();
                     break;
                 case ConfigurationPersistencyMode.MirandaInstallation:
-                    Configuration = MirandaBoundConfiguration.Load();
+                    Configuration = PluginConfiguration.Load<MirandaBoundConfiguration>();
                     break;
             }
         }
@@ -118,16 +117,16 @@ namespace Virtuoso.Roamie.Configuration
             switch (PersistencyMode)
             {
                 case ConfigurationPersistencyMode.Transient:
-                    WindowsAccountBoundConfiguration.Delete();
-                    MirandaBoundConfiguration.Delete();
+                    PluginConfiguration.Delete(typeof (WindowsAccountBoundConfiguration));
+                    PluginConfiguration.Delete(typeof (MirandaBoundConfiguration));
                     break;
                 case ConfigurationPersistencyMode.MirandaInstallation:
-                    WindowsAccountBoundConfiguration.Delete();
-                    TransientConfigurationMarker.Delete();
+                    PluginConfiguration.Delete(typeof (WindowsAccountBoundConfiguration));
+                    PluginConfiguration.Delete(typeof (TransientConfigurationMarker));
                     break;
                 case ConfigurationPersistencyMode.WindowsAccount:
-                    MirandaBoundConfiguration.Delete();
-                    TransientConfigurationMarker.Delete();
+                    PluginConfiguration.Delete(typeof (MirandaBoundConfiguration));
+                    PluginConfiguration.Delete(typeof (TransientConfigurationMarker));
                     break;
             }
         }

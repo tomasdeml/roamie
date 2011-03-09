@@ -617,6 +617,6 @@
     <value>Publishing content...</value>
   </data>
   <data name="ExceptionMsg_LegacyManifestFound" xml:space="preserve">
-    <value>Roamie found old roaming data in the selected remote profile. Perform full synchronization with previous version of Roamie (v0.8) first before migrating to v1.0. New delta sync engine cannot process these legacy data.</value>
+    <value>The selected remote profile is not compatible with current version of Roamie. Perform full synchronization with previous version (v0.8) first before migrating to version 1.0. New synchronization engine cannot process legacy data.</value>
   </data>
 </root>
