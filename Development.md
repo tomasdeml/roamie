@@ -1,0 +1,4 @@
+# Introduction #
+
+Open the Roamie.sln file in Visual Studio and build it.
+After building the solution, deploy contents of the bin\Debug or bin\Release folder into you Miranda\Plugins folder. Finally run Miranda.
